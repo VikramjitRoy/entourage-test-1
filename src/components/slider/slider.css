@@ -1,0 +1,13 @@
+.carousel-slide {
+    position: relative;
+  }
+  
+  .text-overlay {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 4px;
+  }
