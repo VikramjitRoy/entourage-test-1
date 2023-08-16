@@ -6,6 +6,7 @@ import { useMediaQuery } from "@mui/material";
 import SingleProductDesktop from "./SingleProductDesktop";
 import { Colors } from "../../styles/theme";
 import SingleProductCard from "./SingleProductCard";
+import { makeStyles } from '@mui/styles';
 
 export default function Products() {
   const theme = useTheme();
@@ -16,25 +17,36 @@ export default function Products() {
       {matches ? (
         <SingleProduct product={product} matches={matches} />
       ) : (
-        <SingleProductDesktop product={product} matches={matches} />
+        // <SingleProductDesktop product={product} matches={matches} />
+        <SingleProductCard
+        imageSrc={product.image}
+        title={product.name}
+        content={product.price}
+      />
       )}
     </Grid>
   ));
+
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      flexGrow: 1,
+      padding: theme.spacing(5),
+    },
+  }));
+  const classes = useStyles();
   return (
-    <div id="products">
-      <Container sx={{ padding: 0 }}>
-        <Grid
-          bgcolor={Colors.primary}
-          container
-          spacing={{ xs: 2, md: 3 }}
-          justifyContent="center"
-          sx={{ margin: `20px 4px 10px 4px` }}
-          columns={{ xs: 4, sm: 8, md: 12 }}
-        >
-          {renderProducts}
-        </Grid>
-        {/* <SingleProductCard /> */}
-      </Container>
+    <div className={classes.root}>
+      <Grid container spacing={3}>
+        {products.map((product, index) => (
+          <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
+            <SingleProductCard
+              imageSrc={product.image}
+              title={product.name}
+              content={`Price: ${product.price}`}
+            />
+          </Grid>
+        ))}
+      </Grid>
     </div>
   );
 }
