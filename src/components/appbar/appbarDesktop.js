@@ -35,7 +35,7 @@ export default function AppbarDesktop({ matches }) {
   return (
     <AppbarContainer>
 
-      <AppbarHeader variant="h4"><img src={logo} width="85px" height="100%" align="center" /></AppbarHeader>
+      <AppbarHeader variant="h4" component={Link} to="/"><img src={logo} width="85px" height="100%" align="center" /></AppbarHeader>
       <MyList type="row">
         <ListItemButton color="inherit" component={Link} to="/">
           Home

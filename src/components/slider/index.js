@@ -46,7 +46,7 @@ const DotStepper = ({ activeStep, stepCount }) => {
 };
 
 const images = [
-    'https://via.placeholder.com/1200x400?text=Image%201',
+    'https://editorial01.shutterstock.com/wm-preview-1500/14042429i/d6eebc31/Shutterstock_14042429i.jpg',
     'https://via.placeholder.com/1200x400?text=Image%202',
     'https://via.placeholder.com/1200x400?text=Image%203',
     'https://via.placeholder.com/1200x400?text=Image%204',

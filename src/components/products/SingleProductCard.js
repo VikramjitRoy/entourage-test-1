@@ -5,6 +5,8 @@ import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import useDialogModal from "../../hooks/useDialogModal";
+import ProductDetail from "../productdetail";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -52,9 +54,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SingleProductCard = ({ imageSrc, title, content }) => {
+const SingleProductCard = ({ product, imageSrc,
+  title,
+  content}) => {
   const classes = useStyles();
   const [isHovered, setIsHovered] = useState(false);
+  const [ProductDetailDialog, showProductDetailDialog, closeProductDialog] =
+    useDialogModal(ProductDetail);
 
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -70,6 +76,7 @@ const SingleProductCard = ({ imageSrc, title, content }) => {
   };
 
   return (
+    <div>
     <Card
       className={classes.card}
       onMouseEnter={handleMouseEnter}
@@ -83,6 +90,7 @@ const SingleProductCard = ({ imageSrc, title, content }) => {
       >
         <Button
           className={`${classes.button} ${isHovered ? classes.hovered : ''}`}
+          onClick={() => showProductDetailDialog()}
         >
           KNOW MORE
         </Button>
@@ -97,6 +105,8 @@ const SingleProductCard = ({ imageSrc, title, content }) => {
         </Typography>
       </CardContent>
     </Card>
+    <ProductDetailDialog product={product} />
+    </div>
   );
 };
 

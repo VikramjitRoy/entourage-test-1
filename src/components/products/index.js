@@ -17,12 +17,7 @@ export default function Products() {
       {matches ? (
         <SingleProduct product={product} matches={matches} />
       ) : (
-        // <SingleProductDesktop product={product} matches={matches} />
-        <SingleProductCard
-        imageSrc={product.image}
-        title={product.name}
-        content={product.price}
-      />
+        <SingleProductDesktop product={product} matches={matches} />
       )}
     </Grid>
   ));
@@ -40,6 +35,7 @@ export default function Products() {
         {products.map((product, index) => (
           <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
             <SingleProductCard
+              product={product}
               imageSrc={product.image}
               title={product.name}
               content={`Price: ${product.price}`}

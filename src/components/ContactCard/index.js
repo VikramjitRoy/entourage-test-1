@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     margin: 'auto',
     marginTop: theme.spacing(5),
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-    borderRadius: theme.spacing(1),
+    borderRadius: theme.spacing(3),
     backgroundColor: "#c49089", // Use secondary background color
 
   },
@@ -40,7 +40,7 @@ const ContactCard = () => {
     <Card className={classes.card} sx = {{backgroundColor: "#c49089"}}>
       <CardMedia
         className={classes.media}
-        image=""
+        image="/images/products/theater_reszied.jpg"
         title="Google Maps"
       />
       <CardContent className={classes.content}>
@@ -49,28 +49,28 @@ const ContactCard = () => {
           Address
         </Typography>
         <Typography variant="body2">
-          Your address here
+        3rd floor, NR Complex, Parangi Palaya, Sector 2, HSR Layout, Bengaluru, Karnataka 560102
         </Typography>
         <Typography variant="h6">
           <PhoneIcon className={classes.icon} />
           Phone Number
         </Typography>
         <Typography variant="body2">
-          Your phone number here
+          7483419406
         </Typography>
         <Typography variant="h6">
           <LanguageIcon className={classes.icon} />
           Website
         </Typography>
         <Typography variant="body2">
-          Your website URL here
+          https://www.flickstones.com
         </Typography>
         <Typography variant="h6">
           <AccessTimeIcon className={classes.icon} />
           Operational Hours
         </Typography>
         <Typography variant="body2">
-          Your operational hours here
+          09:00 to 23:30
         </Typography>
       </CardContent>
     </Card>

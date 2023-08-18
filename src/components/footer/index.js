@@ -3,6 +3,7 @@ import {
   Grid,
   List,
   ListItemText,
+  ListItemButton,
   Typography,
   Button,
   Stack,
@@ -16,9 +17,10 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import { SubscribeTf, FooterTitle } from "../../styles/footer";
 import SendIcon from "@mui/icons-material/Send";
 import { BoltRounded } from "@mui/icons-material";
+import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 
 export default function Footer() {
-  const onClickHandlerInstagram =  (name) => {
+  const onClickHandlerInstagram = (name) => {
     window.open('https://www.instagram.com/flickstones/', '_blank');
   }
 
@@ -54,21 +56,21 @@ export default function Footer() {
         <Grid item md={6} lg={2}>
           <FooterTitle variant="body1">information</FooterTitle>
           <List>
-            <ListItemText>
+            <ListItemButton color="inherit" component={Link} to="/about-us">
               <Typography lineHeight={2} variant="caption2">
                 About Us
               </Typography>
-            </ListItemText>
-            <ListItemText>
+            </ListItemButton>
+            <ListItemButton color="inherit" component={Link} to="/faq">
               <Typography lineHeight={2} variant="caption2">
                 FAQ
               </Typography>
-            </ListItemText>
-            <ListItemText>
+            </ListItemButton>
+            <ListItemButton color="inherit" component={Link} to="/tnc">
               <Typography lineHeight={2} variant="caption2">
                 Terms &amp; Conditions
               </Typography>
-            </ListItemText>
+            </ListItemButton>
           </List>
         </Grid>
       </Grid>
