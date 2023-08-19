@@ -48,6 +48,10 @@ const onClickHandlerInstagram =  (name) => {
   window.open('https://www.instagram.com/flickstones/', '_blank');
 }
 
+const iconStyle = {
+  fontSize: '4rem', // Adjust the size as needed
+};
+
 export default function ProductDetail({ open, onClose, product }) {
     const theme = useTheme();
     const matches = useMediaQuery(theme.breakpoints.down("md"));
@@ -117,9 +121,7 @@ export default function ProductDetail({ open, onClose, product }) {
                 color: Colors.dove_gray,
               }}
             >
-              <FacebookIcon />
-              <TwitterIcon sx={{ pl: 2 }} />
-              <InstagramIcon sx={{ pl: 2 }} onClick={onClickHandlerInstagram}/>
+              <InstagramIcon style={iconStyle} sx={{ pl: 2 }} onClick={onClickHandlerInstagram}/>
             </Box>
           </ProductDetailInfoWrapper>
         </ProductDetailWrapper>

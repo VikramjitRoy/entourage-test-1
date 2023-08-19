@@ -24,6 +24,10 @@ export default function Footer() {
     window.open('https://www.instagram.com/flickstones/', '_blank');
   }
 
+  const iconStyle = {
+    fontSize: '4rem', // Adjust the size as needed
+};
+
   return (
     <Box
       sx={{
@@ -48,9 +52,9 @@ export default function Footer() {
               color: Colors.dove_gray,
             }}
           >
-            <FacebookIcon sx={{ mr: 1 }} />
-            <TwitterIcon sx={{ mr: 1 }} />
-            <InstagramIcon onClick={onClickHandlerInstagram} />
+            {/* <FacebookIcon sx={{ mr: 1, cursor: 'pointer', }} />
+            <TwitterIcon sx={{ mr: 1, cursor: 'pointer',  }} /> */}
+            <InstagramIcon style={iconStyle} sx={{ cursor: 'pointer',  }} onClick={onClickHandlerInstagram} />
           </Box>
         </Grid>
         <Grid item md={6} lg={2}>
