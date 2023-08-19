@@ -30,6 +30,7 @@ function HomePage() {
                     <UIProvider bgcolor={Colors.primary}>
                         <Appbar />
                         <Divider />
+                        
                         <ImageSlider />
                         {/* <Banner /> */}
                         <Promotions />

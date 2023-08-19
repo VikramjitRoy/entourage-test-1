@@ -11,7 +11,7 @@ export default function AppbarMobile({ matches }) {
   const { setDrawerOpen, setShowSearchBox } = useUIContext();
   return (
     <AppbarContainer>
-      <IconButton onClick={() => setDrawerOpen(true)}>
+      <IconButton sx={{color: "#c49089" }} onClick={() => setDrawerOpen(true)}>
         <MenuIcon />
       </IconButton>
       <AppbarHeader marginRight="50px" align="center" component={Link} to="/">
