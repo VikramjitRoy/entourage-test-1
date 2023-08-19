@@ -14,23 +14,30 @@ export default function Promotions() {
   const [show, setShow] = useState(true);
     const [messageIndex, setMessageIndex] = useState(0);
     useEffect(() => {
+      let isMounted = true; 
             setTimeout(() => {
-              setShow(false);
+              if(isMounted)
+                setShow(false);
             }, 3000);
     const intervalId = setInterval(() => {
+      
       // get next message
       setMessageIndex((i) => (i + 1) % messages.length);
 
+      if(isMounted) {
       // slide the message in
         setShow(true);
+      }
 
       setTimeout(() => {
-        setShow(false);
+        if(isMounted)
+          setShow(false);
       }, 3000);
     }, 4000);
 
     return () => {
       clearInterval(intervalId);
+      isMounted = false;
     };
   }, []);
 

@@ -16,6 +16,7 @@ export default function IncDec() {
           sx={{
             borderRadius: 0,
             background: `${Colors.secondary}`,
+            borderStartStartRadius: `1{10,10}`,
           }}
           onClick={() => setValue(clampV(value - 1))}
         >

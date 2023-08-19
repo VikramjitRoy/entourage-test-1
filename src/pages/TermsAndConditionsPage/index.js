@@ -7,6 +7,7 @@ import { UIProvider } from "../../context/ui";
 import { Colors } from "../../styles/theme";
 import { Container, Divider, Stack } from "@mui/material";
 import Footer from '../../components/footer/'
+import AppDrawer from '../../components/drawer';
 
 const TermsAndConditionsPage = () => {
   return (
@@ -26,6 +27,7 @@ const TermsAndConditionsPage = () => {
               <TermsAndConditions />
             </div>
             <Footer />
+            <AppDrawer />
           </UIProvider>
         </Stack>
       </Container>

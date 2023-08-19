@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import SwipeableViews from 'react-swipeable-views';
 import { makeStyles } from '@mui/styles';
-import { Stepper, Step } from '@mui/material';
-import Box from '@mui/material/Box';
 import MobileStepper from '@mui/material/MobileStepper';
-import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import { useTheme } from '@mui/material/styles';
+import {
+    BannerContent,
+    BannerDescription,
+    BannerShopButton,
+    BannerTitle,
+  } from "../../styles/banner";
 
 const useStyles = makeStyles((theme) => ({
     slider: {
@@ -29,28 +32,22 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         marginTop: theme.spacing(2),
     },
+    textBox: {
+        position: 'absolute',
+        top: '50%', // Adjust as needed
+        left: '60%', // Adjust as needed
+        transform: 'translate(0, -50%)', // Center the box
+        backgroundColor: 'rgba(0, 0, 0, 0.5)', // Example background color
+        color: 'white', // Example text color
+        padding: '10px',
+        borderRadius: '5px',
+    },
 }));
 
-const DotStepper = ({ activeStep, stepCount }) => {
-    const classes = useStyles();
-
-    return (
-        <div className={classes.dotStepper}>
-            <Stepper alternativeLabel activeStep={activeStep}>
-                {Array.from({ length: stepCount }).map((_, index) => (
-                    <Step key={index} />
-                ))}
-            </Stepper>
-        </div>
-    );
-};
-
 const images = [
-    'https://editorial01.shutterstock.com/wm-preview-1500/14042429i/d6eebc31/Shutterstock_14042429i.jpg',
-    'https://via.placeholder.com/1200x400?text=Image%202',
-    'https://via.placeholder.com/1200x400?text=Image%203',
-    'https://via.placeholder.com/1200x400?text=Image%204',
-    'https://via.placeholder.com/1200x400?text=Image%205',
+    '/images/products/movie-2270554_1920.png',
+    '/images/products/pink-wine-1964457_1920.jpg',
+    '/images/products/balloons-1786430_1920.jpg'
 ];
 
 const Slider = () => {
@@ -63,10 +60,14 @@ const Slider = () => {
         setActiveIndex(index);
     };
 
+    const onClickHandler =  () => {
+        window.open('https://wa.me/917483419406', '_blank');
+      };
+
     useEffect(() => {
         const interval = setInterval(() => {
             setActiveIndex((prevIndex) => (prevIndex + 1) % images.length);
-        }, 2000);
+        }, 3000);
 
         return () => {
             clearInterval(interval);
@@ -74,15 +75,15 @@ const Slider = () => {
     }, [images.length]);
 
     const theme = useTheme();
-  const [activeStep, setActiveStep] = React.useState(0);
-  const maxSteps = images.length;
-  const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  };
+    const [activeStep, setActiveStep] = React.useState(0);
+    const maxSteps = images.length;
+    const handleNext = () => {
+        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    };
 
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
+    const handleBack = () => {
+        setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    };
 
     return (
         <div className={classes.slider}>
@@ -91,8 +92,22 @@ const Slider = () => {
                 onChangeIndex={handleSlideChange}
             >
                 {images.map((image, index) => (
-                    <div key={index}>
+                    <div key={index} style={{ position: 'relative' }}>
                         <img src={image} alt={`Image ${index}`} className={classes.image} />
+                        <div className={classes.textBox}>
+                            <BannerContent>
+                                <Typography variant="h6">Private Theater</Typography>
+                                <BannerTitle variant="h2">
+                                    Premium Theater
+                                </BannerTitle>
+
+                                <BannerDescription variant="subtitle">
+                                    Step into an opulent cinematic realm where every frame is a masterpiece, and experience movies in a symphony of luxury and style adorned with exquisite decorations
+                                </BannerDescription>
+
+                                <BannerShopButton color="primary" onClick={onClickHandler}>Book Now</BannerShopButton>
+                            </BannerContent>
+                        </div>
                     </div>
                 ))}
             </SwipeableViews>

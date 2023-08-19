@@ -34,12 +34,7 @@ export default function Products() {
       <Grid container spacing={3}>
         {products.map((product, index) => (
           <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
-            <SingleProductCard
-              product={product}
-              imageSrc={product.image}
-              title={product.name}
-              content={`Price: ${product.price}`}
-            />
+            <SingleProductCard product={product} />
           </Grid>
         ))}
       </Grid>

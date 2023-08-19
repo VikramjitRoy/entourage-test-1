@@ -54,9 +54,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SingleProductCard = ({ product, imageSrc,
-  title,
-  content}) => {
+const SingleProductCard = ({ product}) => {
   const classes = useStyles();
   const [isHovered, setIsHovered] = useState(false);
   const [ProductDetailDialog, showProductDetailDialog, closeProductDialog] =
@@ -72,7 +70,6 @@ const SingleProductCard = ({ product, imageSrc,
 
   const handleImageClick = () => {
     // Call your function here
-    console.log('Image clicked');
   };
 
   return (
@@ -84,8 +81,8 @@ const SingleProductCard = ({ product, imageSrc,
     >
       <CardMedia
         className={classes.media}
-        image={imageSrc}
-        title={title}
+        image={product.image}
+        title={product.title}
         onClick={handleImageClick}
       >
         <Button
@@ -97,11 +94,11 @@ const SingleProductCard = ({ product, imageSrc,
       </CardMedia>
       <CardContent className={classes.content}>
         <Typography variant="h6" component="h2">
-          {title}
+          {product.name}
         </Typography>
         <Typography variant="body2">
-          <Typography display={'inline'} sx={{ textDecoration: "line-through" }}> {content} </Typography>
-          <Typography display={'inline'} sx={{ fontWeight: "bold" }}> {content} </Typography>
+          <Typography display={'inline'} component={'span'} sx={{ textDecoration: "line-through" }}> Price: ₹{product.originalPrice} </Typography>
+          <Typography display={'inline'} component={'span'} sx={{ fontWeight: "bold" }}> Price: ₹{product.price} </Typography>
         </Typography>
       </CardContent>
     </Card>

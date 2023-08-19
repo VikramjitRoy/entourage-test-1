@@ -8,6 +8,7 @@ import {
   Typography,
   Button,
   Stack,
+  Divider,
 } from "@mui/material";
 import { useRef } from "react";
 import CloseIcon from "@mui/icons-material/Close";
@@ -51,7 +52,7 @@ export default function ProductDetail({ open, onClose, product }) {
     const theme = useTheme();
     const matches = useMediaQuery(theme.breakpoints.down("md"));
 
-    const detailedDescription = product.descriptionDetailed.map((line) => (<p>{line}</p>));
+    const detailedDescription = product.descriptionDetailed.map((line) => (<div><Typography variant="h6">{line}</Typography><Divider /> </div>));
   return (
     <Dialog
       TransitionComponent={SlideTransition}
@@ -91,15 +92,24 @@ export default function ProductDetail({ open, onClose, product }) {
             <Typography variant="body">
               {detailedDescription}
             </Typography>
+            
             <Box
               sx={{ mt: 4 }}
               display="flex"
               alignItems="center"
               justifyContent="space-between"
             >
+              {/* <div display="flex"
+              alignItems="center"
+              justifyContent="space-between"
+              flex-direction="column">
+              <Typography variant="h6">
+              Booking for people
+            </Typography>
               <IncDec />
+              </div> */}
               {/* <Button  variant="contained">Book Now</Button> */}
-              <BannerShopButton sx={{ padding: '10px 10px' }} color="primary" onClick={() => onClickHandler(product.name)} >Book Now</BannerShopButton>
+              <BannerShopButton sx={{ padding: '10px 10px' }} color="primary" onClick={() => onClickHandler(product.name)}>Book Now</BannerShopButton>
             </Box>
             <Box
               sx={{

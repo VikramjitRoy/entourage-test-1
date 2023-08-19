@@ -36,7 +36,7 @@ export default function Footer() {
         fontWeight: "bold",
       }}
     >
-      <Grid container spacing={2} justifyContent="center">
+      <Grid container spacing={4} justifyContent="center">
         <Grid item md={6} lg={4}>
           <FooterTitle variant="body1">About us</FooterTitle>
           <Typography variant="caption2" >

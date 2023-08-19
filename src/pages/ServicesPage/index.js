@@ -8,6 +8,7 @@ import { Colors } from "../../styles/theme";
 import { Container, Divider, Stack } from "@mui/material";
 import Footer from '../../components/footer/'
 import Products from '../../components/products';
+import AppDrawer from '../../components/drawer';
 
 const ServicesPage = () => {
     return (
@@ -27,6 +28,7 @@ const ServicesPage = () => {
                             <Products />
                         </div>
                         <Footer />
+                        <AppDrawer />
                     </UIProvider>
                 </Stack>
             </Container>

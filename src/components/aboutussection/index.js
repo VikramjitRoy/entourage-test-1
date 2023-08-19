@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.secondary.main, // Use secondary text color
   },
   heading: {
-    marginBottom: '10rem',
+    marginBottom: theme.spacing(10),
     marginTop: theme.spacing(10),
   },
   section: {
@@ -29,13 +29,13 @@ const AboutUsSection = ({ title, content }) => {
         About Us
       </Typography>
       <Typography variant="body1" gutterBottom className={classes.section}>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla in diam nec erat tristique faucibus. Suspendisse eu turpis eu metus mattis laoreet vel quis massa. Morbi condimentum aliquam sapien eu dictum. Sed vehicula tincidunt felis, quis aliquam purus congue a.
-      </Typography>
+      Flickstones is a newly opened theater in HSR Layout Bengaluru. It can be booked to experience your favorite content on a 15o-inch screen with dolby vision and dolby atmos support in 4k to provide a true theater like experience. Recliner seats lets you enjoy your content with outmost comfort.You can surprise your loved ones with decorations to celebrate special occasions.  
+     </Typography>
       <Typography variant="h4" gutterBottom className={classes.heading}>
         Our Mission
       </Typography>
       <Typography variant="body1" gutterBottom className={classes.section}>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla in diam nec erat tristique faucibus. Suspendisse eu turpis eu metus mattis laoreet vel quis massa. Morbi condimentum aliquam sapien eu dictum. Sed vehicula tincidunt felis, quis aliquam purus congue a.
+      We pride ourselves on offering state-of-the-art technology to ensure an immersive and captivating movie experience. Our theater is equipped with Dolby Vision and Dolby Surround sound, delivering stunning 4K visuals and an audio environment that envelopes you in every scene. The result is a truly breathtaking cinematic encounter that will leave you spellbound.
       </Typography>
     </Container>
   );

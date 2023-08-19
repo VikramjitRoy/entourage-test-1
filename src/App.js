@@ -6,9 +6,13 @@ import ContactUsPage from './pages/ContactUsPage';
 import TermsAndConditionsPage from './pages/TermsAndConditionsPage';
 import FaqPage from './pages/FaqPage';
 import ServicesPage from './pages/ServicesPage';
+import { useEffect } from "react";
 
 
 function App() {
+  useEffect(() => {
+    document.title = "Flickstones - Home";
+  }, []);
   return (
     <Router>
       <Switch>

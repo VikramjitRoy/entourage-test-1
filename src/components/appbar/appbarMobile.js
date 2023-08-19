@@ -14,7 +14,7 @@ export default function AppbarMobile({ matches }) {
       <IconButton onClick={() => setDrawerOpen(true)}>
         <MenuIcon />
       </IconButton>
-      <AppbarHeader textAlign={"center"} variant="h4" component={Link} to="/">
+      <AppbarHeader marginRight="50px" align="center" component={Link} to="/">
         <img src={logo} width="100px" height="100" align="center" />
       </AppbarHeader>
       {/* <Actions matches={matches} /> */}

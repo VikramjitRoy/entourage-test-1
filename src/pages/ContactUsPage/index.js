@@ -9,6 +9,7 @@ import { UIProvider } from "../../context/ui";
 import { Colors } from "../../styles/theme";
 import { Container, Divider, Stack } from "@mui/material";
 import Footer  from '../../components/footer/'
+import AppDrawer from '../../components/drawer';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -46,6 +47,7 @@ const ContactUsPage = () => {
                             <ContactCard />
                         </Container>
                         <Footer />
+                        <AppDrawer />
                     </UIProvider>
                 </Stack>
             </Container>

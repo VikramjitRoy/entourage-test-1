@@ -8,6 +8,7 @@ import theme from "../../styles/theme";
 import { UIProvider } from "../../context/ui";
 import { Colors } from "../../styles/theme";
 import Footer from '../footer';
+import AppDrawer from '../drawer';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -30,13 +31,11 @@ const AboutUsPage = () => {
           <UIProvider bgcolor={Colors.primary}>
             <Appbar />
             <div className={classes.root}>
-              <AboutUsSection
-                title="About Us"
-                content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla in diam nec erat tristique faucibus. Suspendisse eu turpis eu metus mattis laoreet vel quis massa. Morbi condimentum aliquam sapien eu dictum. Sed vehicula tincidunt felis, quis aliquam purus congue a."
-              />
+              <AboutUsSection />
             
             </div>
             <Footer />
+            <AppDrawer />
           </UIProvider>
         </Stack>
       </Container>

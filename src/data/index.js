@@ -3,7 +3,7 @@ export const products = [
         id: 1,
         name: "Streaming Silver",
         price: 1999,
-        
+        originalPrice: 2499,
         descriptionDetailed: ["1. Stream content in theater for 3 Hours",
                               "2. Pool table for 3 hours"],
         image: "/images/products/theater_reszied.jpg"
@@ -12,7 +12,7 @@ export const products = [
         id: 2,
         name: "Streaming Gold",
         price: 2499,
-        
+        originalPrice: 2999,
         descriptionDetailed: ["1. Stream content in theater for 3 Hours",
                               "2. Pool table for 3 hours",
                             "3. Snack Box"],
@@ -22,7 +22,7 @@ export const products = [
         id: 3,
         name: "Celebration Silver",
         price: 2999,
-        
+        originalPrice: 3499,
         descriptionDetailed: ["Stream content in theater for 3 Hours",
                               "Pool table for 3 hours", 
                             "Cake (1/2 KG)", 
@@ -35,7 +35,7 @@ export const products = [
         id: 4,
         name: "Celebration Gold",
         price: 3499,
-        
+        originalPrice: 3999,
         descriptionDetailed: ["Stream content in theater for 3 Hours",
                               "Pool table for 3 hours", 
                             "Cake (1/2 KG)", 
@@ -51,7 +51,7 @@ export const products = [
         id: 5,
         name: "Celebration Diamond",
         price: 4499,
-        
+        originalPrice: 4999,
         descriptionDetailed: ["Stream content in theater for 3 Hours",
                               "Pool table for 3 hours", 
                             "Cake (1/2 KG)", 
@@ -71,7 +71,7 @@ export const products = [
         id: 6,
         name: "Romantic Silver",
         price: 3499,
-        
+        originalPrice: 3999,
         descriptionDetailed: ["Stream content in theater for 3 Hours",
                               "Pool table for 3 hours", 
                             "Cake (1/2 KG)", 
@@ -88,7 +88,7 @@ export const products = [
         id: 7,
         name: "Romantic Gold",
         price: 3999,
-        
+        originalPrice: 4499,
         descriptionDetailed: ["Stream content in theater for 3 Hours",
                               "Pool table for 3 hours", 
                             "Cake (1/2 KG)", 
@@ -107,7 +107,7 @@ export const products = [
         id: 8,
         name: "Romantic Diamond",
         price: 4999,
-        
+        originalPrice: 5499,
         descriptionDetailed: ["Stream content in theater for 3 Hours",
                               "Pool table for 3 hours", 
                             "Cake (1/2 KG)", 
