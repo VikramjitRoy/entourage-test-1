@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     },
     textBox: {
         position: 'absolute',
-        top: '50%', // Adjust as needed
+        top: '25em', // Adjust as needed
         left: '60%', // Adjust as needed
         transform: 'translate(0, -50%)', // Center the box
         backgroundColor: 'rgba(0, 0, 0, 0.5)', // Example background color

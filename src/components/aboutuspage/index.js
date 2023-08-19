@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@mui/styles';
 import AboutUsSection from '../aboutussection';
-import { Container, Stack } from "@mui/material";
+import { Container, Divider, Stack } from "@mui/material";
 import Appbar from "../appbar";
 import { ThemeProvider } from "@mui/system";
 import theme from "../../styles/theme";
@@ -30,6 +30,7 @@ const AboutUsPage = () => {
         <Stack>
           <UIProvider bgcolor={Colors.primary}>
             <Appbar />
+            <Divider />
             <div className={classes.root}>
               <AboutUsSection />
             
