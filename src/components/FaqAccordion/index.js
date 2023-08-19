@@ -37,7 +37,7 @@ const FaqAccordion = () => {
     },
     {
         "summary": "Refund Policy",
-        "description": "Full Refund of the Advance Amount will be given if the booking is cancelled at least 72 hours the booking time."
+        "description": "Full Refund of the Advance Amount will be given if the booking is cancelled at least 72 hours before the booking time."
     },
     {
         "summary": "In case of any technical interruption from our end, appropriate refund will be provided.",

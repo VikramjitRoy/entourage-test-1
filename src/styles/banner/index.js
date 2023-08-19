@@ -51,14 +51,15 @@ export const BannerTitle = styled(Typography)(({ matches, theme }) => ({
   }
 }));
 
-export const BannerDescription = styled(Typography)(({ theme }) => ({
+export const BannerDescription = styled(Typography)(({ theme, matches }) => ({
   lineHeight: 1.25,
   letterSpacing: 1.25,
   marginBottom: "3em",
   [theme.breakpoints.down("md")]: {
     lineHeight: 1.15,
     letterSpacing: 1.15,
-    marginBottom: "1.5em",
+    marginBottom: "0em",
+    textAlign: 'center',
   },
 }));
 

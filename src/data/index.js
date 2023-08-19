@@ -28,7 +28,7 @@ export const products = [
                             "Cake (1/2 KG)", 
                         "Balloon Ring Stand", 
                     "Lights Decoration",
-                "Balloons on ths floor"],
+                "Balloons on the floor"],
         image: "/images/products/pool_table_reszied.jpg"
     },
     {
@@ -41,7 +41,7 @@ export const products = [
                             "Cake (1/2 KG)", 
                         "Led Numbers", 
                     "Hanging Lights",
-                "Balloons on ths floor", 
+                "Balloons on the floor", 
             "Balloon Arch Decoration", 
         "Neon Message on the balloon arch",
     "Customizable Led Message Box"],
@@ -57,7 +57,7 @@ export const products = [
                             "Cake (1/2 KG)", 
                         "Led Numbers", 
                     "Hanging Lights",
-                "Balloons on ths floor", 
+                "Balloons on the floor", 
             "Balloon Arch Decoration", 
         "Neon Message on the balloon arch",
     "Customizable Led Message Box",
@@ -81,7 +81,7 @@ export const products = [
                     "Floral message",
                     "Candle Path",
                     "LOVE and BABY boxes",
-                "Balloons on ths floor"],
+                "Balloons on the floor"],
         image: "/images/products/decoration_with_smoke_resized.jpg"
     },
     {
@@ -97,7 +97,7 @@ export const products = [
                     "Floral message",
                     "Candle Path",
                     "LOVE and BABY boxes",
-                "Balloons on ths floor",
+                "Balloons on the floor",
                 "Balloon Arch Decoration", 
             "Neon Message on the balloon arch",
         "Customizable Led Message Box"],
@@ -116,7 +116,7 @@ export const products = [
                     "Floral message",
                     "Candle Path",
                     "LOVE and BABY boxes",
-                "Balloons on ths floor",
+                "Balloons on the floor",
                 "Balloon Arch Decoration", 
             "Neon Message on the balloon arch",
         "Customizable Led Message Box",

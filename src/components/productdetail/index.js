@@ -50,6 +50,7 @@ const onClickHandlerInstagram =  (name) => {
 
 const iconStyle = {
   fontSize: '4rem', // Adjust the size as needed
+  cursor: 'pointer'
 };
 
 export default function ProductDetail({ open, onClose, product }) {
@@ -121,7 +122,7 @@ export default function ProductDetail({ open, onClose, product }) {
                 color: Colors.dove_gray,
               }}
             >
-              <InstagramIcon style={iconStyle} sx={{ pl: 2 }} onClick={onClickHandlerInstagram}/>
+              <InstagramIcon style={iconStyle} sx={{ pl: 2, cursor: 'pointer' }} onClick={onClickHandlerInstagram}/>
             </Box>
           </ProductDetailInfoWrapper>
         </ProductDetailWrapper>

@@ -33,7 +33,7 @@ const TermsAndConditions = () => {
 
         Welcome to our website. If you continue to browse and use this website you are agreeing to comply with and be bound by the following terms and conditions of use, which together with our privacy policy govern Flickstones LLP's relationship with you in relation to this website.
 
-        The term 'Flickstones LLP' or 'us' or 'we' refers to the owner of the website whose registered/operational office is 3rd Floor, Parangi Palaya, Sector 2, HSR Layout, Bengaluru, Karnataka 5601028. The term 'you' refers to the user or viewer of our website.
+        The term 'Flickstones LLP' or 'us' or 'we' refers to the owner of the website whose registered/operational office is 3rd Floor, Parangi Palaya, Sector 2, HSR Layout, Bengaluru, Karnataka 560102. The term 'you' refers to the user or viewer of our website.
 
         The use of this website is subject to the following terms of use:
       </Typography>
@@ -67,7 +67,7 @@ const TermsAndConditions = () => {
       </Typography>
       <Divider />
       <Typography variant="subtitle1" className={classes.list}>
-        8. You may not create a link to this website from another website or document without Flickstones LLPâs prior written consent.
+        8. You may not create a link to this website from another website or document without Flickstones LLP's prior written consent.
       </Typography>
       <Divider />
       <Typography variant="subtitle1" className={classes.list}>

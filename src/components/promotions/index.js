@@ -2,7 +2,6 @@ import { Slide, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { useEffect, useRef, useState } from "react";
 import { MessageText, PromotionsContainer } from "../../styles/promotions";
-import { Colors } from "../../styles/theme";
 
 const messages = [
   "Celebrate birthdays, romantic dates, anniversary",

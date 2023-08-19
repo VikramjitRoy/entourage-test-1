@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useTheme } from '@mui/material/styles';
+import { useMediaQuery } from "@mui/material";
 import Box from '@mui/material/Box';
 import MobileStepper from '@mui/material/MobileStepper';
 import Paper from '@mui/material/Paper';
@@ -9,24 +10,32 @@ import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
+import {
+  BannerContainer,
+  BannerContent,
+  BannerDescription,
+  BannerImage,
+  BannerShopButton,
+  BannerTitle,
+} from "../../styles/banner";
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 const images = [
   {
-    label: 'San Francisco – Oakland Bay Bridge, United States',
+    label: 'Stream Your Favorite content',
     imgPath:
-    '/images/products/movie-2270554_1920.png',
+      '/images/products/movie-2270554_1920.png',
   },
   {
-    label: 'Bird',
+    label: 'Lounge in comfort',
     imgPath:
-    '/images/products/pink-wine-1964457_1920.jpg',
+      '/images/products/pink-wine-1964457_1920.jpg',
   },
   {
-    label: 'Bali, Indonesia',
+    label: 'Surprise your loved ones',
     imgPath:
-    '/images/products/balloons-1786430_1920.jpg'
+      '/images/products/balloons-1786430_1920.jpg'
   }
 ];
 
@@ -34,17 +43,22 @@ function ImageSlider() {
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
   const maxSteps = images.length;
+  const matches = useMediaQuery(theme.breakpoints.down('md'));
 
   const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    setActiveStep((prevActiveStep) => (prevActiveStep + 1) % maxSteps);
   };
 
   const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    setActiveStep((prevActiveStep) => prevActiveStep == 0 ? maxSteps - 1 : (prevActiveStep - 1) % maxSteps);
   };
 
   const handleStepChange = (step) => {
     setActiveStep(step);
+  };
+
+  const onClickHandler =  () => {
+    window.open('https://wa.me/917483419406', '_blank');
   };
 
   return (
@@ -72,16 +86,55 @@ function ImageSlider() {
           <div key={step.label}>
             {Math.abs(activeStep - index) <= 2 ? (
               <Box
-                component="img"
+                component="div"
                 sx={{
-                  height: '100%',
-                  display: 'block',
-                  overflow: 'hidden',
                   width: '100%',
+                  position: 'relative',
+                  paddingBottom: '75%', // Adjust this for aspect ratio (e.g., 16:9)
+                  overflow: 'hidden',
+                  backgroundColor: 'black', // Fallback background color
                 }}
-                src={step.imgPath}
-                alt={step.label}
-              />
+              >
+                <img
+                  src={step.imgPath}
+                  alt={step.label}
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                  }}
+                />
+                 <div
+                  className="text-overlay"
+                  style={{
+                    position: 'absolute',
+                    bottom: !matches?'10%':'0',
+                    right: !matches?'10%':'0',
+                    width: !matches?'40%':'100%',
+                    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                    color: 'white',
+                    padding: !matches?'10px':'0px',
+                    borderRadius: !matches?10:0
+                  }}
+                >
+                 <BannerContent>
+                 {!matches && <Typography variant="h6">Private Theater</Typography>}
+                 {!matches &&<BannerTitle variant="h2">
+                      Premium Theater
+                    </BannerTitle>}
+
+                    <BannerDescription variant="subtitle">
+                      {!matches? 'Step into an opulent cinematic realm where every frame is a masterpiece, and experience movies in a symphony of luxury and style adorned with exquisite decorations'
+                      : step.label}
+                    </BannerDescription>
+
+                    {!matches &&<BannerShopButton color="primary" onClick={onClickHandler}>Book Now</BannerShopButton>}
+                  </BannerContent>
+                </div>
+              </Box>
             ) : null}
           </div>
         ))}
@@ -89,20 +142,21 @@ function ImageSlider() {
       <MobileStepper
         steps={maxSteps}
         position="static"
-        sx={{background: "#343131",
-             "& .MuiMobileStepper-dot": {
-                backgroundColor: theme.palette.secondary.main
-              },
-              "& .MuiMobileStepper-dotActive ~ .MuiMobileStepper-dot": {
-                backgroundColor: theme.palette.action.disabled
-              }}}
+        sx={{
+          background: "#343131",
+          "& .MuiMobileStepper-dot": {
+            backgroundColor: theme.palette.secondary.main
+          },
+          "& .MuiMobileStepper-dotActive ~ .MuiMobileStepper-dot": {
+            backgroundColor: theme.palette.action.disabled
+          }
+        }}
         activeStep={activeStep}
         nextButton={
           <Button
             sx={{ color: "#c49089" }}
             size="small"
             onClick={handleNext}
-            disabled={activeStep === maxSteps - 1}
           >
             Next
             {theme.direction === 'rtl' ? (
@@ -113,7 +167,7 @@ function ImageSlider() {
           </Button>
         }
         backButton={
-          <Button sx={{ color: "#c49089" }} size="small" onClick={handleBack} disabled={activeStep === 0}>
+          <Button sx={{ color: "#c49089" }} size="small" onClick={handleBack} >
             {theme.direction === 'rtl' ? (
               <KeyboardArrowRight />
             ) : (

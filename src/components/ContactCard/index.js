@@ -60,10 +60,10 @@ const ContactCard = () => {
         </Typography>
         <Typography variant="h6">
           <LanguageIcon className={classes.icon} />
-          Website
+          E-mail
         </Typography>
         <Typography variant="body2">
-          https://www.flickstones.com
+          mail.flickstones@gmail.com
         </Typography>
         <Typography variant="h6">
           <AccessTimeIcon className={classes.icon} />
