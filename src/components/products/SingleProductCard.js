@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
     margin: 'auto',
     marginTop: theme.spacing(2),
     backgroundColor: '#f9f9f9', // Light background color for a premium look
-    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', // Soft shadow
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.8)', // Soft shadow
     backgroundColor: '#c49089',
     transition: 'transform 0.2s ease',
     position: 'relative',
@@ -46,6 +46,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   hovered: {
+    backgroundColor: theme.palette.primary.dark,
     bottom: theme.spacing(2),
   },
   content: {
@@ -69,7 +70,11 @@ const SingleProductCard = ({ product}) => {
   };
 
   const handleImageClick = () => {
-    // Call your function here
+    setIsHovered(true);
+  };
+
+  const handleCardClick = () => {
+    setIsHovered(true);
   };
 
   return (
@@ -78,6 +83,9 @@ const SingleProductCard = ({ product}) => {
       className={classes.card}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      touchstart={handleMouseEnter}
+      touchEnd={handleMouseLeave}
+      onClick={handleCardClick}
     >
       <CardMedia
         className={classes.media}

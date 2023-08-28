@@ -113,10 +113,11 @@ function ImageSlider() {
                     position: 'absolute',
                     bottom: !matches?'10%':'0',
                     right: !matches?'10%':'0',
-                    width: !matches?'40%':'100%',
+                    width: !matches?'30%':'100%',
                     backgroundColor: 'rgba(0, 0, 0, 0.5)',
                     color: 'white',
-                    padding: !matches?'10px':'0px',
+                    textAlign: 'center',
+                    padding: !matches?'20px':'0px',
                     borderRadius: !matches?10:0
                   }}
                 >

@@ -7,10 +7,6 @@ import {
 import { useUIContext } from "../../context/ui";
 import logo from "./flickstones_logo_cropped.png"
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
-import HomeIcon from '@mui/icons-material/Home';
-import LocalOfferIcon from '@mui/icons-material/LocalOffer';
-import InfoIcon from '@mui/icons-material/Info';
-import ContactMailIcon from '@mui/icons-material/ContactMail';
 
 export default function AppbarDesktop({ matches }) {
 

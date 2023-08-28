@@ -4,7 +4,6 @@ import SingleProduct from "./SingleProduct";
 import { useTheme } from "@mui/material/styles";
 import { useMediaQuery } from "@mui/material";
 import SingleProductDesktop from "./SingleProductDesktop";
-import { Colors } from "../../styles/theme";
 import SingleProductCard from "./SingleProductCard";
 import { makeStyles } from '@mui/styles';
 

@@ -122,7 +122,7 @@ export default function ProductDetail({ open, onClose, product }) {
                 color: Colors.dove_gray,
               }}
             >
-              <InstagramIcon style={iconStyle} sx={{ pl: 2, cursor: 'pointer' }} onClick={onClickHandlerInstagram}/>
+              <InstagramIcon style={iconStyle} sx={{ cursor: 'pointer' }} onClick={onClickHandlerInstagram}/>
             </Box>
           </ProductDetailInfoWrapper>
         </ProductDetailWrapper>

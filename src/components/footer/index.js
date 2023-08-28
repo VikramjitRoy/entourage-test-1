@@ -33,7 +33,7 @@ export default function Footer() {
       sx={{
         background: Colors.secondary,
         color: Colors.primary,
-        p: { xs: 4, md: 10 },
+        p: { xs: 2, md: 10 },
         pt: 12,
         pb: 12,
         fontSize: { xs: '12px', md: '14px' },
