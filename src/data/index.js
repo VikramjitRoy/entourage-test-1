@@ -6,7 +6,7 @@ export const products = [
         originalPrice: 2499,
         descriptionDetailed: ["1. Stream content in theater for 3 Hours",
                               "2. Pool table for 3 hours"],
-        image: "/images/products/theater_reszied.jpg"
+        image: "/images/products/streaming/streaming_silver.jpg"
     },
     {
         id: 2,
@@ -16,7 +16,7 @@ export const products = [
         descriptionDetailed: ["1. Stream content in theater for 3 Hours",
                               "2. Pool table for 3 hours",
                             "3. Snack Box"],
-        image: "/images/products/theater_reszied.jpg"
+        image: "/images/products/streaming/streaming_gold.jpg"      
     },
     {
         id: 3,
@@ -29,7 +29,7 @@ export const products = [
                         "Balloon Ring Stand", 
                     "Lights Decoration",
                 "Balloons on the floor"],
-        image: "/images/products/pool_table_reszied.jpg"
+        image: "/images/products/celebration/celebration_silver.jpg"
     },
     {
         id: 4,
@@ -40,12 +40,12 @@ export const products = [
                               "Pool table for 3 hours", 
                             "Cake (1/2 KG)", 
                         "Led Numbers", 
-                    "Hanging Lights",
+                    "RGB Lights",
                 "Balloons on the floor", 
             "Balloon Arch Decoration", 
         "Neon Message on the balloon arch",
     "Customizable Led Message Box"],
-        image: "/images/products/pool_table_reszied.jpg"
+        image: "/images/products/celebration/celebration_gold.jpg"
     },
     {
         id: 5,
@@ -65,7 +65,7 @@ export const products = [
         "Bubble effect",
         "Fog Effect"
 ],
-        image: "/images/products/pool_table_reszied.jpg"
+        image: "/images/products/celebration/celebration_diamond.jpg"
     },
     {
         id: 6,

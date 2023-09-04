@@ -23,19 +23,18 @@ const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 const images = [
   {
-    label: 'Stream Your Favorite content',
+    label: 'Theater diamond banner',
     imgPath:
-      '/images/products/movie-2270554_1920.png',
-  },
-  {
+      '/images/banner/theater_diamond_banner.jpg'
+  },{
     label: 'Lounge in comfort',
     imgPath:
-      '/images/products/pink-wine-1964457_1920.jpg',
+      '/images/banner/pool_banner.jpg',
   },
   {
     label: 'Surprise your loved ones',
     imgPath:
-      '/images/products/balloons-1786430_1920.jpg'
+      '/images/banner/balloons-1786430_1920.jpg'
   }
 ];
 
