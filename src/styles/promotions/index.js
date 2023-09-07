@@ -11,7 +11,7 @@ export const PromotionsContainer = styled(Box)(({ theme }) => ({
   alignItems: "center",
   padding: "20px 0px 20px 0px",
   overflow: "hidden",
-  background: Colors.secondary,
+  background: 'linear-gradient(to bottom right, #b76e79 30%, #c49089 70%)'
 }));
 
 export const MessageText = styled(Typography)(({ theme }) => ({

@@ -25,13 +25,15 @@ export default function Footer() {
   }
 
   const iconStyle = {
-    fontSize: '4rem', // Adjust the size as needed
+    cursor: 'pointer',
+    fontSize: '4rem', 
+ // Adjust the size as needed
 };
 
   return (
     <Box
       sx={{
-        background: Colors.secondary,
+        background: 'linear-gradient(to bottom right, #b76e79 30%, #c49089 70%)',
         color: Colors.primary,
         p: { xs: 2, md: 10 },
         pt: 12,
@@ -41,36 +43,39 @@ export default function Footer() {
       }}
     >
       <Grid container spacing={4} justifyContent="center">
-        <Grid item md={6} lg={4}>
+        <Grid item md={8} lg={6}>
           <FooterTitle variant="body1">About us</FooterTitle>
-          <Typography variant="caption2" >
-            Flickstones is a premium private theater in HSR Layout, Bengaluru. We help you immerse in a complete cinematic experience along with providing mesmerizing decorations for your special moments.
-          </Typography>
+          <List>
+            <ListItemText>
+              <Typography lineHeight={2} variant="caption2">
+              Flickstones is a premium private theater in HSR Layout, Bengaluru. We help you immerse in a complete cinematic experience along with providing mesmerizing decorations for your special moments.
+              </Typography>
+            </ListItemText>
+          </List>
           <Box
             sx={{
-              mt: 4,
-              color: Colors.dove_gray,
+              mt: 4
             }}
           >
             {/* <FacebookIcon sx={{ mr: 1, cursor: 'pointer', }} />
             <TwitterIcon sx={{ mr: 1, cursor: 'pointer',  }} /> */}
-            <InstagramIcon style={iconStyle} sx={{ cursor: 'pointer',  }} onClick={onClickHandlerInstagram} />
+            <InstagramIcon style={iconStyle} onClick={onClickHandlerInstagram} />
           </Box>
         </Grid>
-        <Grid item md={6} lg={2}>
+        <Grid item md={8} lg={2}>
           <FooterTitle variant="body1">information</FooterTitle>
           <List>
-            <ListItemButton color="inherit" component={Link} to="/about-us">
+            <ListItemButton padding="0px 0px" color="inherit" component={Link} to="/about-us">
               <Typography lineHeight={2} variant="caption2">
                 About Us
               </Typography>
             </ListItemButton>
-            <ListItemButton color="inherit" component={Link} to="/faq">
+            <ListItemButton padding="0px 0px" color="inherit" component={Link} to="/faq">
               <Typography lineHeight={2} variant="caption2">
                 FAQ
               </Typography>
             </ListItemButton>
-            <ListItemButton color="inherit" component={Link} to="/tnc">
+            <ListItemButton paddingLeft="0px" paddingRight="0px" color="inherit" component={Link} to="/tnc">
               <Typography lineHeight={2} variant="caption2">
                 Terms &amp; Conditions
               </Typography>

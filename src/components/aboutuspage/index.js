@@ -31,10 +31,7 @@ const AboutUsPage = () => {
           <UIProvider bgcolor={Colors.primary}>
             <Appbar />
             <Divider />
-            <div className={classes.root}>
-              <AboutUsSection />
-            
-            </div>
+            <AboutUsSection />
             <Footer />
             <AppDrawer />
           </UIProvider>

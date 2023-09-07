@@ -23,7 +23,7 @@ const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 const images = [
   {
-    label: 'Theater diamond banner',
+    label: 'Stream Your Favorite content',
     imgPath:
       '/images/banner/theater_diamond_banner.jpg'
   },{
@@ -42,7 +42,7 @@ function ImageSlider() {
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
   const maxSteps = images.length;
-  const matches = useMediaQuery(theme.breakpoints.down('md'));
+  const matches = useMediaQuery(theme.breakpoints.down('lg'));
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => (prevActiveStep + 1) % maxSteps);
@@ -83,7 +83,7 @@ function ImageSlider() {
       >
         {images.map((step, index) => (
           <div key={step.label}>
-            {Math.abs(activeStep - index) <= 2 ? (
+            {Math.abs(activeStep - index) <= images.length-1 ? (
               <Box
                 component="div"
                 sx={{
@@ -110,13 +110,13 @@ function ImageSlider() {
                   className="text-overlay"
                   style={{
                     position: 'absolute',
-                    bottom: !matches?'10%':'0',
+                    bottom: !matches?'25%':'0',
                     right: !matches?'10%':'0',
                     width: !matches?'30%':'100%',
                     backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                    textSizeAdjust: 'auto',
                     color: 'white',
-                    textAlign: 'center',
-                    padding: !matches?'20px':'0px',
+                    padding: !matches?'10px':'0px',
                     borderRadius: !matches?10:0
                   }}
                 >

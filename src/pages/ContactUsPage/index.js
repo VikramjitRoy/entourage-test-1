@@ -28,7 +28,7 @@ const ContactUsPage = () => {
         <ThemeProvider theme={theme}>
             <Container
                 disableGutters
-                maxWidth="xl"
+                maxWidth="false"
                 sx={{
                     background: "#343131",
                 }}

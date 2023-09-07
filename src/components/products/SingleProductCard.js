@@ -15,8 +15,9 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
     backgroundColor: '#f9f9f9', // Light background color for a premium look
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.8)', // Soft shadow
-    backgroundColor: '#c49089',
     transition: 'transform 0.2s ease',
+    background: 'linear-gradient(to bottom right, #b76e79 30%, #c49089 70%)',
+    color: '#fff',
     position: 'relative',
     borderRadius: theme.spacing(1), // Rounded corners
     '&:hover': {

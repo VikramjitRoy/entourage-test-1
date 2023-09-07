@@ -35,7 +35,7 @@ function HomePage() {
                         {/* <Banner /> */}
                         <Promotions />
                         {/* <SearchBox /> */}
-                        <Box display="flex" bgcolor={Colors.primary} justifyContent="center" sx={{ p: 4 }} >
+                        <Box display="flex" bgcolor={Colors.primary} justifyContent="center" sx={{ mt: 6, p: 2 }} >
                             <Typography color={Colors.secondary} variant="h4">Our Services</Typography>
                         </Box>
                         <Products />

@@ -67,7 +67,7 @@ export default function ProductDetail({ open, onClose, product }) {
     >
       <DialogTitle
         sx={{
-          background: Colors.secondary,
+          background: 'linear-gradient(to bottom right, #b76e79 30%, #c49089 70%)',
         }}
       >
         <Box
@@ -87,7 +87,7 @@ export default function ProductDetail({ open, onClose, product }) {
           color: '#c49089',
         }}>
         <ProductDetailWrapper display={"flex"} bgcolor={"#343131"} flexDirection={matches ? "column" : "row"}>
-          <Product sx={{ mr: 4 }}>
+          <Product sx={{ mr: 4, mt: 2 }}>
             <ProductImage src={product.image} />
           </Product>
           <ProductDetailInfoWrapper>
