@@ -1,0 +1,19 @@
+.loading-animation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #c49089; 
+  z-index: 9999;
+  animation: revealAnimation 2s ease-out forwards;
+}
+
+@keyframes revealAnimation {
+  0% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
