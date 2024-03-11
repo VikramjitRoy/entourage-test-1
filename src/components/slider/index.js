@@ -18,6 +18,8 @@ import {
   BannerShopButton,
   BannerTitle,
 } from "../../styles/banner";
+import { useEffect, useState } from "react";
+import BookingModal from './BookingModal';  // Update the path accordingly
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
@@ -53,28 +55,47 @@ function ImageSlider() {
   };
 
   const handleStepChange = (step) => {
-    setActiveStep(step);
+    setActiveStep(0);
   };
 
   const onClickHandler =  () => {
     window.open('https://wa.me/917483419406', '_blank');
   };
 
+  const [scrollY, setScrollY] = useState(0);
+
+  const handleScroll = () => {
+    setScrollY(window.scrollY);
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  const [openModal, setOpenModal] = useState(false);
+
+  const handleOpenModal = () => {
+    setOpenModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  };
+
+  const handleFormSubmit = (formData) => {
+    // Add logic to handle form submission
+    // You can send the form data to your server or perform any other actions
+    console.log('Form submitted:', formData);
+  };
+
+  const translateValue = scrollY * 0.5;
+
   return (
     <Box sx={{ flexGrow: 1 }}>
-      {/* <Paper
-        square
-        elevation={0}
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          height: 50,
-          pl: 2,
-          bgcolor: 'background.default',
-        }}
-      >
-        <Typography>{images[activeStep].label}</Typography>
-      </Paper> */}
       <AutoPlaySwipeableViews
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
         index={activeStep}
@@ -107,7 +128,7 @@ function ImageSlider() {
                   }}
                 />
                  <div
-                  className="text-overlay"
+                  className="text-overlay scrollable-component"
                   style={{
                     position: 'absolute',
                     bottom: !matches?'25%':'0',
@@ -117,10 +138,11 @@ function ImageSlider() {
                     textSizeAdjust: 'auto',
                     color: 'white',
                     padding: !matches?'10px':'0px',
-                    borderRadius: !matches?10:0
+                    borderRadius: !matches?10:0,
+                    transform: `translateX(${translateValue}px)` 
                   }}
                 >
-                 <BannerContent>
+                 <BannerContent >
                  {!matches && <Typography variant="h6">Private Theater</Typography>}
                  {!matches &&<BannerTitle variant="h2">
                       Premium Theater
@@ -131,11 +153,12 @@ function ImageSlider() {
                       : step.label}
                     </BannerDescription>
 
-                    {!matches &&<BannerShopButton color="primary" onClick={onClickHandler}>Book Now</BannerShopButton>}
+                    {!matches &&<BannerShopButton color="primary" onClick={handleOpenModal}>Book Now</BannerShopButton>}
                   </BannerContent>
                 </div>
               </Box>
             ) : null}
+            <BookingModal open={openModal} onClose={handleCloseModal} onSubmit={handleFormSubmit} />
           </div>
         ))}
       </AutoPlaySwipeableViews>

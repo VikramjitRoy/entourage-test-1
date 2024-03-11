@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import useDialogModal from "../../hooks/useDialogModal";
 import ProductDetail from "../productdetail";
+import ProductDetailV2 from "../productdetailv2";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -84,15 +85,15 @@ const SingleProductCard = ({ product}) => {
       className={classes.card}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      touchstart={handleMouseEnter}
-      touchEnd={handleMouseLeave}
+      // touchstart={handleMouseEnter}
+      // touchEnd={handleMouseLeave}
       onClick={handleCardClick}
     >
       <CardMedia
         className={classes.media}
         image={product.image}
         title={product.title}
-        onClick={handleImageClick}
+        onClick={() => showProductDetailDialog()}
       >
         <Button
           className={`${classes.button} ${isHovered ? classes.hovered : ''}`}
