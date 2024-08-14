@@ -1,0 +1,219 @@
+body {
+    background: #eee
+  }
+  .App {
+    text-align: center;
+  }
+  
+  .App-logo {
+    height: 40vmin;
+    pointer-events: none;
+  }
+  
+  @media (prefers-reduced-motion: no-preference) {
+    .App-logo {
+      animation: App-logo-spin infinite 20s linear;
+    }
+  }
+  
+  .App-header {
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+  }
+  
+  .App-link {
+    color: #61dafb;
+  }
+  
+  @keyframes App-logo-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .fade-in-typography {
+    opacity: 0;
+    transition: opacity 1.5s ease;
+  }
+  
+  .fade-in-typography.visible {
+    opacity: 1;
+  }
+
+  .text-list {
+    background-color: white;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Left-align text */
+    height: 100vh; /* Full viewport height */
+    width: 100vw; /* Full viewport width */
+    overflow: auto; /* Enable scrolling */
+  }
+  
+  .text-item {
+    font-size: 48px;
+    margin: 50px 0;
+    transition: transform 0.1s ease, filter 0.1s ease;
+    position: relative; /* To position the hover image relative to text */
+}
+
+.viewport-image {
+  position: absolute;
+  left: calc(100% + 20px); /* Position image to the right of the text */
+  top: 50%; /* Center image vertically */
+  transform: translateY(-50%);
+  width: calc(50vw); /* Adjust width as half of viewport */
+  height: calc(50vh); /* Adjust height as half of viewport */
+  /* transition: opacity 0.1s ease; */
+  opacity: 1;
+}
+
+/* html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+} */
+
+.instagram-ticker-container {
+  background-color: rgb(45, 63, 89);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; /* Full viewport height */
+  width: 100vw; /* Full viewport width */
+  position: relative;
+  overflow: hidden;
+}
+
+.header-ticker {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 12rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.header-item {
+  margin: 0 10px;
+}
+
+.instagram-handle {
+  font-size: 8rem;
+  margin: 1rem 0 1rem 0;
+}
+
+.ticker-container {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+
+.ticker {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  white-space: nowrap;
+}
+
+.ticker-left {
+  top: 0;
+  left: 100%;
+}
+
+.ticker-right {
+  bottom: 0;
+  right: 100%;
+}
+
+.ticker-image {
+  width: 150px;
+  height: 150px;
+  margin: 0 10px;
+}
+
+@keyframes ticker-right-to-left {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-20rem);
+  }
+}
+
+@keyframes ticker-left-to-right {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(20rem);
+  }
+}
+
+.img-ticker-rtol {
+  display: flex;
+  margin-left: -1rem;
+  margin-right: -1rem;
+  animation: ticker-right-to-left 30s linear infinite;
+}
+
+.img-ticker-ltor {
+  display: flex;
+  flex-direction: row-reverse;
+  margin-left: -1rem;
+  margin-right: -1rem;
+  animation: ticker-left-to-right 30s linear infinite;
+}
+
+.ticker-logo {
+  width: 12rem;
+  flex: none;
+  margin: 0 1rem 0 1rem;
+  align-self: flex-start;
+  max-width: 100%;
+  height: auto;
+}
+
+.ticker-container {
+  overflow: hidden;
+   width: 100%;
+}
+
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.zoom-text {
+  font-size: 9rem;
+  font-weight: bold;
+  display: flex;
+}
+
+.letter {
+  display: inline-block;
+  transition: transform 0.1s ease;
+  margin: 1rem 0 1rem 0
+}

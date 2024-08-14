@@ -1,7 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import AboutUsPage from './components/aboutuspage';
-import HomePage from './components/homepage';
+
+import HomePage from './components/homepageV2';
 import ContactUsPage from './pages/ContactUsPage';
 import TermsAndConditionsPage from './pages/TermsAndConditionsPage';
 import FaqPage from './pages/FaqPage';

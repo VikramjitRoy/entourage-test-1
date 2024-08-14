@@ -95,12 +95,12 @@ const SingleProductCard = ({ product}) => {
         title={product.title}
         onClick={() => showProductDetailDialog()}
       >
-        <Button
+        {/* <Button
           className={`${classes.button} ${isHovered ? classes.hovered : ''}`}
           onClick={() => showProductDetailDialog()}
         >
           KNOW MORE
-        </Button>
+        </Button> */}
       </CardMedia>
       <CardContent className={classes.content}>
         <Typography variant="h6" component="h2">

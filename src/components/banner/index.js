@@ -46,7 +46,6 @@ export default function Banner() {
         </BannerShopButton>
 
         {/* Modal for collecting data */}
-        <BookingModal open={openModal} onClose={handleCloseModal} onSubmit={handleFormSubmit} />
       </BannerContent>
     </BannerContainer>
   );

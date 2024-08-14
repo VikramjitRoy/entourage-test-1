@@ -39,4 +39,12 @@ body {
       transform: rotate(360deg);
     }
   }
+
+  .fade-in-typography {
+    opacity: 0;
+    transition: opacity 1.5s ease;
+  }
   
+  .fade-in-typography.visible {
+    opacity: 1;
+  }
