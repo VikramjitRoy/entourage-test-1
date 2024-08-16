@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import AboutUsPage from './components/aboutuspage';
 
 import HomePage from './components/homepageV2';
+import   MultiStepForm from './components/formV2';
 import ContactUsPage from './pages/ContactUsPage';
 import TermsAndConditionsPage from './pages/TermsAndConditionsPage';
 import FaqPage from './pages/FaqPage';
@@ -41,8 +42,8 @@ function App() {
           <Route path="/tnc" component={TermsAndConditionsPage} />
           <Route path="/faq" component={FaqPage} />
           <Route path="/product/:productId" component={ProductDetailV2} />
-          <Route path="/" component={HomePage} />
-          
+          {/* <Route path="/" component={HomePage} /> */}
+          <Route path="/" component={MultiStepForm} />
         </Switch>
       </div>
     </Router>
