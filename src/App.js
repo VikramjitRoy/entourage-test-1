@@ -42,8 +42,8 @@ function App() {
           <Route path="/tnc" component={TermsAndConditionsPage} />
           <Route path="/faq" component={FaqPage} />
           <Route path="/product/:productId" component={ProductDetailV2} />
-          {/* <Route path="/" component={HomePage} /> */}
-          <Route path="/" component={MultiStepForm} />
+          <Route path="/book" component={MultiStepForm} />
+          <Route path="/" component={HomePage} />
         </Switch>
       </div>
     </Router>
