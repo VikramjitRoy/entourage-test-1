@@ -100,7 +100,7 @@ const MultiStepForm = () => {
         setTotalCost(numberOfPeople * 150); // Assuming cost is 150 per person
     };
 
-const handleAddOnChange = (category, item) => {
+    const handleAddOnChange = (category, item) => {
         setFormData(prevState => {
             const updatedCategory = prevState[category].includes(item)
                 ? prevState[category].filter(i => i !== item)
@@ -165,9 +165,8 @@ const handleAddOnChange = (category, item) => {
                                 ))} */}
                        
                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <DateCalendar disablePast
-      onChange={(date) => handleDateChange(date)} />
-    </LocalizationProvider>
+                            <DateCalendar disablePast onChange={(date) => handleDateChange(date)} />
+                        </LocalizationProvider>
                            
                                 <Typography variant="h6">Available Slots {errors.slot}</Typography>
                                 {availableSlots.map(slot => (
