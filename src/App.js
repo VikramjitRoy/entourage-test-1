@@ -11,6 +11,8 @@ import ServicesPage from './pages/ServicesPage';
 import { useEffect, useState } from "react";
 import LoadingAnimation from './components/loadAnimation/LoadingAnimation';
 import ProductDetailV2 from './components/productdetailv2';
+import ProductShowcase from './components/productInfo';
+import ProductInfoPage from './components/productInfoPageV2';
 
 
 
@@ -43,6 +45,8 @@ function App() {
           <Route path="/faq" component={FaqPage} />
           <Route path="/product/:productId" component={ProductDetailV2} />
           <Route path="/book" component={MultiStepForm} />
+          <Route path="/product" component={ProductShowcase} />
+          <Route path="/productInfo" component={ProductInfoPage} />
           <Route path="/" component={HomePage} />
         </Switch>
       </div>
