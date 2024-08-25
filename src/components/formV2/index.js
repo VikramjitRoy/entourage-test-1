@@ -33,6 +33,7 @@ const MultiStepForm = () => {
 
     const handleDateChange = (date) => {
         setSelectedDate(date);
+        setFormData({ ...formData, date });
         let slots = [{"duration":'9:00 AM to 12:00 PM', isAvailable: true}, {"duration":'1:00 PM to 4:00 PM', isAvailable: true},{"duration":'5:00 PM to 8:00 PM', isAvailable: true},{"duration":'9:00 PM to 10:30 PM', isAvailable: true},{"duration":'11:00 PM to 12:30 AM', isAvailable: true}];
         availableDates[date.toISOString().split('T')[0]].forEach(val => slots[val-1].isAvailable = false);
         setAvailableSlots(slots);
@@ -42,7 +43,7 @@ const MultiStepForm = () => {
         let newErrors = {};
         if (currentStep === 1) {
             if (!formData.theater) newErrors.theater = 'Theater is required';
-            // if (!formData.date) newErrors.date = 'Date is required';
+            if (!formData.date) newErrors.date = 'Date is required';
             if (!formData.slot) newErrors.slot = 'Slot is required';
         }
         if (currentStep === 2) {

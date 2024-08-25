@@ -12,7 +12,8 @@ import { useEffect, useState } from "react";
 import LoadingAnimation from './components/loadAnimation/LoadingAnimation';
 import ProductDetailV2 from './components/productdetailv2';
 import ProductShowcase from './components/productInfo';
-import ProductInfoPage from './components/productInfoPageV2';
+import ExecutiveStudio from './components/productInfoPageV2';
+import PricingPage from './components/pricingPage';
 
 
 
@@ -43,10 +44,11 @@ function App() {
           <Route path="/services" component={ServicesPage} />
           <Route path="/tnc" component={TermsAndConditionsPage} />
           <Route path="/faq" component={FaqPage} />
-          <Route path="/product/:productId" component={ProductDetailV2} />
+          {/* <Route path="/product/:productId" component={ProductDetailV2} /> */}
           <Route path="/book" component={MultiStepForm} />
           <Route path="/product" component={ProductShowcase} />
-          <Route path="/productInfo" component={ProductInfoPage} />
+          <Route path="/productInfo" component={ExecutiveStudio} />
+          <Route path="/pricing" component={PricingPage} />
           <Route path="/" component={HomePage} />
         </Switch>
       </div>

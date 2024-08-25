@@ -95,6 +95,7 @@ body {
   width: 100vw; /* Full viewport width */
   position: relative;
   overflow: hidden;
+  padding: 2% 0 2% 0;
 }
 
 .header-ticker {
@@ -114,7 +115,7 @@ body {
 
 .instagram-handle {
   font-size: 8rem;
-  margin: 1rem 0 1rem 0;
+  margin: 1rem 0 0 0;
 }
 
 .ticker-container {
@@ -122,6 +123,7 @@ body {
   width: 100%;
   height: 200px;
   overflow: hidden;
+  margin-top: 3%;
 }
 
 .ticker {

@@ -1,6 +1,6 @@
 
 import { useEffect, useState, useRef } from "react";
-import { Container, Typography, Box, Stack, Divider, Paper, Grid, Avatar, Button, Fab, IconButton } from "@mui/material";
+import {  Typography, Box, Grid, Stepper, Step, StepLabel, Fab, IconButton, Card, CardMedia, CardContent } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { ThemeProvider } from "@mui/system";
 import { UIProvider } from "../../context/ui";
@@ -17,7 +17,7 @@ import ImageSlider from "../slider";
 import { Link } from 'react-router-dom';
 import { keyframes } from '@emotion/react';
 import { styled } from '@mui/system';
-import { ArrowBackIos, ArrowForwardIos } from '@mui/icons-material';
+import { ArrowBack, ArrowForward, AccessTime, CheckCircleOutline, Payment, ShoppingCart, EventAvailable, IndeterminateCheckBox } from '@mui/icons-material';
 
 const useStylesParallax = makeStyles(() => ({
     root: {
@@ -115,37 +115,12 @@ const useStyles = makeStyles(() => ({
     }
 }));
 
-function HeroComponent({ backgroundImage, text, dim }) {
-
-    // useEffect(() => {
-    //     document.title = "Flickstones - Home";
-    // }, []);
-    // return (
-    //     <ThemeProvider theme={theme}>
-    //         <Container>
-    //             <Stack>
-    //                 <UIProvider bgcolor={Colors.primary}>
-    //                     <p>Om</p>
-    //                 </UIProvider>
-    //             </Stack>
-    //         </Container>
-    //     </ThemeProvider>
-    // );
-
+function HeroComponent({ backgroundImage, index, dim }) {
 
     const classes = useStyles();
     const classesParallax = useStylesParallax();
+    const packages = ["ROMANTIC", "CELEBRATION"]
 
-    //   return (
-    //     <div className={classes.root}>
-    //       <Typography variant="h1" className={classes.heroText}>
-    //         Celebrations
-    //       </Typography>
-    //       <Button variant="contained" className={classes.bookNowButton}>
-    //         Book Now
-    //       </Button>
-    //     </div>
-    //   );
     const slideInFromBottom = keyframes`
         0% {
             transform: translateY(100%) scale(0.8);
@@ -167,8 +142,12 @@ function HeroComponent({ backgroundImage, text, dim }) {
                     animationFillMode: 'forwards',
                 }}
             >
-                <Typography variant="h1" component="div">
-                    {text}
+                <Typography component={Link} to={{
+                        pathname: '/productInfo',
+                        state: { index }
+                      }} variant="h1" sx = {{textDecoration: "none",
+boxShadow: "none", color: "white"}}>
+                    {packages[index]}
                 </Typography>
             </Box>
         </div>
@@ -237,36 +216,6 @@ const TextList = () => {
 
 
 const InstagramTicker = () => {
-    // useEffect(() => {
-    //     const animateTicker = (selector, direction) => {
-    //       const ticker = document.querySelector(selector); // this is selecting the element on which the animation will get applied
-    //       let tickerWidth = ticker.scrollWidth; // this is the 
-    //       let animationId;
-
-    //       const animate = () => {
-    //         ticker.style.transform = `translateX(${direction > 0 ? '-' : ''}250%)`;
-    //         ticker.style.transition = 'transform 20s linear';
-    //         requestAnimationFrame(() => {
-    //           ticker.style.transform = `translateX(${direction < 0 ? '-' : ''}250%)`;
-    //           ticker.style.transition = 'transform 20s linear';
-    //         });
-
-    //         animationId = setTimeout(animate, 20000);
-    //       };
-
-    //       animate();
-    //       return () => clearTimeout(animationId);
-    //     };
-
-    //     // const leftTickerCleanup = animateTicker('.ticker-left', -1);
-    //     const rightTickerCleanup = animateTicker('.ticker-right', 1);
-
-    //     return () => {
-    //     //   leftTickerCleanup();
-    //       rightTickerCleanup();
-    //     };
-    //   }, []);
-
 
     const images = [
         '/images/ticker/ticker_1.webp',
@@ -320,7 +269,9 @@ const InstagramTicker = () => {
             });
         }
     }, [])
-
+    const handleInstaHandleClick = () => {
+        window.open('https://www.instagram.com/flickstones/', '_blank');
+    };
     
 
 
@@ -334,7 +285,9 @@ const InstagramTicker = () => {
                 <div className="header-item">Instagram</div>
                 <div className="header-item">/</div>
             </div>
-            <h2 className="instagram-handle">@flickstones</h2>
+            <Typography onClick={handleInstaHandleClick} className="instagram-handle">
+            @flickstones
+            </Typography>
             <div className="ticker-container">
                 <div className="img-ticker-rtol">
                     {images.map((src, index) => (
@@ -350,7 +303,7 @@ const InstagramTicker = () => {
                     ))}
                 </div>
             </div>
-            <div class="scroller" data-direction="right" data-speed="slow">
+            {/* <div class="scroller" data-direction="right" data-speed="slow">
                 <div class="scroller__inner">
                     <img src="/images/ticker/ticker_1.webp" alt="" />
                     <img src="/images/ticker/ticker_2.webp" alt="" />
@@ -359,7 +312,7 @@ const InstagramTicker = () => {
                     <img src="/images/ticker/ticker_5.webp" alt="" />
                     <img src="/images/ticker/ticker_6.webp" alt="" />
                 </div>
-            </div>
+            </div> */}
         </div>
     );
 };
@@ -369,7 +322,7 @@ const texts = [
     'Birthday',
     'Anniversary',
     'Romantic Date',
-    'Romantic Proposals',
+    'Proposals',
     'Bride to be',
     'Farewell',
     'Congratulations',
@@ -380,7 +333,7 @@ const texts = [
     Birthday: '/images/products/hero_first.webp',
     Anniversary: '/images/products/hero_2.webp',
     'Romantic Date': '/images/products/hero_3.webp',
-    'Romantic Proposals': '/images/products/hero_first.webp',
+    'Proposals': '/images/products/hero_first.webp',
     'Bride to be': '/images/products/hero_3.webp',
     Farewell: '/images/products/hero_3.webp',
     Congratulations: '/images/products/hero_first.webp',
@@ -418,9 +371,8 @@ const texts = [
           sx={{
             flex: 1,
             display: 'flex',
-            justifyContent: 'center',
+            justifyContent: 'end',
             alignItems: 'center',
-            // backgroundColor: '#f5f5f5',
           }}
         >
           <img
@@ -459,8 +411,7 @@ const ScrollZoomFooter = () => {
             const bounding = textElement.getBoundingClientRect();
             const viewportHeight = window.innerHeight;
       
-            const distanceFromTop = bounding.top;
-            const distanceFromBottom = viewportHeight - bounding.bottom;
+        
       
             const letters = textElement.children;
 
@@ -503,22 +454,32 @@ const ScrollZoomFooter = () => {
     {
       id: 1,
       image: '/images/ticker/ticker_1.webp',
+      heading: "Candle Lit Dinner",
+      description: "Make your romantic dates special with a candlelit dinner"
     },
     {
       id: 2,
       image: '/images/ticker/ticker_2.webp',
+      heading: "Complete package",
+      description: "Fire, fog, food, cinema all under the same roof"
     },
     {
       id: 3,
       image: '/images/ticker/ticker_3.webp',
+      heading: "Choice of arch",
+      description: "Choose between a floral or balloon arch"
     },
     {
       id: 4,
       image: '/images/ticker/ticker_4.webp',
+      heading: "Premium Theater Experience",
+      description: "150inch cinematic 4k screen with dolby atmos sound with recliner seats"
     },
     {
       id: 5,
       image: '/images/ticker/ticker_5.webp',
+      heading: "Customizations",
+      description: "Make your celebrations extra special with customized bouquets and props"
     },
   ];
 
@@ -528,8 +489,8 @@ const ScrollZoomFooter = () => {
     height: '100%',
     overflow: 'hidden',
     flex: '0 0 50vw', // Each section takes full width of the viewport
-              borderRight:  '2px solid gray', // Vertical divider
-              padding: '16px',
+    borderRight:  '2px solid gray', // Vertical divider
+    padding: '16px',
   });
   
   // Custom styled component for images
@@ -538,6 +499,7 @@ const ScrollZoomFooter = () => {
     height: '80%',
     borderRadius: '50% 50% 0 0', // Oval top and rectangular bottom
     objectFit: 'cover',
+    color: 'rgb(32, 33, 31)'
   });
 
   const TextOverlay = styled(Box)({
@@ -556,6 +518,9 @@ const ScrollZoomFooter = () => {
     useEffect(() => {
       const handleScroll = (event) => {
         const container = containerRef.current;
+        const containerTop = Math.abs(container.getBoundingClientRect().top);
+        console.log("top " + containerTop);
+        console.log("deltaY " + event.deltaY);
         if (container) {
             const maxHorizontalScroll = container.scrollWidth - container.clientWidth;
             const reachedEnd = container.scrollLeft === maxHorizontalScroll;
@@ -602,128 +567,111 @@ const ScrollZoomFooter = () => {
           <StyledImageContainer>
           <StyledImage src={section.image} alt={`section-${section.id}`} />
           <TextOverlay>
-            <Typography variant="h4">Heading Text</Typography>
-            <Typography variant="body1">This is the description text below the heading.</Typography>
+            <Typography variant="h4">{section.heading}</Typography>
+            <Typography variant="body1">{section.description}</Typography>
           </TextOverlay>
         </StyledImageContainer>
         ))}
-       {/* <Box
-            key={section.id}
-            sx={{
-              flex: '0 0 50vw', // Each section takes full width of the viewport
-              borderRight: index !== sections.length - 1 ? '2px solid gray' : 'none', // Vertical divider
-              padding: '16px',
-            }}
-          > */}
       </Box> 
     );
   };
 
   const serviceImages = [
-    {id:1,src:'/images/ticker/ticker_1.webp', title:"Image 1"},
-    {id:2,src:'/images/ticker/ticker_2.webp', title:"Image 1"},
-    {id:3,src:'/images/ticker/ticker_3.webp', title:"Image 1"},
-    {id:4,src:'/images/ticker/ticker_4.webp', title:"Image 1"},
-    {id:5,src:'/images/ticker/ticker_5.webp', title:"Image 1"},
+    {id:1,url:'/images/ticker/ticker_1.webp', name:"Fog Effect"},
+    {id:2,url:'/images/ticker/ticker_2.webp', name:"DSLR Photography"},
+    {id:3,url:'/images/ticker/ticker_3.webp', name:"Rose Bouquet"},
+    {id:4,url:'/images/ticker/ticker_4.webp', name:"Pyro Gun"},
+    {id:5,url:'/images/ticker/ticker_5.webp', name:"Candlelit Dinner"},
   ];
   
+
   
-  
-const SliderContainer = styled(Box)({
-    position: 'relative',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    overflow: 'hidden',
-    height: '300px',
-    width: '80%',
-    margin: '0 auto',
-  });
-  
-  const Slide = styled(Box)(({ translateX, isCenter }) => ({
-    flexShrink: 0,
-    width: '60%',
-    marginLeft: '5%',
-    marginRight: '5%',
-    transform: `translateX(${translateX}px)`,
-    opacity: isCenter ? 1 : 0.8,
-    transition: 'transform 0.5s ease, opacity 0.5s ease',
-    position: 'relative',
-  }));
-  
-  const ServiceStyledImage = styled('img')({
-    width: '100%',
-    height: 'auto',
-    borderRadius: '10px',
-    boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
-    objectFit: 'cover',
-  });
-  
-  const ServiceTextOverlay = styled(Box)({
-    position: 'absolute',
-    bottom: '0',
-    left: '0',
-    right: '0',
-    padding: '8px',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    color: 'white',
-    textAlign: 'center',
-  });
-  
-  const ArrowButton = styled(IconButton)({
-    position: 'absolute',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    color: 'white',
-    '&:hover': {
-      backgroundColor: 'rgba(0, 0, 0, 0.7)',
-    },
-  });
-  
-  const ServicesImageSlider = () => {
+  const ImageCarousel = ({ images }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
-  
-    useEffect(() => {
-      const interval = setInterval(() => {
-        handleNext();
-      }, 1000); // Every 1 second
-  
-      return () => clearInterval(interval); // Cleanup the interval on component unmount
-    }, [currentIndex]);
-  
-    const handlePrev = () => {
-      const newIndex = (currentIndex === 0) ? images.length - 1 : currentIndex - 1;
-      setCurrentIndex(newIndex);
+
+    const handlePrevious = () => {
+        setCurrentIndex((prevIndex) => (prevIndex === 0 ? images.length - 1 : prevIndex - 1));
     };
-  
+
     const handleNext = () => {
-      const newIndex = (currentIndex === images.length - 1) ? 0 : currentIndex + 1;
-      setCurrentIndex(newIndex);
+        setCurrentIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
     };
-  
+
+    const getImageStyle = (index) => {
+        if (index === currentIndex) {
+            return {
+                opacity: 1,
+                transform: 'scale(1)',
+                zIndex: 2,
+                visibility: 'visible',
+            };
+        } else if (index === currentIndex - 1 || (currentIndex === 0 && index === images.length - 1)) {
+            return {
+                opacity: 0.5,
+                transform: 'scale(0.8) translateX(-50%)',
+                zIndex: 1,
+                visibility: 'visible',
+            };
+        } else if (index === currentIndex + 1 || (currentIndex === images.length - 1 && index === 0)) {
+            return {
+                opacity: 0.5,
+                transform: 'scale(0.8) translateX(50%)',
+                zIndex: 1,
+                visibility: 'visible',
+            };
+        } else {
+            return {
+                opacity: 0,
+                visibility: 'hidden',
+                zIndex: 0,
+            };
+        }
+    };
+
     return (
-      <SliderContainer>
-        {serviceImages.map((image, index) => {
-          const isCenter = index === currentIndex;
-          const translateX = (index - currentIndex) * 60 + '%';
-  
-          return (
-            <Slide key={image.id} translateX={translateX} isCenter={isCenter}>
-              <ServiceStyledImage src={image.src} alt={image.title} />
-              <ServiceTextOverlay>
-                <Typography variant="h6">{image.title}</Typography>
-              </ServiceTextOverlay>
-            </Slide>
-          );
-        })}
-        <ArrowButton onClick={handlePrev} sx={{ left: '10px' }}>
-          <ArrowBackIos />
-        </ArrowButton>
-        <ArrowButton onClick={handleNext} sx={{ right: '10px' }}>
-          <ArrowForwardIos />
-        </ArrowButton>
-      </SliderContainer>
+        <Box sx={{ position: 'relative', width: '100%', height: '500px', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '5%' }}>
+            {images.map((image, index) => (
+                <Card
+                    key={image.name}
+                    sx={{
+                        position: 'absolute',
+                        width: '50%',
+                        height: '100%',
+                        transformOrigin: 'center',
+                        transition: 'transform 0.5s ease, opacity 0.5s ease',
+                        textDecoration: "none",
+                        boxShadow: "none",
+                        ...getImageStyle(index),
+                    }}
+                    component={Link} to={{
+                        pathname: '/product',
+                        state: { index }
+                      }}
+                >
+                    <CardMedia
+                        component="img"
+                        image={image.url}
+                        alt={image.name}
+                        sx={{ width: '100%', height: '80%', objectFit: 'cover' }}
+                    />
+                     <CardContent>
+                      <Typography variant="h3" >
+                        {image.name}
+                      </Typography>
+                    </CardContent>
+                </Card>
+            ))}
+            <Box sx={{ position: 'absolute', bottom: '10px', right: '10px', display: 'flex', gap: '10px' }}>
+                <IconButton onClick={handlePrevious} color="primary">
+                    <ArrowBack />
+                </IconButton>
+                <IconButton onClick={handleNext} color="primary">
+                    <ArrowForward />
+                </IconButton>
+            </Box>
+        </Box>
     );
-  };
+};
 
 function HomePage() {
     const classes = useStylesParallax();
@@ -777,18 +725,18 @@ function HomePage() {
             </Fab>
             <HeroComponent
                 backgroundImage="/images/products/hero_first.webp"
-                text="CELEBRATIONS"
+                index="0"
                 dim={dimStates[0]}
             />
             <HeroComponent
                 backgroundImage="/images/products/hero_2.webp"
-                text="ROMANTIC"
+                index="1"
                 dim={dimStates[1]}
             />
             <TextWithImage />
             <HorizontalScrollSections />
             <InstagramTicker />
-            <ServicesImageSlider />
+            <ImageCarousel images={serviceImages} />
             <ScrollZoomFooter />
         </div>
     );
