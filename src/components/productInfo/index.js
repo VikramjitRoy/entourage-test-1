@@ -1,6 +1,8 @@
 import React from 'react';
 import { Box, Typography, Container, Grid } from '@mui/material';
 import { useLocation } from 'react-router-dom';
+import NavigationHeader from "../headerV2";
+import Footer from "../footerV2";
 
 const ProductShowcase = ({service}) => {
 
@@ -35,6 +37,8 @@ const ProductShowcase = ({service}) => {
   const location = useLocation();
   const { index } = location.state || {};
   return (
+    <div>
+    <NavigationHeader />
     <Box>
       {/* Full-Screen Product Image with Title */}
       <Box
@@ -125,6 +129,8 @@ const ProductShowcase = ({service}) => {
         </Grid>
       </Container>
     </Box>
+    <Footer />
+    </div>
   );
 };
 

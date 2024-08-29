@@ -1,23 +1,18 @@
 
 import { useEffect, useState, useRef } from "react";
-import {  Typography, Box, Grid, Stepper, Step, StepLabel, Fab, IconButton, Card, CardMedia, CardContent } from "@mui/material";
+import {  Typography, Box, Grid, Stepper, Step, StepLabel, Fab, Card, CardMedia, CardContent, AppBar, Toolbar, IconButton, Drawer, List, ListItem, ListItemText, Container } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { ThemeProvider } from "@mui/system";
-import { UIProvider } from "../../context/ui";
-import theme from "../../styles/theme";
-import { Colors } from "../../styles/theme";
 import "./homepage.css";
-import Appbar from "../appbar";
-import Products from "../products";
-import Footer from "../footer";
-import AppDrawer from "../drawer";
-import Promotions from "../promotions";
-import WhatsAppButton from './WhatsAppButton';
-import ImageSlider from "../slider";
 import { Link } from 'react-router-dom';
 import { keyframes } from '@emotion/react';
 import { styled } from '@mui/system';
 import { ArrowBack, ArrowForward, AccessTime, CheckCircleOutline, Payment, ShoppingCart, EventAvailable, IndeterminateCheckBox } from '@mui/icons-material';
+import MenuIcon from '@mui/icons-material/Menu';
+import CloseIcon from '@mui/icons-material/Close';
+import {content} from '../../common/dataV2'
+import Footer from "../footerV2";
+import NavigationHeader from "../headerV2";
+
 
 const useStylesParallax = makeStyles(() => ({
     root: {
@@ -285,7 +280,7 @@ const InstagramTicker = () => {
                 <div className="header-item">Instagram</div>
                 <div className="header-item">/</div>
             </div>
-            <Typography onClick={handleInstaHandleClick} className="instagram-handle">
+            <Typography onClick={handleInstaHandleClick} variant="h1" className="instagram-handle">
             @flickstones
             </Typography>
             <div className="ticker-container">
@@ -576,25 +571,19 @@ const ScrollZoomFooter = () => {
     );
   };
 
-  const serviceImages = [
-    {id:1,url:'/images/ticker/ticker_1.webp', name:"Fog Effect"},
-    {id:2,url:'/images/ticker/ticker_2.webp', name:"DSLR Photography"},
-    {id:3,url:'/images/ticker/ticker_3.webp', name:"Rose Bouquet"},
-    {id:4,url:'/images/ticker/ticker_4.webp', name:"Pyro Gun"},
-    {id:5,url:'/images/ticker/ticker_5.webp', name:"Candlelit Dinner"},
-  ];
+  const serviceImages = content.services;
   
 
   
-  const ImageCarousel = ({ images }) => {
+  const ImageCarousel = ({ services }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
 
     const handlePrevious = () => {
-        setCurrentIndex((prevIndex) => (prevIndex === 0 ? images.length - 1 : prevIndex - 1));
+        setCurrentIndex((prevIndex) => (prevIndex === 0 ? services.length - 1 : prevIndex - 1));
     };
 
     const handleNext = () => {
-        setCurrentIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
+        setCurrentIndex((prevIndex) => (prevIndex === services.length - 1 ? 0 : prevIndex + 1));
     };
 
     const getImageStyle = (index) => {
@@ -605,14 +594,14 @@ const ScrollZoomFooter = () => {
                 zIndex: 2,
                 visibility: 'visible',
             };
-        } else if (index === currentIndex - 1 || (currentIndex === 0 && index === images.length - 1)) {
+        } else if (index === currentIndex - 1 || (currentIndex === 0 && index === services.length - 1)) {
             return {
                 opacity: 0.5,
                 transform: 'scale(0.8) translateX(-50%)',
                 zIndex: 1,
                 visibility: 'visible',
             };
-        } else if (index === currentIndex + 1 || (currentIndex === images.length - 1 && index === 0)) {
+        } else if (index === currentIndex + 1 || (currentIndex === services.length - 1 && index === 0)) {
             return {
                 opacity: 0.5,
                 transform: 'scale(0.8) translateX(50%)',
@@ -630,9 +619,9 @@ const ScrollZoomFooter = () => {
 
     return (
         <Box sx={{ position: 'relative', width: '100%', height: '500px', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '5%' }}>
-            {images.map((image, index) => (
+            { services.map((service, index) => (
                 <Card
-                    key={image.name}
+                    key={service.name}
                     sx={{
                         position: 'absolute',
                         width: '50%',
@@ -650,13 +639,13 @@ const ScrollZoomFooter = () => {
                 >
                     <CardMedia
                         component="img"
-                        image={image.url}
-                        alt={image.name}
+                        image={service.imageUrl}
+                        alt={service.name}
                         sx={{ width: '100%', height: '80%', objectFit: 'cover' }}
                     />
                      <CardContent>
                       <Typography variant="h3" >
-                        {image.name}
+                        {service.name}
                       </Typography>
                     </CardContent>
                 </Card>
@@ -709,6 +698,7 @@ function HomePage() {
 
     return (
         <div className={classes.root}>
+            <NavigationHeader />
             <Fab
             color="primary"
             aria-label="celebrate"
@@ -719,6 +709,7 @@ function HomePage() {
                 bottom: '5vh', // 5% of viewport height above the bottom
                 left: '50%',    // Center horizontally
                 transform: 'translateX(-75%)', // Adjust to keep it centered
+                zIndex: '999',
             }}
             >
                 Celebrate with Us
@@ -736,8 +727,9 @@ function HomePage() {
             <TextWithImage />
             <HorizontalScrollSections />
             <InstagramTicker />
-            <ImageCarousel images={serviceImages} />
+            <ImageCarousel services={content.services} />
             <ScrollZoomFooter />
+            <Footer />
         </div>
     );
 }

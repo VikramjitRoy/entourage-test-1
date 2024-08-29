@@ -1,37 +1,20 @@
 import React from 'react';
 import { Container, Grid, Typography, Button, CardMedia, Box } from '@mui/material';
 import { Link, useLocation } from 'react-router-dom';
+import { content } from '../../common/dataV2';
+import NavigationHeader from "../headerV2";
+import Footer from "../footerV2";
 
 
 
 const ProductInfoPage = () => {
-    const packages = [{
-        "heroImage": "/images/products/hero_first.webp",
-        "heroHeading": "ROMANTIC PROPOSAL",
-        "heroSubHeading": "Express Love Uniquely",
-        "section2Heading": "INTIMATE ROMANTIC DATES",
-        "section2SubHeading": "UNIQUE AND SPACIOUS EXECUTIVE STUDIO",
-        "section2Description": "In the details, we strive for the highest quality. Our rooms feature unique designs that create a timeless atmosphere, embracing the heritage of the location.",
-        "features":["EXECUTIVE SUITE","EXECUTIVE SUITE","EXECUTIVE SUITE","EXECUTIVE SUITE","EXECUTIVE SUITE","EXECUTIVE SUITE"],
-        "tallImage": "/images/ticker/ticker_1.webp",
-        "shortImage": "/images/ticker/ticker_2.webp",
-        "imageSectionDesc": "In the details, we strive for the highest quality. Our rooms feature unique designs that create a timeless atmosphere, embracing the heritage of the location."
-    },{
-        "heroImage": "/images/products/hero_2.webp",
-        "heroHeading": "",
-        "heroSubHeading": "",
-        "section2Heading": "",
-        "section2SubHeading": "",
-        "section2Description": "",
-        "features":[],
-        "tallImage": "/images/ticker/ticker_3.webp",
-        "shortImage": "/images/ticker/ticker_4.webp",
-        "imageSectionDesc": ""
-    }];
-
+    const packages = content.packages;
     const location = useLocation();
     const { index } = location.state || 1;
     return (
+        <div>
+            <NavigationHeader />
+        
         <Container maxWidth="false" disableGutters="true">
             {/* Full-width image section */}
             <Box position="relative" mb={4}>
@@ -129,6 +112,8 @@ const ProductInfoPage = () => {
                 </Grid>
             </Box>
         </Container>
+<Footer />
+        </div>
     );
 };
 

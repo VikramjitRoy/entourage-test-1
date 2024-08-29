@@ -2,94 +2,124 @@ import React from "react";
 import { Grid, Card, CardContent, Typography, Box, Button } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CancelIcon from "@mui/icons-material/Cancel";
+import NavigationHeader from "../headerV2";
+import Footer from "../footerV2";
 
 const pricingData = [
+    {
+        title: "Feature",
+        price: "₹15001",
+        highlights:[
+          "Best for celebrations",
+          "Affordable",
+        ],
+        features: [
+          "Candlelit Dinner",
+          "Blind Fold",
+          "Floral Decor",
+          "Rose Petal Decoration",
+          "Card Games",
+          "Arch Decoration",
+          "Prop stands",
+          "Cake stand ",
+          "Neon Message",
+          "LED Marquee Letters",
+          "Pro New",
+          "Balloon bouquet",
+          "Chocolate bouquet",
+          "Surprise News Paper",
+          "Chocolate Book",
+          "Choco pic bouquet",
+          "Bubble Bouquet",
+          "Cake Box",
+          "Big romantic Bouquet ",
+          "Photo Balloon Bouquet",
+          "Cake ",
+          "Fog",
+          "Complimentary F&B ",
+          "DSLR Photography",
+        ],
+        availability: [true, true,true, true, true, true, true, true, true, true, false, false,false, false,false, false,false, false,false, false,false, false,false, false],
+        bgColor: "rgb(255, 241, 214)", // Yellow,
+        color: 'black'
+      },
     {
       title: "Basic",
       price: "₹1500",
       highlights:[
         "Best for celebrations",
         "Affordable",
+        "No Extra Costs"
       ],
       features: [
-        "Romantic:",
-        "Candle Light Dinner Setup",
-        "Make changes in menu to have combos for couple/Friends/family	",
+        "Candlelit Dinner",
         "Blind Fold",
-        "White/Red Floral Decor",
+        "Floral Decor",
         "Rose Petal Decoration",
-        "Card or board games for couple",
-        "Celebrations:",
-        "Balloon/Floral Arch Decoration",
-        "Balloons/Flower on the floor",
+        "Card Games",
+        "Arch Decoration",
         "Prop stands",
         "Cake stand ",
         "Neon Message",
-        "LED Marquee Name Letters",
+        "LED Marquee Letters",
         "Pro New",
         "Balloon bouquet",
-        "Chocolate bouquet LInk2",
-        "Surprise News Paper Link2",
-        "Chocolate Book Link2",
-        "Choco and pic bouquet Link",
-        "Bubble Balloon Bouquet",
+        "Chocolate bouquet",
+        "Surprise News Paper",
+        "Chocolate Book",
+        "Choco pic bouquet",
+        "Bubble Bouquet",
         "Cake Box",
-        "Romantic Pro",
         "Big romantic Bouquet ",
-        "Photo and Balloon Bouquet",
-        "Pro:",
+        "Photo Balloon Bouquet",
         "Cake ",
         "Fog",
-        "Food Combos (Any 2 beverages and 1 Snack)",
-        "DSLR 15min unlimited photo",
+        "Complimentary F&B ",
+        "DSLR Photography",
       ],
-      availability: [true, true, false, false],
+      availability: [true, true,true, true, true, true, true, true, true, true, false, false,false, false,false, false,false, false,false, false,false, false,false, false],
       bgColor: "rgb(255, 241, 214)", // Yellow
-      color: 'black'
+      color: 'black',
+      buttonColor: 'rgb(250, 181, 52)'
     },
     {
       title: "Pro",
       price: "₹2500",
       highlights: [
         "Value for money",
-        "Complimentary Food & Beverages",
+        "Complimentary F&B s",
         "Complete Package"
       ],
       features: [
-        "Romantic:",
-        "Candle Light Dinner Setup",
-        "Make changes in menu to have combos for couple/Friends/family	",
+        "Candlelit Dinner",
         "Blind Fold",
-        "White/Red Floral Decor",
+        "Floral Decor",
         "Rose Petal Decoration",
-        "Card or board games for couple",
-        "Celebrations:",
-        "Balloon/Floral Arch Decoration",
-        "Balloons/Flower on the floor",
+        "Card Games",
+        "Arch Decoration",
         "Prop stands",
         "Cake stand ",
         "Neon Message",
-        "LED Marquee Name Letters",
+        "Marquee LED Letters",
         "Pro New",
         "Balloon bouquet",
-        "Chocolate bouquet LInk2",
-        "Surprise News Paper Link2",
-        "Chocolate Book Link2",
-        "Choco and pic bouquet Link",
-        "Bubble Balloon Bouquet",
+        "Chocolate bouquet",
+        "Surprise News Paper",
+        "Chocolate Book",
+        "Choco pic bouquet",
+        "Bubble Bouquet",
         "Cake Box",
-        "Romantic Pro",
-        "Big romantic Bouquet ",
-        "Photo and Balloon Bouquet",
-        "Pro:",
+        "Big romantic Bouquet",
+        "Photo balloon Bouquet",
         "Cake ",
         "Fog",
-        "Food Combos (Any 2 beverages and 1 Snack)",
-        "DSLR 15min unlimited photo",
+        "Complimentary F&B",
+        "DSLR Photography",
       ],
-      availability: [true, true, true, true],
+      availability: [true, true, true, true,true, true, true, true,true, true, true, true,true, true, true, true,true, true, true, true],
       bgColor: "rgb(0, 76, 61)", // Green
       color: 'white',
+      buttonColor: 'rgb(5, 166, 139)'
     },
     {
       title: "Unlimited",
@@ -100,44 +130,40 @@ const pricingData = [
         "Theme Decoration"
       ],
       features: [
-        "Romantic:",
-        "Candle Light Dinner Setup",
-        "Make changes in menu to have combos for couple/Friends/family	",
+        "Candlelit Dinner",
         "Blind Fold",
-        "White/Red Floral Decor",
+        "Floral Decor",
         "Rose Petal Decoration",
-        "Card or board games for couple",
-        "Celebrations:",
-        "Balloon/Floral Arch Decoration",
-        "Balloons/Flower on the floor",
+        "Card Games",
+        "Arch Decoration",
         "Prop stands",
         "Cake stand ",
         "Neon Message",
-        "LED Marquee Name Letters",
+        "LED Marquee Letters",
         "Pro New",
         "Balloon bouquet",
-        "Chocolate bouquet LInk2",
-        "Surprise News Paper Link2",
-        "Chocolate Book Link2",
-        "Choco and pic bouquet Link",
-        "Bubble Balloon Bouquet",
+        "Chocolate bouquet",
+        "Surprise News Paper",
+        "Chocolate Book",
+        "Choco pic bouquet",
+        "Bubble Bouquet",
         "Cake Box",
-        "Romantic Pro",
         "Big romantic Bouquet ",
-        "Photo and Balloon Bouquet",
-        "Pro:",
+        "Photo Balloon Bouquet",
         "Cake ",
         "Fog",
-        "Food Combos (Any 2 beverages and 1 Snack)",
-        "DSLR 15min unlimited photo",
+        "Complimentary F&B ",
+        "DSLR Photography",
       ],
-      availability: [true, true, true, true],
+      availability: [true, true, true, true,true, true, true, true,true, true, true, true,true, true, true, true,true, true, true, true],
       bgColor: "rgb(223, 245, 255", // Blue
       color: 'black',
+      buttonColor: 'rgb(0, 150, 222)'
     },
   ];
 
 const PricingCard = ({ plan }) => {
+    console.log(plan);
     return (
       <Card style={{ backgroundColor: plan.bgColor, margin: "10px", color: plan.color }}>
         <CardContent>
@@ -151,15 +177,15 @@ const PricingCard = ({ plan }) => {
             {plan.highlights.map((feature, index) => (
               <li key={index} style={{ display: "flex", alignItems: "center", marginBottom: "8px" }}>
                 {plan.availability[index] ? (
-                  <CheckCircleIcon style={{ marginRight: "8px", color: "#fff" }} />
+                  <CheckCircleIcon style={{ marginRight: "8px", color: "#004C3D" }} />
                 ) : (
-                  <CancelIcon style={{ marginRight: "8px", color: "#fff" }} />
+                  <CancelIcon style={{ marginRight: "8px", color: "#004C3D" }} />
                 )}
-                <Typography variant="body1">{feature}</Typography>
+                <Typography variant="body1" >{feature}</Typography>
               </li>
             ))}
           </ul>
-          <Button variant="contained" style={{ backgroundColor: "#fff", color: plan.color }}>
+          <Button variant="contained" style={{ backgroundColor: plan.butt, color: plan.color }}>
             Choose {plan.title}
           </Button>
         </CardContent>
@@ -167,7 +193,8 @@ const PricingCard = ({ plan }) => {
     );
   };
 
-const FeatureComparisonColumn = ({ plan }) => {
+const FeatureComparisonColumn = ({ plan, header }) => {
+    console.log(header);
   return (
     <Card style={{ margin: "10px", padding: "10px" }}>
       <CardContent>
@@ -176,14 +203,13 @@ const FeatureComparisonColumn = ({ plan }) => {
         </Typography>
         <Grid container spacing={2}>
           {plan.features.map((feature, index) => (
-            <Grid item xs={12} key={index} align="center">
-              <Typography variant="body1" style={{ fontWeight: "bold" }}>
+            <Grid item xs={12} key={index} align="center" sx ={{ borderBottom: "1px solid #0415270D"}}>
+              {header && <Typography variant="body1" style={{ color: 'black', lineHeight: "33.5px" }} >
                 {feature}
-              </Typography>
-              {plan.availability[index] ? (
-                <CheckCircleIcon style={{ color: plan.color, fontSize: "30px" }} />
-              ) : (
-                <CancelIcon style={{ color: "#ccc", fontSize: "30px" }} />
+              </Typography>}
+              {!header && (plan.availability[index] ? 
+                <CheckCircleIcon style={{ color: 'green', fontSize: "30px" }} />:
+                <CancelIcon style={{ color: 'red', fontSize: "30px" }} />
               )}
             </Grid>
           ))}
@@ -195,10 +221,10 @@ const FeatureComparisonColumn = ({ plan }) => {
 
 const FeaturesComparisonColumns = () => {
   return (
-    <Grid container spacing={3} justifyContent="center">
+    <Grid container spacing={2} justifyContent="center">
       {pricingData.map((plan, index) => (
-        <Grid item xs={12} md={4} key={index}>
-          <FeatureComparisonColumn plan={plan} />
+        <Grid item xs={12} md={3} key={index}>
+          <FeatureComparisonColumn plan={plan} header={index === 0}/>
         </Grid>
       ))}
     </Grid>
@@ -207,19 +233,23 @@ const FeaturesComparisonColumns = () => {
 
 const PricingPage = () => {
   return (
+    <div>
+    <NavigationHeader />
     <Box sx={{ flexGrow: 1, padding: "20px" }}>
       <Typography variant="h4" align="center" gutterBottom>
         Choose the Plan That's Right for You
       </Typography>
       <Grid container spacing={3} justifyContent="center">
         {pricingData.map((plan, index) => (
-          <Grid item xs={12} md={4} key={index}>
+          index > 0 && <Grid item xs={12} md={4} key={index}>
             <PricingCard plan={plan} />
           </Grid>
         ))}
       </Grid>
       <FeaturesComparisonColumns />
     </Box>
+    <Footer />
+    </div>
   );
 };
 
