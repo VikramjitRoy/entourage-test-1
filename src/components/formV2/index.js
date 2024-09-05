@@ -11,8 +11,9 @@ import {content} from '../../common/dataV2'
 const MultiStepForm = () => {
     const [currentStep, setCurrentStep] = useState(1);
     const [formData, setFormData] = useState({
-        theater: '',
-        date: '',
+        location: 'HSR',
+        theater: 'BALLOON',
+        date: new Date(),
         slot: {},
         name: '',
         numberOfPeople: 2,
@@ -33,12 +34,17 @@ const MultiStepForm = () => {
 
     const steps = ['Theater & Slot', 'Booking Details', 'Celebration Type', 'Choose Pro', 'Add-ons', 'Book'];
     const [selectedDate, setSelectedDate] = useState(new Date());
-
+    const [bookingId, setBookingId] = useState();
+    const [slotId, setSlotId] = useState(-1);
+ 
     const handleDateChange = (date) => {
+        date = new Date(date);
+        date.setDate(date.getDate() + 1);
+        console.log("handleDateChange "+date.toISOString().split('T')[0]);
         setSelectedDate(date);
         setFormData({ ...formData, date });
-        let slots = [{ "duration": '9:00 AM to 12:00 PM', isAvailable: true }, { "duration": '1:00 PM to 4:00 PM', isAvailable: true }, { "duration": '5:00 PM to 8:00 PM', isAvailable: true }, { "duration": '9:00 PM to 10:30 PM', isAvailable: true }, { "duration": '11:00 PM to 12:30 AM', isAvailable: true }];
-        availableDates[date.toISOString().split('T')[0]].forEach(val => slots[val - 1].isAvailable = false);
+        let slots = [{ "duration": '9:00 AM to 12:00 PM', isAvailable: false }, { "duration": '1:00 PM to 4:00 PM', isAvailable: false }, { "duration": '5:00 PM to 8:00 PM', isAvailable: false }, { "duration": '9:00 PM to 10:30 PM', isAvailable: false }, { "duration": '11:00 PM to 12:30 AM', isAvailable: false }];
+        availableDates[date.toISOString().split('T')[0]]?.forEach(val => slots[val - 1].isAvailable = true);
         setAvailableSlots(slots);
     };
 
@@ -79,28 +85,57 @@ const MultiStepForm = () => {
         setCurrentStep(prevStep => prevStep - 1);
     };
 
+    const handleLocationSelect = (location) => {
+        setFormData({...formData, location});
+    }
+
     const handleTheaterSelect = (theater) => {
         setFormData({ ...formData, theater });
         // API call to get available dates and slots
-        axios.get(`http://localhost:3001/api/available-slots?theater=${theater}`)
+        let fullDate = formData.date.toISOString().split('T')[0];
+        let fullDateSplit = fullDate.split('-');
+        console.log("Full Date: "+ fullDate);
+        axios.get(`http://localhost:3003/api/slots/available?year=${fullDateSplit[0]}&month=${fullDateSplit[1]}&location=HSR&theater=${theater.toUpperCase()}`)
             .then(response => {
                 setAvailableDates(response.data);
-                let slots = [{ "duration": '9:00 AM to 12:00 PM', isAvailable: true }, { "duration": '1:00 PM to 4:00 PM', isAvailable: true }, { "duration": '5:00 PM to 8:00 PM', isAvailable: true }, { "duration": '9:00 PM to 10:30 PM', isAvailable: true }, { "duration": '11:00 PM to 12:30 AM', isAvailable: true }];
+                let slots = [{ "duration": '9:00 AM to 12:00 PM', isAvailable: false }, { "duration": '1:00 PM to 4:00 PM', isAvailable: false }, { "duration": '5:00 PM to 8:00 PM', isAvailable: false }, { "duration": '9:00 PM to 10:30 PM', isAvailable: false }, { "duration": '11:00 PM to 12:30 AM', isAvailable: false }];
                 response.data[new Date().toISOString().split('T')[0]].forEach(val => {
-                    slots[val - 1].isAvailable = false;
+                    slots[val - 1].isAvailable = true;
                 });
                 setAvailableSlots(slots);
             });
     };
+    
+    const doBooking = () => {
+        if(validateStep()){
+        console.log("Form Data :")
+        console.log(formData)
+        let bookingDetail = {
+            ...formData,
+            totalCost: totalCost,
+            slotId: slotId
+        };
+        axios.post(`http://localhost:3003/api/booking`, bookingDetail)
+            .then(response => {
+                console.log(response.data);
+                if(response?.data?.bookingId)
+                    setCurrentStep(prevStep => prevStep + 1);
+                    setBookingId(response.data.bookingId);
+            });
+        }
+    };
 
-    const handleSlotChange = (date, slot) => {
+    const handleSlotChange = (date, slot, index) => {
         console.log('slot change'+slot.isAvailable);
-        if(slot.isAvailable)
+        if(slot.isAvailable) {
             setFormData({ ...formData, date, slot });
+            setSlotId(index+1);
+        }
     };
 
     const handlePeopleChange = (event) => {
-        setTotalCost(totalCost  - (formData.numberOfPeople * 250) + (event.target.value * 250));
+        
+        setTotalCost(totalCost  - (Math.max((formData.numberOfPeople -4), 0) * 250) + (Math.max(event.target.value -4,0) * 250));
         const numberOfPeople = event.target.value;
         setFormData({ ...formData, numberOfPeople });
     };
@@ -121,13 +156,28 @@ const MultiStepForm = () => {
         event.target.checked?setTotalCost(totalCost + 1000): setTotalCost(totalCost - 1000);
     };
     const otherAddOns = content.formDetail.otherAddOns;
+    const supportedPins = ['560095', '560102'];
+    const checkPin = (event) => {
+        if(event.target.value.length < 6) return true;
+        console.log(event.target.value);
+        console.log(supportedPins.includes(event.target.value));
+        if(supportedPins.includes(event.target.value)) {
+            setFormData({ ...formData, pin: event.target.value });
+            errors.pin = null
+        } else {
+            console.log("Service is not available for this pincode");
+            errors.pin = "Service is not available for this pincode";
+        }
+        setErrors(errors);
+    };
+
     return (
         <div>
             <NavigationHeader />
             <div className="multi-step-form">
                 <div className="form-image">
-                    {formData.theater !== 'Floral Celebration' && <img src="/images/products/hero_first.webp" alt="Form illustration" />}
-                    {formData.theater === 'Floral Celebration' && <img src="/images/products/hero_2.webp" alt="Form illustration" />}
+                    {formData.theater !== 'Floral' && <img src="/images/new/balloon_celebration.JPG" alt="Form illustration" />}
+                    {formData.theater === 'Floral' && <img src="/images/new/romantic_fs.JPG" alt="Form illustration" />}
                 </div>
                 <div className="form-container">
                     <div className="form-header">
@@ -143,24 +193,60 @@ const MultiStepForm = () => {
                         {currentStep === 1 && (
                             <div className="form-step">
                                 <h2>Theater & Slot</h2>
-                                <Typography variant="h6">Available Locations {errors.theater}</Typography>
+                                <Typography variant="h6">Choose Location {errors.theater}</Typography>
                                 <div className="theater-selection">
-                                    <Card sx={{ backgroundColor: formData.theater === 'Balloon Celebration' ? 'rgb(25, 118, 210)' : 'white' }} onClick={() => handleTheaterSelect('Balloon Celebration')}>
+                                    <Card sx={{ backgroundColor: formData.location === 'HSR' ? 'rgb(25, 118, 210)' : 'white' }} onClick={() => handleLocationSelect('HSR')}>
                                         <CardMedia
                                             component="img"
                                             height="140"
                                             image="/images/products/hero_first.webp"
+                                            alt="Flickstones HSR"
+                                        />
+                                        <CardContent>
+                                            <Typography variant="h6">Flickstones HSR</Typography>
+                                        </CardContent>
+                                    </Card>
+                                    <Card sx={{ backgroundColor: formData.location === 'HOME' ? 'rgb(25, 118, 210)' : 'white' }} onClick={() => handleLocationSelect('HOME')}>
+                                        <CardMedia
+                                            component="img"
+                                            height="140"
+                                            image="/images/products/hero_2.webp"
+                                            alt="At Home Celebration"
+                                        />
+                                        <CardContent>
+                                            <Typography variant="h6">At Home Celebration</Typography>
+                                        </CardContent>
+                                    </Card>
+                                </div>
+                                {formData.location === 'HOME' && <TextField
+                                    label="Choose PIN for home decoration"
+                                    variant="outlined"
+                                    value={formData.pin}
+                                    onChange={e => checkPin(e)}
+                                    error={!!errors.pin}
+                                    helperText={errors.pin}
+                                    fullWidth
+                                    required
+                                    inputProps={{ maxLength: 6 }}
+                                />}
+                                <Typography variant="h6">Choose Decoration {errors.theater}</Typography>
+                                <div className="theater-selection">
+                                    <Card sx={{ backgroundColor: formData.theater === 'Balloon' ? 'rgb(25, 118, 210)' : 'white' }} onClick={() => handleTheaterSelect('Balloon')}>
+                                        <CardMedia
+                                            component="img"
+                                            height="140"
+                                            image="/images/new/balloon_celebration.JPG"
                                             alt="Balloon Celebration"
                                         />
                                         <CardContent>
                                             <Typography variant="h6">Balloon Celebration</Typography>
                                         </CardContent>
                                     </Card>
-                                    <Card sx={{ backgroundColor: formData.theater === 'Floral Celebration' ? 'rgb(25, 118, 210)' : 'white' }} onClick={() => handleTheaterSelect('Floral Celebration')}>
+                                    <Card sx={{ backgroundColor: formData.theater === 'Floral' ? 'rgb(25, 118, 210)' : 'white' }} onClick={() => handleTheaterSelect('Floral')}>
                                         <CardMedia
                                             component="img"
                                             height="140"
-                                            image="/images/products/hero_2.webp"
+                                            image="/images/new/romantic_fs.JPG"
                                             alt="Floral Celebration"
                                         />
                                         <CardContent>
@@ -169,7 +255,7 @@ const MultiStepForm = () => {
                                     </Card>
                                 </div>
                                 <div className="calendar-slots">
-                                    <Typography variant="h6">Available Dates</Typography>
+                                    <Typography variant="h6">Choose Date</Typography>
                                     {/* {availableDates.map(date => (
                                     <div key={date} className={`date ${formData.date === date ? 'selected' : ''}`} onClick={() => handleSlotChange(date, formData.slot)}>
                                         {date}
@@ -180,9 +266,9 @@ const MultiStepForm = () => {
                                         <DateCalendar disablePast onChange={(date) => handleDateChange(date)} />
                                     </LocalizationProvider>
 
-                                    <Typography variant="h6">Available Slots {errors.slot}</Typography>
-                                    {availableSlots.map(slot => (
-                                        <div key={slot.duration} className={`slot ${formData.slot === slot ? 'selected' : ''} ${slot.isAvailable === false ? 'disabled' : ''}`} onClick={() => handleSlotChange(formData.date, slot)}>
+                                    <Typography variant="h6">Choose Slots {errors.slot}</Typography>
+                                    {availableSlots.map((slot, index) => (
+                                        <div key={slot.duration} className={`slot ${formData.slot === slot ? 'selected' : ''} ${slot.isAvailable === false ? 'disabled' : ''}`} onClick={() => handleSlotChange(formData.date, slot, index)}>
                                             {slot.duration}
                                         </div>
                                     ))}
@@ -247,7 +333,7 @@ const MultiStepForm = () => {
                                 <div className="celebration-type-selection">
                                 <Grid container spacing={1}>
                                     {['birthday', 'anniversary', 'romantic date', 'marriage proposal', 'bride to be', 'farewell', 'congratulations', 'baby shower'].map(type => (
-                                        <Grid item xs={4}>
+                                        <Grid item xs={6}>
                                         <Card sx={{ backgroundColor: formData.celebrationType === type ? 'rgb(25, 118, 210)' : 'white' }} key={type} onClick={() => setFormData({ ...formData, celebrationType: type })}>
                                             <CardMedia
                                                 component="img"
@@ -328,60 +414,60 @@ const MultiStepForm = () => {
                                 <Typography variant="h3">Add ons</Typography>
                                 <div className="add-on-selection">
                                     <Typography variant="h4">{otherAddOns[0].title}</Typography>
-                                    <Grid container spacing={1}>
+                                    <Grid container spacing={1} sx={{ justifyContent: "center",}}>
                                     {otherAddOns[0].addOns.map(item => (
-                                        <Grid item xs={4}>
-                                        <Card sx={{ backgroundColor: formData['extraDecoration'].includes(item) ? 'rgb(25, 118, 210)' : 'white' }} key={item.title} onClick={() => handleAddOnChange('extraDecoration', item)}>
-                                            <CardMedia
-                                                component="img"
-                                                height="140"
-                                                image="/images/products/hero_first.webp"
-                                                alt="Balloon Celebration"
-                                            />
-                                            <CardContent>
-                                                <Typography variant="h6">{item.title}</Typography>
-                                            </CardContent>
-                                        </Card>
+                                        <Grid item xs={6}>
+                                            <Card sx={{ backgroundColor: formData['extraDecoration'].includes(item) ? 'rgb(25, 118, 210)' : 'white' }} key={item.title} onClick={() => handleAddOnChange('extraDecoration', item)}>
+                                                <CardMedia
+                                                    component="img"
+                                                    height="140"
+                                                    image="/images/products/hero_first.webp"
+                                                    alt="Balloon Celebration"
+                                                />
+                                                <CardContent>
+                                                    <Typography variant="h6">{item.title}</Typography>
+                                                </CardContent>
+                                            </Card>
                                         </Grid>
                                     ))}
                                     </Grid>
                                 </div>
                                 <div className="add-on-selection">
                                     <Typography variant="h4">Choose Gifts</Typography>
-                                    <Grid container spacing={1}>
+                                    <Grid container spacing={1} sx={{ justifyContent: "center",}}>
                                     {otherAddOns[1].addOns.map(item => (
-                                        <Grid item xs={4}>
-                                        <Card sx={{ backgroundColor: formData['chooseGifts'].includes(item) ? 'rgb(25, 118, 210)' : 'white' }} key={item.title} onClick={() => handleAddOnChange('chooseGifts', item)}>
-                                            <CardMedia
-                                                component="img"
-                                                height="140"
-                                                image="/images/products/hero_2.webp"
-                                                alt="Balloon Celebration"
-                                            />
-                                            <CardContent>
-                                                <Typography variant="h6">{item.title}</Typography>
-                                            </CardContent>
-                                        </Card>
+                                        <Grid item xs={6}>
+                                            <Card sx={{ backgroundColor: formData['chooseGifts'].includes(item) ? 'rgb(25, 118, 210)' : 'white' }} key={item.title} onClick={() => handleAddOnChange('chooseGifts', item)}>
+                                                <CardMedia
+                                                    component="img"
+                                                    height="140"
+                                                    image="/images/products/hero_2.webp"
+                                                    alt="Balloon Celebration"
+                                                />
+                                                <CardContent>
+                                                    <Typography variant="h6">{item.title}</Typography>
+                                                </CardContent>
+                                            </Card>
                                         </Grid>
                                     ))}
                                     </Grid>
                                 </div>
                                 <div className="add-on-selection">
                                     <Typography variant="h4">Special Services</Typography>
-                                    <Grid container spacing={1}>
+                                    <Grid container spacing={1} sx={{ justifyContent: "center",}}>
                                     {otherAddOns[2].addOns.map(item => (
-                                        <Grid item xs={4}>
-                                        <Card sx={{ backgroundColor: formData['specialServices'].includes(item) ? 'rgb(25, 118, 210)' : 'white' }} key={item.title} onClick={() => handleAddOnChange('specialServices', item)}>
-                                            <CardMedia
-                                                component="img"
-                                                height="140"
-                                                image="/images/products/hero_3.webp"
-                                                alt="Balloon Celebration"
-                                            />
-                                            <CardContent>
-                                                <Typography variant="h6">{item.title}</Typography>
-                                            </CardContent>
-                                        </Card>
+                                        <Grid item xs={6}>
+                                            <Card sx={{ backgroundColor: formData['specialServices'].includes(item) ? 'rgb(25, 118, 210)' : 'white' }} key={item.title} onClick={() => handleAddOnChange('specialServices', item)}>
+                                                <CardMedia
+                                                    component="img"
+                                                    height="140"
+                                                    image="/images/products/hero_3.webp"
+                                                    alt="Balloon Celebration"
+                                                />
+                                                <CardContent>
+                                                    <Typography variant="h6">{item.title}</Typography>
+                                                </CardContent>
+                                            </Card>
                                         </Grid>
                                     ))}
                                     </Grid>
@@ -392,48 +478,52 @@ const MultiStepForm = () => {
                         {currentStep === 6 && (
                             <div className="form-step">
                                 <h2>Book</h2>
-                                <Box sx={{ margin: 'auto', padding: 2 }}>
+                                <Box sx={{ margin: 'auto', padding: 2, paddingLeft: '0px'}}>
                                     <Typography variant="h6" gutterBottom>
                                         Summary
                                     </Typography>
-                                    <List sx={{width: '40vw'}}>
-                                        <ListItem>
+                                    <List className="summary-list" sx={{width: '100vw'}}>
+                                        <ListItem sx = {{ paddingLeft: '0px' }}>
                                             <ListItemText primary={'Package'} />
                                             <Typography variant="body2">{(formData.choosePro?'Pro ':'')+ formData.theater + ' ' + formData.celebrationType.toUpperCase()}</Typography>
                                         </ListItem>
-                                        <ListItem>
+                                        <ListItem sx = {{ paddingLeft: '0px' }}> 
                                             <ListItemText primary={'Date & Duration'} />
                                             <Typography variant="body2">{formData.date.toISOString().split('T')[0] + ' ' + formData.slot.duration}</Typography>
                                         </ListItem>
-                                        <ListItem>
+                                        <ListItem sx = {{ paddingLeft: '0px' }}>
                                             <ListItemText primary={'Number of Guests'} />
                                             <Typography variant="body2">{formData.numberOfPeople}</Typography>
                                         </ListItem>
-                                        <ListItem>
+                                        <ListItem sx = {{ paddingLeft: '0px' }}>
                                             <ListItemText primary={'Email'} />
                                             <Typography variant="body2">{formData.email}</Typography>
                                         </ListItem>
-                                        <ListItem>
+                                        <ListItem sx = {{ paddingLeft: '0px' }}>
                                             <ListItemText primary={'Phone Number'} />
                                             <Typography variant="body2">{formData.whatsappNumber}</Typography>
                                         </ListItem>
-                                        <ListItem>
+                                        <ListItem sx = {{ paddingLeft: '0px' }}>
                                             <ListItemText primary={'Celebration Name'} />
                                             <Typography variant="body2">{formData.celebrationPersonName}</Typography>
                                         </ListItem>
-                                        <ListItem>
+                                        <ListItem sx = {{ paddingLeft: '0px' }}>
                                             <ListItemText primary={'Package Cost'} />
                                             <Typography variant="body1">{1500+(formData.choosePro?1000:0)}</Typography>
                                         </ListItem>
-                                        { formData['extraDecoration'].length > 0 && <ListItem>
+                                        { formData.numberOfPeople > 4 &&<ListItem sx = {{ paddingLeft: '0px' }}>
+                                            <ListItemText primary={'Extra People Cost'} />
+                                            <Typography variant="body1">{250*(formData.numberOfPeople - 4)}</Typography>
+                                        </ListItem>}
+                                        { formData['extraDecoration'].length > 0 && <ListItem sx = {{ paddingLeft: '0px' }}>
                                             <ListItemText primary={'Extra Decoration Cost'} secondary={formData['extraDecoration'].reduce((sum, { title }) => sum + title +',', '').slice(0, -1)} />
                                             <Typography variant="body1">{formData['extraDecoration'].reduce((sum, { price }) => sum + price, 0)}</Typography>
                                         </ListItem>}
-                                        { formData['chooseGifts'].length > 0 &&<ListItem>
+                                        { formData['chooseGifts'].length > 0 &&<ListItem sx = {{ paddingLeft: '0px' }}>
                                             <ListItemText primary={'Gifts Cost'} secondary={formData['chooseGifts'].reduce((sum, { title }) => sum + title +',', '').slice(0, -1)}/>
                                             <Typography variant="body1">{formData['chooseGifts'].reduce((sum, { price }) => sum + price, 0)}</Typography>
                                         </ListItem>}
-                                        { formData['specialServices'].length > 0 &&<ListItem>
+                                        { formData['specialServices'].length > 0 &&<ListItem sx = {{ paddingLeft: '0px' }}>
                                             <ListItemText primary={'Special Services Cost'} secondary={formData['specialServices'].reduce((sum, { title }) => sum + title +',', '').slice(0, -1)}/>
                                             <Typography variant="body1">{formData['specialServices'].reduce((sum, { price }) => sum + price, 0)}</Typography>
                                         </ListItem>}
@@ -472,16 +562,27 @@ const MultiStepForm = () => {
                                 
                             </div>
                         )}
+
+                        {currentStep === 7 && (
+                            <div className="form-step">
+                                <h2>Booking processed and blocked!</h2>
+                                <Box sx={{ margin: 'auto', padding: 2 }}>
+                                    <Typography variant="h6" gutterBottom>
+                                        Your booking for {(formData.choosePro?'Pro ':'')+ formData.theater + ' ' + formData.celebrationType.toUpperCase()} of {formData.numberOfPeople} people at {formData.date.toISOString().split('T')[0] + ' ' + formData.slot.duration} is pending payment with bookingId {bookingId} . Our team will reach out to you on whatsapp to complete the payment for your booking. Your slot will be blocked for the next 1 hour to complete the payment.
+                                    </Typography>
+                                </Box>               
+                            </div>
+                        )}
                     </div>
                     <div className="bottom-info">
-                        {totalCost > 0 && (
+                        {totalCost > 0 && currentStep < 7 && (
                             <div className="total-cost">
                                 <Typography variant="h6">Total Cost: ₹{totalCost}</Typography>
                             </div>
                         )}
 
                         <div className="form-navigation">
-                            {currentStep > 1 && (
+                            {(currentStep > 1 && currentStep < 7) && (
                                 <Button variant="contained" onClick={handlePrevious}>
                                     Previous
                                 </Button>
@@ -492,7 +593,7 @@ const MultiStepForm = () => {
                                 </Button>
                             )}
                             {currentStep === steps.length && (
-                                <Button variant="contained" onClick={() => alert('Booking Confirmed')}>
+                                <Button disabled={!formData.agreeTerms} variant="contained" onClick={() => doBooking()}>
                                     Pay and Book
                                 </Button>
                             )}

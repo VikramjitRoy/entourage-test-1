@@ -140,7 +140,7 @@ function HeroComponent({ backgroundImage, index, dim }) {
                 <Typography component={Link} to={{
                         pathname: '/productInfo',
                         state: { index }
-                      }} variant="h1" sx = {{textDecoration: "none",
+                      }} variant="h2" sx = {{textDecoration: "none",
 boxShadow: "none", color: "white"}}>
                     {packages[index]}
                 </Typography>
@@ -363,12 +363,7 @@ const texts = [
 
         {/* Left part with image */}
         <Box
-          sx={{
-            flex: 1,
-            display: 'flex',
-            justifyContent: 'end',
-            alignItems: 'center',
-          }}
+          className="different-celebration-images"
         >
           <img
             src={images[currentText]}
@@ -549,13 +544,7 @@ const ScrollZoomFooter = () => {
     return (
       <Box
         ref={containerRef}
-        sx={{
-          display: 'flex',
-          flexDirection: 'row',
-          overflowX: 'auto',
-          height: '100vh',
-          scrollSnapType: 'x mandatory',
-        }}
+        className="horizontal-scroll-section-container"
       >
         {sections.map((section) => (
 
@@ -708,19 +697,19 @@ function HomePage() {
                 position: 'fixed',
                 bottom: '5vh', // 5% of viewport height above the bottom
                 left: '50%',    // Center horizontally
-                transform: 'translateX(-75%)', // Adjust to keep it centered
+                transform: 'translateX(-50%)', // Adjust to keep it centered
                 zIndex: '999',
             }}
             >
                 Celebrate with Us
             </Fab>
             <HeroComponent
-                backgroundImage="/images/products/hero_first.webp"
+                backgroundImage="/images/new/romantic_fs.JPG"
                 index="0"
                 dim={dimStates[0]}
             />
             <HeroComponent
-                backgroundImage="/images/products/hero_2.webp"
+                backgroundImage="/images/new/balloon_celebration.JPG"
                 index="1"
                 dim={dimStates[1]}
             />

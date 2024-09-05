@@ -7,7 +7,7 @@ import logo from "./flickstones_logo_cropped.png"
 
 const useStyles2 = {
     appBar: {
-      backgroundColor: 'rgba(255, 255, 255, 0.2)',
+      backgroundColor: 'rgba(30, 21, 42, 1.0)',
       boxShadow: 'none',
       position: 'fixed',
       top: 0,

@@ -29,6 +29,7 @@
     padding: 20px;
     box-sizing: border-box;
     overflow-y: auto;
+    margin-top: 5vh;
 }
 
 .form-header {
@@ -146,6 +147,18 @@
     margin-bottom: 20px;
 }
 
+.form-step {
+    margin-bottom: '5vh';
+}
+
+.summary-item {
+    padding-left: 0px;
+}
+
+.MuiList-root.summary-list {
+    width: 40vw;
+}
+
 @media (min-width: 768px) {
     .multi-step-form {
         flex-direction: row;
@@ -169,3 +182,14 @@
         flex-direction: row;
     }
 }
+
+@media (max-width: 600px) {
+    .bottom-info{
+        width: 100vw;
+    }
+
+    .MuiList-root.summary-list {
+        width: 80vw;
+    }
+}
+

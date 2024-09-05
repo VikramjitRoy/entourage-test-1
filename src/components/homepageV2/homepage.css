@@ -297,7 +297,31 @@ body {
   box-shadow: 0 0.5rem 1rem -0.25rem var(--clr-primary-900);
 }
 
-/* for testing purposed to ensure the animation lined up correctly */
-.test {
-  background: red !important;
+.different-celebration-images {
+  flex: 1;
+  display: 'flex';
+  justify-content: 'end';
+  align-items: 'center';
+}
+
+.horizontal-scroll-section-container {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  height: 100vh;
+  scroll-snap-type: x mandatory;
+}
+
+@media (max-width: 480px) {
+  
+  .different-celebration-images {
+    display: none;
+  }
+
+  .horizontal-scroll-section-container {
+    display: flex;
+    flex-direction: column;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+  }
 }
