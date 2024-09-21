@@ -8,30 +8,16 @@ import { Colors } from "../../styles/theme";
 import { Container, Divider, Stack } from "@mui/material";
 import Footer from '../../components/footer/'
 import AppDrawer from '../../components/drawer';
+import NavigationHeader from '../../components/headerV2';
+import FooterV2 from '../../components/footerV2';
 
 const FaqPage = () => {
     return (
-        <ThemeProvider theme={theme}>
-            <Container
-                disableGutters
-                maxWidth="xl"
-                sx={{
-                    background: "#343131",
-                }}
-            >
-                <Stack>
-                    <UIProvider bgcolor={Colors.primary}>
-                        <Appbar />
-                        <Divider />
-                        <div>
-                            <FaqAccordion />
-                        </div>
-                        <Footer />
-                        <AppDrawer />
-                    </UIProvider>
-                </Stack>
-            </Container>
-        </ThemeProvider>
+        <div>
+            <NavigationHeader />
+            <FaqAccordion />
+            <FooterV2 />
+        </div>             
     );
 };
 

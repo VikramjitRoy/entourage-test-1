@@ -3,36 +3,11 @@ import { Box, Typography, Container, Grid } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 import NavigationHeader from "../headerV2";
 import Footer from "../footerV2";
+import { content } from "../../common/dataV2";
 
 const ProductShowcase = ({service}) => {
 
-  const services = [
-    {
-      "name": "Fog Effect",
-      "description": "Begin your event with a dreamy entry which feels like walking over the clouds. We use dry ice to fill the theater with cloud like Fog during the entry which makes it really heavenly and magical. Then gas is completely safe and non-suffocation, so even kids can enjoy it freely. Pricing for Fog entry starts at RS.350 and you can add multiple Fog entries in your event as per your requirement.",
-      "imageUrl": "/images/products/hero_first.webp"
-    },
-    {
-      "name": "DSLR Photoshoot",
-      "description": "Who does not want to record beautiful memories of special days in form of high quality photos which can also be shared with friends and family on social media? Almost all our branches offer DSLR photography service for as low as RS.300 for 15 minutes. We share the soft copy of the photos within 12 hrs through Google drive link.",
-      "imageUrl": "/images/products/hero_2.webp"
-    },
-    {
-      "name": "Bouquet and other gifts",
-      "description": "Want to make your special ones feel even more special by gifting them? We provide bouquet, photo frames, soft toys, showpieces, and many more gifting options in our website and at the theater for you to select the perfect gift for your loved ones. Kindly note that some gifts can be added directly from the website while some options are available only at the theater and can be purchased there directly",
-      "imageUrl": "/images/products/hero_3.webp"
-    },
-    {
-      "name": "Cakes",
-      "description": "No need to hassle for arranging that perfect cake for your birthday, anniversary or any other event. We provide a diverse range of cake options that are tasty as well as economical. After your celebration, we also pack your cake properly for you to carry. Cakes can be added to your event while booking from the website with extra charges depending on the flavour",
-      "imageUrl": "/images/products/hero_first.webp"
-    },
-    {
-      "name": "Food & Beverages",
-      "description": "A celebration is incomplete without delectable food, and at The Binge Town, we take pride in offering a diverse and mouthwatering menu at all our branches. Menu varies from branch to branch. Some of the most commmonly available items in our menu are: French fries, Pizza, Soft drinks, Nuggets, Milk Shakes, etc. Customers can also order food from outside. Please note that Snacks and beverages are not included in the booking and have to be ordered separately at the theater.",
-      "imageUrl": "/images/products/hero_2.webp"
-    }
-  ];
+  const services = content.services;
 
   const location = useLocation();
   const { index } = location.state || {};
@@ -50,7 +25,7 @@ const ProductShowcase = ({service}) => {
           backgroundPosition: 'center',
           display: 'flex',
           alignItems: 'flex-end',
-          padding: '20px',
+          // padding: '20px',
           position: 'relative',
         }}
       >
@@ -71,15 +46,15 @@ const ProductShowcase = ({service}) => {
       {/* Product Description */}
       <Container sx={{ padding: '50px 0' }}>
         <Typography variant="h4" gutterBottom>
-            Product Description
+            Service Description
         </Typography>
-        <Typography variant="body1" sx={{ fontSize: '1.2rem' }}>
+        <Typography variant="body1" sx={{ fontSize: '1.2rem', padding: '20px' }}>
         {services[index].description}
         </Typography>
       </Container>
 
-      {/* Explore Other Products */}
-      <Container sx={{ padding: '20px 0' }}>
+      {/* Uncomment this when we have more services */}
+      {/* <Container sx={{ padding: '20px 0' }}>
         <Typography variant="h5" gutterBottom>
           Explore other services:
         </Typography>
@@ -127,7 +102,7 @@ const ProductShowcase = ({service}) => {
             </Typography>
           </Grid>
         </Grid>
-      </Container>
+      </Container> */}
     </Box>
     <Footer />
     </div>

@@ -7,6 +7,7 @@ import   MultiStepForm from './components/formV2';
 import ContactUsPage from './pages/ContactUsPage';
 import TermsAndConditionsPage from './pages/TermsAndConditionsPage';
 import FaqPage from './pages/FaqPage';
+import TermsAndConditions from './components/faqV2'
 import ServicesPage from './pages/ServicesPage';
 import { useEffect, useState } from "react";
 import LoadingAnimation from './components/loadAnimation/LoadingAnimation';
@@ -43,12 +44,12 @@ function App() {
           <Route path="/contact-us" component={ContactUsPage} />
           <Route path="/services" component={ServicesPage} />
           <Route path="/tnc" component={TermsAndConditionsPage} />
-          <Route path="/faq" component={FaqPage} />
+          <Route path="/faq" component={TermsAndConditions} />
           {/* <Route path="/product/:productId" component={ProductDetailV2} /> */}
           <Route path="/book" component={MultiStepForm} />
           <Route path="/product" component={ProductShowcase} />
           <Route path="/productInfo" component={ExecutiveStudio} />
-          <Route path="/pricing" component={PricingPage} />
+          {/* <Route path="/pricing" component={PricingPage} /> */}
           <Route path="/" component={HomePage} />
         </Switch>
       </div>

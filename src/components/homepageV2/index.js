@@ -7,8 +7,6 @@ import { Link } from 'react-router-dom';
 import { keyframes } from '@emotion/react';
 import { styled } from '@mui/system';
 import { ArrowBack, ArrowForward, AccessTime, CheckCircleOutline, Payment, ShoppingCart, EventAvailable, IndeterminateCheckBox } from '@mui/icons-material';
-import MenuIcon from '@mui/icons-material/Menu';
-import CloseIcon from '@mui/icons-material/Close';
 import {content} from '../../common/dataV2'
 import Footer from "../footerV2";
 import NavigationHeader from "../headerV2";
@@ -77,7 +75,7 @@ const useStyles = makeStyles(() => ({
         position: 'relative',
         height: '100vh',
         width: '100vw',
-        backgroundImage: 'url("/images/products/hero_first.webp")', // Replace with your hero image URL
+        backgroundImage: 'url("/images/new/floral_red_decor_potrait.JPG")', // Replace with your hero image URL
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         display: 'flex',
@@ -149,85 +147,26 @@ boxShadow: "none", color: "white"}}>
     );
 }
 
-const TextList = () => {
-    const textRef = useRef([]);
-    const [visibleTextIndex, setVisibleTextIndex] = useState(null);
-
-    useEffect(() => {
-        const handleScroll = () => {
-            textRef.current.forEach((el, index) => {
-                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                const rotation = (scrollTop - el.offsetTop) / 10;
-                const blur = Math.min(Math.abs(rotation / 20), 5);
-                el.style.transform = `rotateY(${rotation}deg)`;
-                el.style.filter = `blur(${blur}px)`;
-            });
-        };
-
-        // window.addEventListener('scroll', handleScroll);
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, []);
-
-    const texts = [
-        'Birthday',
-        'Anniversary',
-        'Romantic Date',
-        'Romantic Proposals',
-        'Bride to be',
-        'Farewell',
-        'Congratulations',
-        'Baby Shower',
-    ];
-
-    const images = [
-        '/images/products/hero_first.webp', // Replace with your image URLs or paths
-        '/images/products/hero_2.webp',
-        '/images/products/hero_3.webp',
-        '/images/products/hero_first.webp',
-        '/images/products/hero_2.webp',
-        '/images/products/hero_3.webp',
-        '/images/products/hero_first.webp',
-        '/images/products/hero_2.webp',
-    ];
-
-    return (
-        <div className="text-list">
-            {texts.map((text, index) => (
-                <div
-                    key={index}
-                    ref={(el) => (textRef.current[index] = el)}
-                >
-                    <div className="text-item" >{text}</div>
-                    {/* {visibleTextIndex === index && (
-                        <img src={images[index]} alt={text} className="viewport-image" />
-                    )} */}
-                </div>
-            ))}
-        </div>
-    );
-};
 
 
 const InstagramTicker = () => {
 
     const images = [
-        '/images/ticker/ticker_1.webp',
-        '/images/ticker/ticker_2.webp',
-        '/images/ticker/ticker_3.webp',
-        '/images/ticker/ticker_4.webp',
-        '/images/ticker/ticker_5.webp',
-        '/images/ticker/ticker_1.webp',
-        '/images/ticker/ticker_2.webp',
-        '/images/ticker/ticker_3.webp',
-        '/images/ticker/ticker_4.webp',
-        '/images/ticker/ticker_5.webp',
-        '/images/ticker/ticker_1.webp',
-        '/images/ticker/ticker_2.webp',
-        '/images/ticker/ticker_3.webp',
-        '/images/ticker/ticker_4.webp',
-        '/images/ticker/ticker_5.webp',
+        '/images/new/balloon_floral_path.jpg',
+        '/images/new/candle_lit.jpg',
+        '/images/new/fnb.jpg',
+        '/images/new/floral_red_decor_potrait.jpg',
+        '/images/new/balloon_fog_portrait.jpg',
+        '/images/new/balloon_floral_path.jpg',
+        '/images/new/candle_lit.jpg',
+        '/images/new/fnb.jpg',
+        '/images/new/floral_red_decor_potrait.jpg',
+        '/images/new/balloon_fog_portrait.jpg',
+        '/images/new/balloon_floral_path.jpg',
+        '/images/new/candle_lit.jpg',
+        '/images/new/fnb.jpg',
+        '/images/new/floral_red_decor_potrait.jpg',
+        '/images/new/balloon_fog_portrait.jpg',
     ];
 
     const images2 = [
@@ -259,7 +198,6 @@ const InstagramTicker = () => {
                     const duplicatedItem = item.cloneNode(true);
                     duplicatedItem.setAttribute("aria-hidden", true);
                     scrollerInner.appendChild(duplicatedItem);
-                    console.log("Here")
                 });
             });
         }
@@ -325,14 +263,14 @@ const texts = [
   ];
   
   const images = {
-    Birthday: '/images/products/hero_first.webp',
-    Anniversary: '/images/products/hero_2.webp',
-    'Romantic Date': '/images/products/hero_3.webp',
-    'Proposals': '/images/products/hero_first.webp',
-    'Bride to be': '/images/products/hero_3.webp',
-    Farewell: '/images/products/hero_3.webp',
-    Congratulations: '/images/products/hero_first.webp',
-    'Baby Shower': '/images/products/hero_2.webp',
+    Birthday: '/images/new/balloon_sub_hero.jpg',
+    Anniversary: '/images/new/balloon_floral_path.jpg',
+    'Romantic Date': '/images/new/floral_red_decor_potrait.png',
+    'Proposals': '/images/new/floral_white_decor_potrait.jpg',
+    // 'Bride to be': '/images/new/hero_3.webp',
+    Farewell: '/images/new/fnb.jpg',
+    Congratulations: '/images/new/theater_seating.jpg',
+    'Baby Shower': '/images/new/photo_clipping.jpg',
   };
   
   const TextWithImage = () => {
@@ -443,31 +381,31 @@ const ScrollZoomFooter = () => {
   const sections = [
     {
       id: 1,
-      image: '/images/ticker/ticker_1.webp',
+      image: '/images/new/candle_lit.jpg',
       heading: "Candle Lit Dinner",
       description: "Make your romantic dates special with a candlelit dinner"
     },
     {
       id: 2,
-      image: '/images/ticker/ticker_2.webp',
+      image: '/images/new/fnb.jpg',
       heading: "Complete package",
       description: "Fire, fog, food, cinema all under the same roof"
     },
     {
       id: 3,
-      image: '/images/ticker/ticker_3.webp',
+      image: '/images/new/floral_white_decor_potrait.png',
       heading: "Choice of arch",
       description: "Choose between a floral or balloon arch"
     },
     {
       id: 4,
-      image: '/images/ticker/ticker_4.webp',
+      image: '/images/new/theater_seating.jpg',
       heading: "Premium Theater Experience",
       description: "150inch cinematic 4k screen with dolby atmos sound with recliner seats"
     },
     {
       id: 5,
-      image: '/images/ticker/ticker_5.webp',
+      image: '/images/new/balloon_portrait.jpg',
       heading: "Customizations",
       description: "Make your celebrations extra special with customized bouquets and props"
     },
@@ -559,10 +497,6 @@ const ScrollZoomFooter = () => {
       </Box> 
     );
   };
-
-  const serviceImages = content.services;
-  
-
   
   const ImageCarousel = ({ services }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -704,12 +638,12 @@ function HomePage() {
                 Celebrate with Us
             </Fab>
             <HeroComponent
-                backgroundImage="/images/new/romantic_fs.JPG"
+                backgroundImage="/images/new/floral_red_decor_potrait.jpg"
                 index="0"
                 dim={dimStates[0]}
             />
             <HeroComponent
-                backgroundImage="/images/new/balloon_celebration.JPG"
+                backgroundImage="/images/new/balloon_floral_path.jpg"
                 index="1"
                 dim={dimStates[1]}
             />

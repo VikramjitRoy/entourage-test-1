@@ -29,7 +29,7 @@ const ProductInfoPage = () => {
                     <Typography variant="h6">{packages[index].heroSubHeading}</Typography>
                 </Box>
                 <Grid container justifyContent="space-around"  item xs={12} sx={{ marginTop: '5%' }}>
-                    <Grid container xs={6} alignItems="center" >
+                    <Grid container lg={6} xs={11} alignItems="center" >
                         <Typography variant="h6">
                         {packages[index].section2Heading}
                         </Typography>
@@ -37,12 +37,12 @@ const ProductInfoPage = () => {
                         {packages[index].section2SubHeading}
                         </Typography>
                     </Grid>
-                    <Grid container direction="column" alignItems="center" xs={6}>
+                    <Grid container direction="column" alignItems="center" lg={6} xs={11}>
                         <Typography variant="body1">
                         {packages[index].section2Description}
                         </Typography>
                         <Button variant="contained" color="primary" component={Link} to="/book" sx={{ mt: 2, width: '40%' }}>
-                            BOOK NOW
+                            Celebrate With Us
                         </Button>
                     </Grid>
                 </Grid>
@@ -50,32 +50,32 @@ const ProductInfoPage = () => {
 
             {/* Grid section */}
             <Grid container spacing={2} sx={{ paddingTop: '5%', paddingBottom: '5%' }}>
-                <Grid item xs={2} sx={{ borderRight: 1, borderColor: 'divider' }}>
+                <Grid item lg={2} xs={5} sx={{ borderRight: 1, borderColor: 'divider' }}>
                     <Box textAlign="center">
                         <Typography variant="h6">EXECUTIVE SUITE</Typography>
                     </Box>
                 </Grid>
-                <Grid item xs={2} sx={{ borderRight: 1, borderColor: 'divider' }}>
+                <Grid item lg={2} xs={5}  sx={{ borderRight: 1, borderColor: 'divider' }}>
                     <Box textAlign="center">
                         <Typography variant="h6">EXECUTIVE JUNIOR SUITE</Typography>
                     </Box>
                 </Grid>
-                <Grid item xs={2} sx={{ borderRight: 1, borderColor: 'divider' }}>
+                <Grid item lg={2} xs={5}  sx={{ borderRight: 1, borderColor: 'divider' }}>
                     <Box textAlign="center">
                         <Typography variant="h6">EXECUTIVE SUITE</Typography>
                     </Box>
                 </Grid>
-                <Grid item xs={2} sx={{ borderRight: 1, borderColor: 'divider' }}>
+                <Grid item lg={2} xs={5} sx={{ borderRight: 1, borderColor: 'divider' }}>
                     <Box textAlign="center">
                         <Typography variant="h6">EXECUTIVE JUNIOR SUITE</Typography>
                     </Box>
                 </Grid>
-                <Grid item xs={2} sx={{ borderRight: 1, borderColor: 'divider' }}>
+                <Grid item lg={2} xs={5}  sx={{ borderRight: 1, borderColor: 'divider' }}>
                     <Box textAlign="center">
                         <Typography variant="h6">SUPERIOR</Typography>
                     </Box>
                 </Grid>
-                <Grid item xs={2}>
+                <Grid item lg={2} xs={5} >
                     <Box textAlign="center">
                         <Typography variant="h6">SUPERIOR</Typography>
                     </Box>
@@ -84,16 +84,16 @@ const ProductInfoPage = () => {
 
             {/* Tall and short image section */}
             <Box my={4}>
-                <Grid container justifyContent="center" spacing={10} sx={{ height: '90vh', objectFit: 'cover' }}>
-                    <Grid item xs={7} sx={{ bottom: '0px' }}>
-                        <CardMedia
+                <Grid container justifyContent="center" spacing={10} sx={{  objectFit: 'cover' }}>
+                    <Grid item lg={7} xs={12} sx={{ bottom: '0px' }}>
+                        <CardMedia 
                             component="img"
                             image={packages[index].tallImage} // Replace with your tall image path
                             alt="Detail"
                             sx={{ height: '70vh', objectFit: 'cover' }}
                         />
                     </Grid>
-                    <Grid container direction="column" justifyContent="space-around" item xs={3}>
+                    <Grid container direction="column" justifyContent="space-around" item lg={3} xs={11}>
                         <CardMedia
                             component="img"
                             image={packages[index].shortImage} // Replace with your short image path
@@ -105,14 +105,14 @@ const ProductInfoPage = () => {
                             {packages[index].imageSectionDesc}
                             </Typography>
                             <Button variant="contained" color="primary" component={Link} to="/book" sx={{ mt: 2 }}>
-                                BOOK NOW
+                                Celebrate With Us
                             </Button>
                         </Container>
                     </Grid>
                 </Grid>
             </Box>
         </Container>
-<Footer />
+        <Footer />
         </div>
     );
 };

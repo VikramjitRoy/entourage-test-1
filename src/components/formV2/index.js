@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { TextField, Button, Box, Grid, List, ListItem, ListItemText, Divider, Stepper, Step, StepLabel, Card, CardContent, CardMedia, Typography, Checkbox, FormControlLabel } from '@mui/material';
+import React, { useState } from 'react';
+import { Select, MenuItem, InputLabel, TextField, Button, Box, Grid, List, ListItem, ListItemText, Divider, Stepper, Step, StepLabel, Card, CardContent, CardMedia, Typography, Checkbox, FormControlLabel } from '@mui/material';
 import axios from 'axios';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -19,7 +19,7 @@ const MultiStepForm = () => {
         numberOfPeople: 2,
         whatsappNumber: '',
         email: '',
-        celebrationType: '',
+        celebrationType: 'birthday',
         celebrationPersonName: '',
         extraDecoration: [],
         chooseGifts: [],
@@ -31,6 +31,7 @@ const MultiStepForm = () => {
     const [totalCost, setTotalCost] = useState(1500);
     const [availableSlots, setAvailableSlots] = useState([]);
     const [availableDates, setAvailableDates] = useState([]);
+    const [celebrationType, setCelebrationType] = useState('birthday');
 
     const steps = ['Theater & Slot', 'Booking Details', 'Celebration Type', 'Choose Pro', 'Add-ons', 'Book'];
     const [selectedDate, setSelectedDate] = useState(new Date());
@@ -48,12 +49,17 @@ const MultiStepForm = () => {
         setAvailableSlots(slots);
     };
 
+    const handleChange = (event) => {
+        setFormData({ ...formData, celebrationType: event.target.value});
+        setCelebrationType(event.target.value);
+    };
+
     const validateStep = () => {
         let newErrors = {};
         if (currentStep === 1) {
             if (!formData.theater) newErrors.theater = 'Theater is required';
             if (!formData.date) newErrors.date = 'Date is required';
-            if (!formData.slot) newErrors.slot = 'Slot is required';
+            if (Object.keys(formData.slot).length === 0) newErrors.slot = 'Slot is required';
         }
         if (currentStep === 2) {
             if (!formData.name) newErrors.name = 'Name is required';
@@ -94,8 +100,7 @@ const MultiStepForm = () => {
         // API call to get available dates and slots
         let fullDate = formData.date.toISOString().split('T')[0];
         let fullDateSplit = fullDate.split('-');
-        console.log("Full Date: "+ fullDate);
-        axios.get(`http://localhost:3003/api/slots/available?year=${fullDateSplit[0]}&month=${fullDateSplit[1]}&location=HSR&theater=${theater.toUpperCase()}`)
+        axios.get(`http://localhost:5001/flickstones/us-central1/api/v1/slots/available?year=${fullDateSplit[0]}&month=${fullDateSplit[1]}&location=HSR&theater=${theater.toUpperCase()}`)
             .then(response => {
                 setAvailableDates(response.data);
                 let slots = [{ "duration": '9:00 AM to 12:00 PM', isAvailable: false }, { "duration": '1:00 PM to 4:00 PM', isAvailable: false }, { "duration": '5:00 PM to 8:00 PM', isAvailable: false }, { "duration": '9:00 PM to 10:30 PM', isAvailable: false }, { "duration": '11:00 PM to 12:30 AM', isAvailable: false }];
@@ -108,14 +113,12 @@ const MultiStepForm = () => {
     
     const doBooking = () => {
         if(validateStep()){
-        console.log("Form Data :")
-        console.log(formData)
         let bookingDetail = {
             ...formData,
             totalCost: totalCost,
             slotId: slotId
         };
-        axios.post(`http://localhost:3003/api/booking`, bookingDetail)
+        axios.post(`http://localhost:5001/flickstones/us-central1/api/v1/booking`, bookingDetail)
             .then(response => {
                 console.log(response.data);
                 if(response?.data?.bookingId)
@@ -126,7 +129,6 @@ const MultiStepForm = () => {
     };
 
     const handleSlotChange = (date, slot, index) => {
-        console.log('slot change'+slot.isAvailable);
         if(slot.isAvailable) {
             setFormData({ ...formData, date, slot });
             setSlotId(index+1);
@@ -155,17 +157,14 @@ const MultiStepForm = () => {
         setFormData({ ...formData, choosePro: event.target.checked })
         event.target.checked?setTotalCost(totalCost + 1000): setTotalCost(totalCost - 1000);
     };
-    const otherAddOns = content.formDetail.otherAddOns;
+const otherAddOns = content.formDetail.otherAddOns;
     const supportedPins = ['560095', '560102'];
     const checkPin = (event) => {
         if(event.target.value.length < 6) return true;
-        console.log(event.target.value);
-        console.log(supportedPins.includes(event.target.value));
         if(supportedPins.includes(event.target.value)) {
             setFormData({ ...formData, pin: event.target.value });
             errors.pin = null
         } else {
-            console.log("Service is not available for this pincode");
             errors.pin = "Service is not available for this pincode";
         }
         setErrors(errors);
@@ -235,7 +234,7 @@ const MultiStepForm = () => {
                                         <CardMedia
                                             component="img"
                                             height="140"
-                                            image="/images/new/balloon_celebration.JPG"
+                                            image="/images/new/balloon_portrait.jpg"
                                             alt="Balloon Celebration"
                                         />
                                         <CardContent>
@@ -246,7 +245,7 @@ const MultiStepForm = () => {
                                         <CardMedia
                                             component="img"
                                             height="140"
-                                            image="/images/new/romantic_fs.JPG"
+                                            image="/images/new/floral_red_decor_potrait.jpg"
                                             alt="Floral Celebration"
                                         />
                                         <CardContent>
@@ -332,7 +331,19 @@ const MultiStepForm = () => {
                                 <h2>Celebration Type</h2>
                                 <div className="celebration-type-selection">
                                 <Grid container spacing={1}>
+                                <InputLabel id="demo-simple-select-label">Celebration Type</InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    value={celebrationType}
+                                    label="Celebration Type"
+                                    onChange={handleChange}
+                                >
                                     {['birthday', 'anniversary', 'romantic date', 'marriage proposal', 'bride to be', 'farewell', 'congratulations', 'baby shower'].map(type => (
+                                    <MenuItem value={type}>{type}</MenuItem>
+                                    ))}
+                                </Select>
+                                    {/* {['birthday', 'anniversary', 'romantic date', 'marriage proposal', 'bride to be', 'farewell', 'congratulations', 'baby shower'].map(type => (
                                         <Grid item xs={6}>
                                         <Card sx={{ backgroundColor: formData.celebrationType === type ? 'rgb(25, 118, 210)' : 'white' }} key={type} onClick={() => setFormData({ ...formData, celebrationType: type })}>
                                             <CardMedia
@@ -346,7 +357,7 @@ const MultiStepForm = () => {
                                             </CardContent>
                                         </Card>
                                         </Grid>
-                                    ))}
+                                    ))} */}
                                     </Grid>
                                 </div>
                                 <TextField
@@ -387,17 +398,17 @@ const MultiStepForm = () => {
                                     label="Upgrade your package to pro @ 1000"
                                 />
                                 <Grid container spacing={1}>
-                                    {['Photography (15min)', 'Complimentary F&B', 'Fog Effect', 'Balloon Bouqet', 'Floral Bouqet', 'More Props'].map(item => (
+                                    {content.formDetail.proAddOns.map(item => (
                                         <Grid item xs={6}>
-                                        <Card sx={{ backgroundColor: formData['choosePro'] ? 'rgb(25, 118, 210)' : 'white' }} xs={4} key={item} >
+                                        <Card sx={{ backgroundColor: formData['choosePro'] ? 'rgb(25, 118, 210)' : 'white' }} xs={4} key={item.title} >
                                             <CardMedia
                                                 component="img"
                                                 height="140"
-                                                image="/images/products/hero_3.webp"
+                                                image={item.image}
                                                 alt="Balloon Celebration"
                                             />
                                             <CardContent>
-                                                <Typography variant="h6">{item}</Typography>
+                                                <Typography variant="h6">{item.title}</Typography>
                                             </CardContent>
                                         </Card> </Grid>))}
                                         
@@ -421,7 +432,7 @@ const MultiStepForm = () => {
                                                 <CardMedia
                                                     component="img"
                                                     height="140"
-                                                    image="/images/products/hero_first.webp"
+                                                    image={item.image}
                                                     alt="Balloon Celebration"
                                                 />
                                                 <CardContent>
@@ -441,7 +452,7 @@ const MultiStepForm = () => {
                                                 <CardMedia
                                                     component="img"
                                                     height="140"
-                                                    image="/images/products/hero_2.webp"
+                                                    image={item.image}
                                                     alt="Balloon Celebration"
                                                 />
                                                 <CardContent>
@@ -461,7 +472,7 @@ const MultiStepForm = () => {
                                                 <CardMedia
                                                     component="img"
                                                     height="140"
-                                                    image="/images/products/hero_3.webp"
+                                                    image={item.image}
                                                     alt="Balloon Celebration"
                                                 />
                                                 <CardContent>

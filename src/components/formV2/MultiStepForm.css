@@ -29,7 +29,7 @@
     padding: 20px;
     box-sizing: border-box;
     overflow-y: auto;
-    margin-top: 5vh;
+    padding-top: 10vh;
 }
 
 .form-header {
@@ -147,9 +147,9 @@
     margin-bottom: 20px;
 }
 
-.form-step {
+/* .form-step {
     margin-bottom: '5vh';
-}
+} */
 
 .summary-item {
     padding-left: 0px;

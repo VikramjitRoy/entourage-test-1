@@ -53,7 +53,7 @@ const useStyles3 = {
             <Grid item xs={12} md={4} style={useStyles3.navLinks}>
               <Link component={Link} to="/" style={useStyles3.navLink}>Home</Link>
               {/* <Link href="#about" style={useStyles3.navLink}>About Us</Link> */}
-              <Link component={Link} to="/pricing" style={useStyles3.navLink}>Services</Link>
+              {/* <Link component={Link} to="/pricing" style={useStyles3.navLink}>Services</Link> */}
               {/* <Link href="#contact" style={useStyles3.navLink}>Contact</Link> */}
             </Grid>
             <Grid item xs={12} md={4} style={useStyles3.contactInfo}>

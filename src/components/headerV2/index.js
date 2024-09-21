@@ -53,7 +53,7 @@ const useStyles2 = {
       fontSize: '24px',
       color: '#fff',
       textDecoration: 'none',
-      padding: '10px 0',
+      // padding: '10px 0',
       textAlign: 'center',
       alignItems: 'center',
       justifyContent: 'center',
@@ -91,9 +91,9 @@ const useStyles2 = {
           onMouseLeave={handleMouseLeave}
         >
           <Toolbar>
-            <Typography component={Link} to="/pricing" variant="h6" style={useStyles2.link}>
+            {/* <Typography component={Link} to="/pricing" variant="h6" style={useStyles2.link}>
               <a style={useStyles2.link}>Packages</a>
-            </Typography>
+            </Typography> */}
             <Typography component={Link} to="/" variant="h6" style={useStyles2.logo}>
               F L I C K S T O N E S
             </Typography>
@@ -122,9 +122,9 @@ const useStyles2 = {
             {/* <ListItem component="a" href="#about" style={useStyles2.drawerListItem}>
               <ListItemText primary="About Us" />
             </ListItem> */}
-            <ListItem  component={Link} to="/pricing" style={useStyles2.drawerListItem}>
+            {/* <ListItem  component={Link} to="/pricing" style={useStyles2.drawerListItem}>
               <ListItemText primary="Services" />
-            </ListItem>
+            </ListItem> */}
             {/* <ListItem component="a" href="#contact" style={useStyles2.drawerListItem}>
               <ListItemText primary="Contact" />
             </ListItem> */}
