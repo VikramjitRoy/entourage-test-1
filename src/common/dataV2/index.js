@@ -22,7 +22,7 @@ export const content = {
             "id": 4,
           "name": "Cakes",
           "description": "No need to hassle for arranging that perfect cake for your birthday, anniversary or any other event. We provide a diverse range of cake options that are tasty as well as economical. After your celebration, we also pack your cake properly for you to carry. Cakes can be added to your event while booking from the website with extra charges depending on the flavour",
-          "imageUrl": "/images/products/hero_first.webp"
+          "imageUrl": "/images/new/birthday_cake.jpeg"
         },
         {
             "id": 5,
@@ -35,24 +35,24 @@ export const content = {
         "heroImage": "/images/new/floral_red_decor_potrait.jpg",
         "heroHeading": "ROMANTIC PROPOSAL",
         "heroSubHeading": "Express Love Uniquely",
-        "section2Heading": "INTIMATE ROMANTIC DATES",
-        "section2SubHeading": "UNIQUE AND SPACIOUS EXECUTIVE STUDIO",
-        "section2Description": "In the details, we strive for the highest quality. Our romantic celebrations are uniquely designed that create a timeless atmosphere.",
-        "features":["EXECUTIVE SUITE","EXECUTIVE SUITE","EXECUTIVE SUITE","EXECUTIVE SUITE","EXECUTIVE SUITE","EXECUTIVE SUITE"],
+        "section2Heading": "FOR INTIMATE ROMANTIC DATES",
+        "section2SubHeading": "UNIQUE FLORAL DECORATION WITH CANDLELIT SETUP",
+        "section2Description": "Experience a unique private romantic celebration comprising of candlelit setup, floral arch, fog entry and many more.",
+        "features":["CANDLELIT SETUP","FLORAL ARCH","MAGAZINE BOOTH","FOOD & BEVERAGES","CAKES","FOG ENTRY"],
         "tallImage": "/images/new/floral_white_decor_potrait.png",
-        "shortImage": "/images/ticker/ticker_2.webp",
-        "imageSectionDesc": "In the details, we strive for the highest quality. Our rooms feature unique designs that create a timeless atmosphere, embracing the heritage of the location."
+        "shortImage": "/images/new/floral_red_decor_potrait.jpg",
+        "imageSectionDesc": "Transform your romantic moments with our floral decoration and candlelit setup. Choose between the red and white floral decoration to make your events intimate."
     },{
         "heroImage": "/images/new/balloon_sub_hero.jpg",
         "heroHeading": "CELEBRATIONS",
         "heroSubHeading": "Private Celebrations for all",
         "section2Heading": "CELEBRATIONS REDEFINED",
         "section2SubHeading": "CELEBRATIONS THAT WILL LIVE FOREVER",
-        "section2Description": "In the details, we strive for the highest quality. Our romantic celebrations are uniquely designed that create a timeless atmosphere.",
-        "features":["EXECUTIVE SUITE","EXECUTIVE SUITE","EXECUTIVE SUITE","EXECUTIVE SUITE","EXECUTIVE SUITE","EXECUTIVE SUITE"],
+        "section2Description": "Celebrations for every occasion with style that suits your taste choose between a balloon or floral decoration. Top up with fog entry, candle path and private theater to make your celebration special.",
+        "features":["PRIVATE THEATER","FOG ENTRY","CAKES","FOOD & BEVERAGES","CANDLE PATH","BALLOON/FLORAL DECOR"],
         "tallImage": "/images/new/balloon_fog_portrait.jpg",
         "shortImage": "/images/new/balloon_floral_path.jpg",
-        "imageSectionDesc": "In the details, we strive for the highest quality. Our rooms feature unique designs that create a timeless atmosphere, embracing the heritage of the location."
+        "imageSectionDesc": "Celebrations for every occasion with style that suits your taste choose between a balloon or floral decoration. Top up with fog entry, candle path and private theater to make your celebration special."
     }],
     formDetail: {
       "availableLocation": [{
@@ -99,7 +99,7 @@ export const content = {
         image: "/images/new/balloon_fog_portrait.jpg"
       },{
         "title": "Cakes",
-        image: "/images/new/fnb.jpg"
+        image: "/images/new/birthday_cake.jpeg"
       }],
       otherAddOns: [{
         title: "Extra Decoration",
@@ -120,7 +120,7 @@ export const content = {
         title: "Romantic Gifts",
         addOns: [{
           "title": "Rose Bouquet",
-          image: "",
+          image: "/images/new/flower_bouquet.jpg",
           price: 400
         },{
           "title": "Floral Path",

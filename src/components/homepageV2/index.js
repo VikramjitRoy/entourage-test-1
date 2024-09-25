@@ -169,13 +169,6 @@ const InstagramTicker = () => {
         '/images/new/balloon_fog_portrait.jpg',
     ];
 
-    const images2 = [
-        '/images/ticker/ticker_6.webp',
-        '/images/ticker/ticker_7.webp',
-        '/images/ticker/ticker_8.webp',
-        '/images/ticker/ticker_9.webp',
-        '/images/ticker/ticker_10.webp',
-    ];
 
     useEffect(()=>{
         const scrollers = document.querySelectorAll(".scroller");
@@ -485,14 +478,13 @@ const ScrollZoomFooter = () => {
         className="horizontal-scroll-section-container"
       >
         {sections.map((section) => (
-
-          <StyledImageContainer>
-          <StyledImage src={section.image} alt={`section-${section.id}`} />
-          <TextOverlay>
-            <Typography variant="h4">{section.heading}</Typography>
-            <Typography variant="body1">{section.description}</Typography>
-          </TextOverlay>
-        </StyledImageContainer>
+          <Box className="styled-image-container">
+			<StyledImage src={section.image} alt={`section-${section.id}`} />
+			<TextOverlay>
+				<Typography variant="h4">{section.heading}</Typography>
+				<Typography variant="body1">{section.description}</Typography>
+			</TextOverlay>
+          </Box>
         ))}
       </Box> 
     );

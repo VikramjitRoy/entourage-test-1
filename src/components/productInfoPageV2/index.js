@@ -49,37 +49,12 @@ const ProductInfoPage = () => {
             </Box>
 
             {/* Grid section */}
-            <Grid container spacing={2} sx={{ paddingTop: '5%', paddingBottom: '5%' }}>
-                <Grid item lg={2} xs={5} sx={{ borderRight: 1, borderColor: 'divider' }}>
+            <Grid container spacing={2} sx={{ paddingTop: '5%', paddingBottom: '5%' }}> 
+				{packages[index].features.map(feature => (<Grid item lg={2} xs={5} sx={{ borderRight: 1, borderColor: 'divider' }}>
                     <Box textAlign="center">
-                        <Typography variant="h6">EXECUTIVE SUITE</Typography>
+                        <Typography variant="h6">{feature}</Typography>
                     </Box>
-                </Grid>
-                <Grid item lg={2} xs={5}  sx={{ borderRight: 1, borderColor: 'divider' }}>
-                    <Box textAlign="center">
-                        <Typography variant="h6">EXECUTIVE JUNIOR SUITE</Typography>
-                    </Box>
-                </Grid>
-                <Grid item lg={2} xs={5}  sx={{ borderRight: 1, borderColor: 'divider' }}>
-                    <Box textAlign="center">
-                        <Typography variant="h6">EXECUTIVE SUITE</Typography>
-                    </Box>
-                </Grid>
-                <Grid item lg={2} xs={5} sx={{ borderRight: 1, borderColor: 'divider' }}>
-                    <Box textAlign="center">
-                        <Typography variant="h6">EXECUTIVE JUNIOR SUITE</Typography>
-                    </Box>
-                </Grid>
-                <Grid item lg={2} xs={5}  sx={{ borderRight: 1, borderColor: 'divider' }}>
-                    <Box textAlign="center">
-                        <Typography variant="h6">SUPERIOR</Typography>
-                    </Box>
-                </Grid>
-                <Grid item lg={2} xs={5} >
-                    <Box textAlign="center">
-                        <Typography variant="h6">SUPERIOR</Typography>
-                    </Box>
-                </Grid>
+                </Grid>))}
             </Grid>
 
             {/* Tall and short image section */}

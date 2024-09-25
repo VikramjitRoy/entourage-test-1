@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Select, MenuItem, InputLabel, TextField, Button, Box, Grid, List, ListItem, ListItemText, Divider, Stepper, Step, StepLabel, Card, CardContent, CardMedia, Typography, Checkbox, FormControlLabel } from '@mui/material';
+import { Backdrop, CircularProgress, ButtonGroup, Select, MenuItem, InputLabel, TextField, Button, Box, Grid, List, ListItem, ListItemText, Divider, Stepper, Step, StepLabel, Card, CardContent, CardMedia, Typography, Checkbox, FormControlLabel } from '@mui/material';
 import axios from 'axios';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -32,6 +32,7 @@ const MultiStepForm = () => {
     const [availableSlots, setAvailableSlots] = useState([]);
     const [availableDates, setAvailableDates] = useState([]);
     const [celebrationType, setCelebrationType] = useState('birthday');
+	const [loading, setLoading] = useState(false);
 
     const steps = ['Theater & Slot', 'Booking Details', 'Celebration Type', 'Choose Pro', 'Add-ons', 'Book'];
     const [selectedDate, setSelectedDate] = useState(new Date());
@@ -100,7 +101,7 @@ const MultiStepForm = () => {
         // API call to get available dates and slots
         let fullDate = formData.date.toISOString().split('T')[0];
         let fullDateSplit = fullDate.split('-');
-        axios.get(`http://localhost:5001/flickstones/us-central1/api/v1/slots/available?year=${fullDateSplit[0]}&month=${fullDateSplit[1]}&location=HSR&theater=${theater.toUpperCase()}`)
+        axios.get(`https://us-central1-flickstones.cloudfunctions.net/api/v1/slots/available?year=${fullDateSplit[0]}&month=${fullDateSplit[1]}&location=HSR&theater=${theater.toUpperCase()}`)
             .then(response => {
                 setAvailableDates(response.data);
                 let slots = [{ "duration": '9:00 AM to 12:00 PM', isAvailable: false }, { "duration": '1:00 PM to 4:00 PM', isAvailable: false }, { "duration": '5:00 PM to 8:00 PM', isAvailable: false }, { "duration": '9:00 PM to 10:30 PM', isAvailable: false }, { "duration": '11:00 PM to 12:30 AM', isAvailable: false }];
@@ -112,18 +113,20 @@ const MultiStepForm = () => {
     };
     
     const doBooking = () => {
+		setLoading(true);
         if(validateStep()){
         let bookingDetail = {
             ...formData,
             totalCost: totalCost,
             slotId: slotId
         };
-        axios.post(`http://localhost:5001/flickstones/us-central1/api/v1/booking`, bookingDetail)
+        axios.post(`https://us-central1-flickstones.cloudfunctions.net/api/v1/booking`, bookingDetail)
             .then(response => {
                 console.log(response.data);
                 if(response?.data?.bookingId)
                     setCurrentStep(prevStep => prevStep + 1);
                     setBookingId(response.data.bookingId);
+				setLoading(false);
             });
         }
     };
@@ -179,6 +182,17 @@ const otherAddOns = content.formDetail.otherAddOns;
                     {formData.theater === 'Floral' && <img src="/images/new/romantic_fs.JPG" alt="Form illustration" />}
                 </div>
                 <div className="form-container">
+				<Backdrop
+					sx={{
+					position: 'absolute',
+					zIndex: 1,
+					color: '#fff',
+					display: loading ? 'flex' : 'none',
+					}}
+					open={loading}
+				>
+					<CircularProgress color="inherit" />
+				</Backdrop>
                     <div className="form-header">
                         <Stepper activeStep={currentStep - 1} alternativeLabel>
                             {steps.map((label) => (
@@ -194,28 +208,10 @@ const otherAddOns = content.formDetail.otherAddOns;
                                 <h2>Theater & Slot</h2>
                                 <Typography variant="h6">Choose Location {errors.theater}</Typography>
                                 <div className="theater-selection">
-                                    <Card sx={{ backgroundColor: formData.location === 'HSR' ? 'rgb(25, 118, 210)' : 'white' }} onClick={() => handleLocationSelect('HSR')}>
-                                        <CardMedia
-                                            component="img"
-                                            height="140"
-                                            image="/images/products/hero_first.webp"
-                                            alt="Flickstones HSR"
-                                        />
-                                        <CardContent>
-                                            <Typography variant="h6">Flickstones HSR</Typography>
-                                        </CardContent>
-                                    </Card>
-                                    <Card sx={{ backgroundColor: formData.location === 'HOME' ? 'rgb(25, 118, 210)' : 'white' }} onClick={() => handleLocationSelect('HOME')}>
-                                        <CardMedia
-                                            component="img"
-                                            height="140"
-                                            image="/images/products/hero_2.webp"
-                                            alt="At Home Celebration"
-                                        />
-                                        <CardContent>
-                                            <Typography variant="h6">At Home Celebration</Typography>
-                                        </CardContent>
-                                    </Card>
+									<ButtonGroup variant="contained" aria-label="Basic button group">
+										<Button sx={{ backgroundColor: formData.location === 'HSR' ? 'rgb(25, 118, 210)' : 'grey' }} onClick={() => handleLocationSelect('HSR')}>Flickstones HSR</Button>
+										<Button sx={{ backgroundColor: formData.location === 'HOME' ? 'rgb(25, 118, 210)' : 'grey' }} onClick={() => handleLocationSelect('HOME')}>Home Decoration</Button>
+									</ButtonGroup>
                                 </div>
                                 {formData.location === 'HOME' && <TextField
                                     label="Choose PIN for home decoration"
@@ -417,7 +413,6 @@ const otherAddOns = content.formDetail.otherAddOns;
                                     control={<Checkbox checked={formData.choosePro} onChange={e => setFormData({ ...formData, choosePro: e.target.checked })} />}
                                     label="Upgrade your package to pro @ 1000"
                                 />
-
                             </div>
                         )}
                         {currentStep === 5 && (
@@ -604,8 +599,8 @@ const otherAddOns = content.formDetail.otherAddOns;
                                 </Button>
                             )}
                             {currentStep === steps.length && (
-                                <Button disabled={!formData.agreeTerms} variant="contained" onClick={() => doBooking()}>
-                                    Pay and Book
+                                <Button disabled={!formData.agreeTerms || loading} variant="contained" onClick={() => doBooking()}>
+                                    BOOK NOW
                                 </Button>
                             )}
                         </div>
