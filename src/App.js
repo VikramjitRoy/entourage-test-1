@@ -15,10 +15,12 @@ import ProductDetailV2 from './components/productdetailv2';
 import ProductShowcase from './components/productInfo';
 import ExecutiveStudio from './components/productInfoPageV2';
 import PricingPage from './components/pricingPage';
+import ReactGA from 'react-ga4';
 
 
 
 function App() {
+  ReactGA.initialize('G-JKCDTLJHVD');
 
   const [isLoading, setIsLoading] = useState(true);
 
