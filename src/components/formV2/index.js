@@ -6,7 +6,8 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import './MultiStepForm.css';
 import NavigationHeader from '../headerV2';
-import {content} from '../../common/dataV2'
+import {content} from '../../common/dataV2';
+import WhatsAppButton from "../homepageV2/WhatsAppButton"
 
 const MultiStepForm = () => {
     const [currentStep, setCurrentStep] = useState(1);
@@ -178,8 +179,8 @@ const otherAddOns = content.formDetail.otherAddOns;
             <NavigationHeader />
             <div className="multi-step-form">
                 <div className="form-image">
-                    {formData.theater !== 'Floral' && <img src="/images/new/balloon_celebration.JPG" alt="Form illustration" />}
-                    {formData.theater === 'Floral' && <img src="/images/new/romantic_fs.JPG" alt="Form illustration" />}
+                    {formData.theater !== 'Floral' && <img src="/images/new/balloon_portrait.jpg" alt="Form illustration" />}
+                    {formData.theater === 'Floral' && <img src="/images/new/floral_red_decor_potrait.jpg" alt="Form illustration" />}
                 </div>
                 <div className="form-container">
 				<Backdrop

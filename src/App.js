@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import AboutUsPage from './components/aboutuspage';
 
 import HomePage from './components/homepageV2';
-import   MultiStepForm from './components/formV2';
+import   MultiStepForm from './components/formV3';
 import ContactUsPage from './pages/ContactUsPage';
 import TermsAndConditionsPage from './pages/TermsAndConditionsPage';
 import FaqPage from './pages/FaqPage';

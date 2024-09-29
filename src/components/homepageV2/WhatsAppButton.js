@@ -21,11 +21,11 @@ const WhatsAppButton = () => {
 
   const handleClick = () => {
     // Replace the link with your actual WhatsApp link
-    window.location.href = 'https://wa.me/917483419406';
+    window.location.href = 'https://wa.me/919901663865';
   };
 
   return (
-    <div style={{ position: 'fixed', bottom: 16, right: 16, display: isVisible ? 'block' : 'none' }}>
+    <div className="whatsapp-icon" style={{ position: 'fixed', bottom: 32, left: 16, display: isVisible ? 'block' : 'none' }}>
       <Fab color="primary" aria-label="whatsapp" onClick={handleClick}>
         <WhatsAppIcon />
       </Fab>

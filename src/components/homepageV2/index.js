@@ -10,6 +10,8 @@ import { ArrowBack, ArrowForward, AccessTime, CheckCircleOutline, Payment, Shopp
 import {content} from '../../common/dataV2'
 import Footer from "../footerV2";
 import NavigationHeader from "../headerV2";
+import WhatsAppButton from "./WhatsAppButton";
+import { useSwipeable } from 'react-swipeable';
 
 
 const useStylesParallax = makeStyles(() => ({
@@ -21,6 +23,7 @@ const useStylesParallax = makeStyles(() => ({
         position: 'relative',
         height: '100vh',
         width: '100vw',
+		webkitBackgroundSize: 'cover',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         display: 'flex',
@@ -75,7 +78,7 @@ const useStyles = makeStyles(() => ({
         position: 'relative',
         height: '100vh',
         width: '100vw',
-        backgroundImage: 'url("/images/new/floral_red_decor_potrait.JPG")', // Replace with your hero image URL
+        backgroundImage: 'url("/images/new/floral_red_decor_potrait.jpg")', // Replace with your hero image URL
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         display: 'flex',
@@ -205,13 +208,8 @@ const InstagramTicker = () => {
         <div className="instagram-ticker-container">
             <div className="header-ticker">
                 <div className="header-item">Instagram</div>
-                <div className="header-item">/</div>
-                <div className="header-item">Instagram</div>
-                <div className="header-item">/</div>
-                <div className="header-item">Instagram</div>
-                <div className="header-item">/</div>
             </div>
-            <Typography onClick={handleInstaHandleClick} variant="h1" className="instagram-handle">
+            <Typography sx={{textDecoration: 'underline'}} onClick={handleInstaHandleClick} variant="h3" className="instagram-handle">
             @flickstones
             </Typography>
             <div className="ticker-container">
@@ -229,16 +227,6 @@ const InstagramTicker = () => {
                     ))}
                 </div>
             </div>
-            {/* <div class="scroller" data-direction="right" data-speed="slow">
-                <div class="scroller__inner">
-                    <img src="/images/ticker/ticker_1.webp" alt="" />
-                    <img src="/images/ticker/ticker_2.webp" alt="" />
-                    <img src="/images/ticker/ticker_3.webp" alt="" />
-                    <img src="/images/ticker/ticker_4.webp" alt="" />
-                    <img src="/images/ticker/ticker_5.webp" alt="" />
-                    <img src="/images/ticker/ticker_6.webp" alt="" />
-                </div>
-            </div> */}
         </div>
     );
 };
@@ -249,7 +237,7 @@ const texts = [
     'Anniversary',
     'Romantic Date',
     'Proposals',
-    'Bride to be',
+    // 'Bride to be',
     'Farewell',
     'Congratulations',
     'Baby Shower',
@@ -258,8 +246,8 @@ const texts = [
   const images = {
     Birthday: '/images/new/balloon_sub_hero.jpg',
     Anniversary: '/images/new/balloon_floral_path.jpg',
-    'Romantic Date': '/images/new/floral_red_decor_potrait.png',
-    'Proposals': '/images/new/floral_white_decor_potrait.jpg',
+    'Romantic Date': '/images/new/floral_red_decor_potrait.jpg',
+    'Proposals': '/images/new/floral_white_decor_potrait.png',
     // 'Bride to be': '/images/new/hero_3.webp',
     Farewell: '/images/new/fnb.jpg',
     Congratulations: '/images/new/theater_seating.jpg',
@@ -299,7 +287,7 @@ const texts = [
           <img
             src={images[currentText]}
             alt={currentText}
-            style={{ maxWidth: '80%', maxHeight: '80%', objectFit: 'cover' }}
+            style={{ width: '60%', height: '60%', objectFit: 'cover' }}
           />
         </Box>
         {/* Right part with texts */}
@@ -309,8 +297,7 @@ const texts = [
               key={index}
               ref={(el) => (textRefs.current[index] = el)}
               variant="h4"
-              sx={{ fontSize: '12.5vh', textAlign: 'left'}}
-            >
+              sx={{ fontSize: '4rem', textAlign: 'left', color: currentText == text?'black':'rgb(153, 153, 153)', fontFamily: '"Montserrat Variable", sans-serif'}}            >
               {text}
             </Typography>
           ))}
@@ -439,9 +426,7 @@ const ScrollZoomFooter = () => {
     useEffect(() => {
       const handleScroll = (event) => {
         const container = containerRef.current;
-        const containerTop = Math.abs(container.getBoundingClientRect().top);
-        console.log("top " + containerTop);
-        console.log("deltaY " + event.deltaY);
+      
         if (container) {
             const maxHorizontalScroll = container.scrollWidth - container.clientWidth;
             const reachedEnd = container.scrollLeft === maxHorizontalScroll;
@@ -460,10 +445,12 @@ const ScrollZoomFooter = () => {
         }
       };
   
-      const container = containerRef.current;
-      if (container) {
-        container.addEventListener('wheel', handleScroll, { passive: false });
-      }
+
+	  const container = containerRef.current;
+	  if (container && window.screen.width > 480) {
+	    container.addEventListener('wheel', handleScroll, { passive: false });
+	  }
+	
   
       return () => {
         if (container) {
@@ -501,6 +488,13 @@ const ScrollZoomFooter = () => {
         setCurrentIndex((prevIndex) => (prevIndex === services.length - 1 ? 0 : prevIndex + 1));
     };
 
+	const handlers = useSwipeable({
+		onSwipedLeft: () => handleNext(),
+		onSwipedRight: () => handlePrevious(),
+		preventDefaultTouchmoveEvent: true,
+		trackMouse: true,
+	  });
+
     const getImageStyle = (index) => {
         if (index === currentIndex) {
             return {
@@ -533,7 +527,7 @@ const ScrollZoomFooter = () => {
     };
 
     return (
-        <Box sx={{ position: 'relative', width: '100%', height: '500px', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '5%' }}>
+        <Box {...handlers} sx={{ position: 'relative', width: '100%', height: '500px', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '5%' }}>
             { services.map((service, index) => (
                 <Card
                     key={service.name}
@@ -559,7 +553,7 @@ const ScrollZoomFooter = () => {
                         sx={{ width: '100%', height: '80%', objectFit: 'cover' }}
                     />
                      <CardContent>
-                      <Typography variant="h3" >
+                      <Typography variant="h4" >
                         {service.name}
                       </Typography>
                     </CardContent>
@@ -644,6 +638,7 @@ function HomePage() {
             <InstagramTicker />
             <ImageCarousel services={content.services} />
             <ScrollZoomFooter />
+			<WhatsAppButton />
             <Footer />
         </div>
     );

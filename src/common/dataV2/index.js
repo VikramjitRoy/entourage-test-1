@@ -1,3 +1,5 @@
+import { DriveFileRenameOutline } from "@mui/icons-material";
+
 export const content = {
     services: [
         {
@@ -113,7 +115,7 @@ export const content = {
           price: 300
         },{
           "title": "Pyro Gun",
-          image: "",
+          image: "/images/new/pyro_gun.jpg",
           price: 300
       }]
       },{
@@ -132,8 +134,42 @@ export const content = {
         addOns: [{
           "title": "Fog Effect",
           image: "/images/new/balloon_fog_portrait.jpg",
-          price: 400
+          price: 500
+      }, {
+		"title": "Cakes",
+		image: "/images/new/birthday_cake.jpeg",
+		price: 650
+	}]
       }]
-      }]
-    }
+    },
+	offering:[{
+		name: "Silver Celebration",
+		code: "CG",
+		couplePrice: 999,
+		groupPrice: 1499,
+		extraPersonPrice: 200,
+		hasTheater: false,
+		features: ["CANDLELIT SETUP","FLORAL/BALLOON ARCH","MAGAZINE BOOTH","FOOD & BEVERAGES","CAKES","FOG ENTRY"],
+		imageUrl: '/images/new/floral_red_decor_portrait.jpg'
+	},
+	{
+		name: "Gold Celebration",
+		code: "DG",
+		couplePrice: 999,
+		groupPrice: 1499,
+		extraPersonPrice: 200,
+		hasTheater: true,
+		features: ["PRIVATE THEATER","FOG ENTRY","CAKES","FOOD & BEVERAGES","CANDLE PATH","BALLOON/FLORAL DECOR"],
+		imageUrl: '/images/new/balloon_fog_portrait.jpg'
+	},{
+		name: "At Home Celebration",
+		code: "AH",
+		basePrice: 2499,
+		features: ['home decoration'],
+		imageUrl: ''
+	}],
+	proCharges: {
+		couple: 1000,
+		group: 1250
+	}
 }

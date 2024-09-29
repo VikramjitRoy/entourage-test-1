@@ -1,5 +1,6 @@
 {
   "hosting": {
+	"generateSourceMaps": false,
     "public": "build",
     "ignore": [
       "firebase.json",

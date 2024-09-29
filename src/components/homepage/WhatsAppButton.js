@@ -25,7 +25,7 @@ const WhatsAppButton = () => {
   };
 
   return (
-    <div style={{ position: 'fixed', bottom: 16, right: 16, display: isVisible ? 'block' : 'none' }}>
+    <div style={{ position: 'fixed', bottom: 16, left: 16 }}>
       <Fab color="primary" aria-label="whatsapp" onClick={handleClick}>
         <WhatsAppIcon />
       </Fab>

@@ -1,5 +1,6 @@
 body {
-  background: #eee
+  background: #eee;
+  font-family: "Montserrat Variable", sans-serif;
 }
 .App {
   text-align: center;
