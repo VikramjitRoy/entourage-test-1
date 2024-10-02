@@ -335,7 +335,7 @@ const ScrollZoomFooter = () => {
             for (let i = 0; i < n; i++) {
               const letter = letters[i];
             //   const translateX = Math.max(-50, Math.min(50,viewportHeight - distanceFromTop  / 2));
-              const translateX =   Math.pow(15, ((height - currentScrollY) / height)*10)* (i - n /2 + 1);
+              const translateX =   Math.pow(12, ((height - currentScrollY) / height)*10)* (i - n /2 + 1);
             //   console.log(letter +"   "+ translateX);
               letter.style.transform = `translate3d(${translateX}px, 0px, 0px)`;
             }
