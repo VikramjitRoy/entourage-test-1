@@ -1,5 +1,3 @@
-import { DriveFileRenameOutline } from "@mui/icons-material";
-
 export const content = {
     services: [
         {
@@ -144,29 +142,44 @@ export const content = {
     },
 	offering:[{
 		name: "Silver Celebration",
-		code: "CG",
+		code: "HSR-SILVER",
 		couplePrice: 999,
 		groupPrice: 1499,
 		extraPersonPrice: 200,
 		hasTheater: false,
 		features: ["CANDLELIT SETUP","FLORAL/BALLOON ARCH","MAGAZINE BOOTH","FOOD & BEVERAGES","CAKES","FOG ENTRY"],
-		imageUrl: '/images/new/floral_red_decor_portrait.jpg'
+		imageUrl: '/images/new/floral_red_decor_potrait.jpg',
+		proInclusions: 'chocolate cake, fog entry, food & beverages',
+		proCouplePrice: 999,
+		proGroupPrice: 1299,
+		arch: ['Balloon Arch', 'Red Rose Arch', 'White Rose Arch'],
+		location: ['HSR'],
+		capacity: 6
 	},
 	{
 		name: "Gold Celebration",
-		code: "DG",
-		couplePrice: 999,
-		groupPrice: 1499,
+		code: "HSR-GOLD",
+		couplePrice: 1499,
+		groupPrice: 1999,
 		extraPersonPrice: 200,
 		hasTheater: true,
 		features: ["PRIVATE THEATER","FOG ENTRY","CAKES","FOOD & BEVERAGES","CANDLE PATH","BALLOON/FLORAL DECOR"],
-		imageUrl: '/images/new/balloon_fog_portrait.jpg'
+		imageUrl: '/images/new/balloon_fog_portrait.jpg',
+		proInclusions: 'chocolate cake, fog entry, food & beverages',
+		proCouplePrice: 999,
+		proGroupPrice: 1299,
+		arch: ['Balloon Arch', 'Red Rose Arch', 'White Rose Arch'],
+		location: ['HSR'],
+		capacity: 12
 	},{
 		name: "At Home Celebration",
-		code: "AH",
+		code: "HOME",
 		basePrice: 2499,
 		features: ['home decoration'],
-		imageUrl: ''
+		imageUrl: '/images/new/home_decor.webp',
+		arch: [],
+		location: ['HOME'],
+		capacity: 100
 	}],
 	proCharges: {
 		couple: 1000,
