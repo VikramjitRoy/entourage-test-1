@@ -573,6 +573,7 @@ const ScrollZoomFooter = () => {
 function HomePage() {
     const classes = useStylesParallax();
     const [dimStates, setDimStates] = useState([false, true, true]);
+    const [showFab, setShowFab] = useState(true);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -607,7 +608,7 @@ function HomePage() {
     return (
         <div className={classes.root}>
             <NavigationHeader />
-            <Fab
+            {showFab && (<Fab
             color="primary"
             aria-label="celebrate"
             variant="extended"
@@ -617,12 +618,11 @@ function HomePage() {
                 bottom: '5vh', // 5% of viewport height above the bottom
                 left: '50%',    // Center horizontally
                 transform: 'translateX(-50%)', // Adjust to keep it centered
-                zIndex: '999',
-                transformOrigin: 'center bottom'
+                zIndex: '999'
             }}
             >
                 Celebrate with Us
-            </Fab>
+            </Fab>)}
             <HeroComponent
                 backgroundImage="/images/new/floral_red_decor_potrait.jpg"
                 index="0"
