@@ -119,7 +119,7 @@ function HeroComponent({ backgroundImage, index, dim }) {
 
     const slideInFromBottom = keyframes`
         0% {
-            transform: translateY(100%) scale(0.8);
+            transform: translateY(100%) scale(1);
             opacity: 0;
         }
         100% {
@@ -619,6 +619,7 @@ function HomePage() {
                 left: '50%',    // Center horizontally
                 transform: 'translateX(-50%)', // Adjust to keep it centered
                 zIndex: '999',
+                transformOrigin: 'center bottom'
             }}
             >
                 Celebrate with Us
