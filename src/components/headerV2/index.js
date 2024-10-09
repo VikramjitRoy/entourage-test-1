@@ -18,7 +18,7 @@ const useStyles2 = {
       transition: 'background-color 0.3s ease',
     },
     appBarHovered: {
-      backgroundColor: 'rgba(255, 255, 255, 0.3)',
+      backgroundColor: 'rgba(30, 21, 42, 0.3)',
     },
     logo: {
       flexGrow: 1,
@@ -89,6 +89,8 @@ const useStyles2 = {
           }}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
+          touchStart={handleMouseEnter}
+          touchEnd={handleMouseLeave}
         >
           <Toolbar>
             {/* <Typography component={Link} to="/pricing" variant="h6" style={useStyles2.link}>
@@ -116,7 +118,7 @@ const useStyles2 = {
           }}
         >
           <List style={useStyles2.drawerList}>
-            <ListItem component={Link} to="/" style={useStyles2.drawerListItem}>
+            <ListItem component={Link} to="/" style={useStyles2.drawerListItem} onClick={toggleDrawer()}>
               <ListItemText primary="Home" />
             </ListItem>
             {/* <ListItem component="a" href="#about" style={useStyles2.drawerListItem}>

@@ -23,7 +23,6 @@ const useStylesParallax = makeStyles(() => ({
         position: 'relative',
         height: '100vh',
         width: '100vw',
-		webkitBackgroundSize: 'cover',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         display: 'flex',
@@ -129,7 +128,7 @@ function HeroComponent({ backgroundImage, index, dim }) {
     `;
 
     return (
-        <div className={`${classesParallax.section} ${classesParallax.parallax} ${dim ? classes.dim : ''}`} style={{ backgroundImage: `url(${backgroundImage})` }}>
+        <div className={`${classesParallax.section} ${classesParallax.parallax} ${dim ? classes.dim : ''}`} style={{ backgroundImage: `url(${backgroundImage})`, backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundSize: 'cover' }}>
             <Box
                 sx={{
                     display: 'inline-block',
@@ -141,8 +140,8 @@ function HeroComponent({ backgroundImage, index, dim }) {
                 <Typography component={Link} to={{
                         pathname: '/productInfo',
                         state: { index }
-                      }} variant="h2" sx = {{textDecoration: "none",
-boxShadow: "none", color: "white"}}>
+                      }} variant="h4" sx = {{textDecoration: "none",
+                        textShadow:"2px 2px 4px #000000", color: "white"}}>
                     {packages[index]}
                 </Typography>
             </Box>
