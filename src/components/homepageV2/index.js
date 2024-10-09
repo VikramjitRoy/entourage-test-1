@@ -3,7 +3,7 @@ import { useEffect, useState, useRef } from "react";
 import {  Typography, Box, Grid, Stepper, Step, StepLabel, Fab, Card, CardMedia, CardContent, AppBar, Toolbar, IconButton, Drawer, List, ListItem, ListItemText, Container } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import "./homepage.css";
-import { Link } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import { keyframes } from '@emotion/react';
 import { styled } from '@mui/system';
 import { ArrowBack, ArrowForward, AccessTime, CheckCircleOutline, Payment, ShoppingCart, EventAvailable, IndeterminateCheckBox } from '@mui/icons-material';
@@ -572,15 +572,16 @@ const ScrollZoomFooter = () => {
 
 function HomePage() {
     const classes = useStylesParallax();
+    const location = useLocation();
     const [dimStates, setDimStates] = useState([false, true, true]);
     const [showFab, setShowFab] = useState(true);
 
     useEffect(() => {
         const handleScroll = () => {
+          
             const scrollY = window.scrollY;
             const windowHeight = window.innerHeight;
             const newDimStates = [false, false, false];
-
             if (scrollY < windowHeight / 2) {
                 newDimStates[0] = false;
                 newDimStates[1] = true;
@@ -594,16 +595,20 @@ function HomePage() {
                 newDimStates[1] = true;
                 newDimStates[2] = false;
             }
-
             setDimStates(newDimStates);
         };
 
         window.addEventListener('scroll', handleScroll);
 
+                // Scroll to previous scroll position when navigating back
+                if (location.state && location.state.scrollY) {
+                  window.scrollTo(0, location.state.scrollY);
+              }
+
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
-    }, []);
+    }, [location]);
 
     return (
         <div className={classes.root}>
