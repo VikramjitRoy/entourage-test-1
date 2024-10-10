@@ -11,6 +11,7 @@ import {content} from '../../common/dataV2'
 import Footer from "../footerV2";
 import NavigationHeader from "../headerV2";
 import WhatsAppButton from "./WhatsAppButton";
+import CelebrateWithUsButton from "./CelebrateWithUsButton";
 import { useSwipeable } from 'react-swipeable';
 
 
@@ -572,9 +573,7 @@ const ScrollZoomFooter = () => {
 
 function HomePage() {
     const classes = useStylesParallax();
-    const location = useLocation();
     const [dimStates, setDimStates] = useState([false, true, true]);
-    const [showFab, setShowFab] = useState(true);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -600,34 +599,15 @@ function HomePage() {
 
         window.addEventListener('scroll', handleScroll);
 
-                // Scroll to previous scroll position when navigating back
-                if (location.state && location.state.scrollY) {
-                  window.scrollTo(0, location.state.scrollY);
-              }
-
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
-    }, [location]);
+    }, []);
 
     return (
         <div className={classes.root}>
             <NavigationHeader />
-            {showFab && (<Fab
-            color="primary"
-            aria-label="celebrate"
-            variant="extended"
-            component={Link} to="/book"
-            sx={{
-                position: 'fixed',
-                bottom: '5vh', // 5% of viewport height above the bottom
-                left: '50%',    // Center horizontally
-                transform: 'translateX(-50%)', // Adjust to keep it centered
-                zIndex: '999'
-            }}
-            >
-                Celebrate with Us
-            </Fab>)}
+            <CelebrateWithUsButton /> 
             <HeroComponent
                 backgroundImage="/images/new/floral_red_decor_potrait.jpg"
                 index="0"
@@ -643,7 +623,7 @@ function HomePage() {
             <InstagramTicker />
             <ImageCarousel services={content.services} />
             <ScrollZoomFooter />
-			<WhatsAppButton />
+			      <WhatsAppButton />
             <Footer />
         </div>
     );
