@@ -22,7 +22,7 @@ const MultiStepForm = () => {
         numberOfPeople: 2,
         whatsappNumber: '',
         email: '',
-        celebrationType: 'birthday',
+        celebrationType: 'Birthday',
         celebrationPersonName: '',
         extraDecoration: [],
         chooseGifts: [],
@@ -37,7 +37,7 @@ const MultiStepForm = () => {
     const [errors, setErrors] = useState({});
     const [totalCost, setTotalCost] = useState(0);
     const [availableSlots, setAvailableSlots] = useState(null);
-    const [celebrationType, setCelebrationType] = useState('birthday');
+    const [celebrationType, setCelebrationType] = useState('Birthday');
     const [arch, setArch] = useState('');
 	const [loading, setLoading] = useState(true);
 
@@ -94,7 +94,7 @@ const MultiStepForm = () => {
 			if (!formData.whatsappNumber || formData.whatsappNumber.length !== 10) newErrors.whatsappNumber = 'Valid WhatsApp number is required';
 			if (!formData.email || !/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = 'Valid email is required';
             if (!formData.celebrationPersonName) newErrors.celebrationPersonName = 'Celebration person name is required';
-            if (['marriage proposal', 'romantic date', 'anniversary'].includes(formData.celebrationType) && !formData.celebrationPersonName) {
+            if (['Marriage Proposal', 'Romantic Date', 'Anniversary'].includes(formData.celebrationType) && !formData.celebrationPersonName) {
                 newErrors.celebrationPersonName = 'Celebration person name is required';
             }
         }
@@ -137,16 +137,9 @@ const MultiStepForm = () => {
         }
     };
 
-    const handleSlotChange = (date, slot, index) => {
-        if(slot.isAvailable) {
-            setFormData({ ...formData, date, slot });
-            setSlotId(index+1);
-        }
-    };
-
     const handlePeopleChange = (event) => {
         
-        setTotalCost(totalCost  - (Math.max((formData.numberOfPeople -4), 0) * 250) + (Math.max(event.target.value -4,0) * 250));
+        setTotalCost(totalCost  - (Math.max((formData.numberOfPeople - 5), 0) * 250) + (Math.max(event.target.value - 5,0) * 250));
         const numberOfPeople = event.target.value;
         setFormData({ ...formData, numberOfPeople });
     };
@@ -197,7 +190,6 @@ const otherAddOns = content.formDetail.otherAddOns;
     };
 
 	const handleSlotChangeV2 = (slot, name, price) => {
-		
 		setTotalCost(totalCost + (formData.basePrice > 0?price - formData.basePrice:price));
 		setFormData({ ...formData, slot, offeringName: name, basePrice: price });
 	};
@@ -263,7 +255,7 @@ const otherAddOns = content.formDetail.otherAddOns;
                                 </div>
 								<TextField
                                     label="Number of People"
-                                    variant="outlined"
+                                    variant="standard"
                                     type="number"
                                     value={formData.numberOfPeople}
                                     onChange={handlePeopleChange}
@@ -275,7 +267,7 @@ const otherAddOns = content.formDetail.otherAddOns;
                                 />
 								 <div className="celebration-type-selection">
 									<Grid container spacing={1}>
-										<InputLabel id="demo-simple-select-label">Celebration Type</InputLabel>
+										<InputLabel id="demo-simple-select-label" sx={{ m: 1, minWidth: 120 }}>Celebration Type</InputLabel>
 										<Select
 											labelId="demo-simple-select-label"
 											id="demo-simple-select"
@@ -283,7 +275,7 @@ const otherAddOns = content.formDetail.otherAddOns;
 											label="Celebration Type"
 											onChange={handleChange}
 										>
-											{['birthday', 'anniversary', 'romantic date', 'marriage proposal', 'bride to be', 'farewell', 'congratulations', 'baby shower'].map(type => (
+											{['Birthday', 'Anniversary', 'Romantic Date', 'Marriage Proposal', 'Bride To Be', 'Farewell', 'Congratulations', 'Baby Shower'].map(type => (
 											<MenuItem key={type} value={type}>{type}</MenuItem>
 											))}
 										</Select>
@@ -396,7 +388,7 @@ const otherAddOns = content.formDetail.otherAddOns;
                                     required
                                     inputProps={{ maxLength: 8 }}
                                 />
-                                {['marriage proposal', 'romantic date', 'anniversary'].includes(formData.celebrationType) && (
+                                {['Marriage Proposal', 'Romantic Date', 'Anniversary'].includes(formData.celebrationType) && (
                                     <>
                                         <TextField
                                             label="Partner's Name"
@@ -516,7 +508,7 @@ const otherAddOns = content.formDetail.otherAddOns;
                                         </ListItem>
                                         { formData.numberOfPeople > 4 &&<ListItem sx = {{ paddingLeft: '0px' }}>
                                             <ListItemText primary={'Extra People Cost'} />
-                                            <Typography variant="body1">{250*(formData.numberOfPeople - 4)}</Typography>
+                                            <Typography variant="body1">{250*(formData.numberOfPeople - 5)}</Typography>
                                         </ListItem>}
                                         { formData['extraDecoration'].length > 0 && <ListItem sx = {{ paddingLeft: '0px' }}>
                                             <ListItemText primary={'Extra Decoration Cost'} secondary={formData['extraDecoration'].reduce((sum, { title }) => sum + title +',', '').slice(0, -1)} />
