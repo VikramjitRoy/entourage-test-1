@@ -3,7 +3,7 @@ import { useEffect, useState, useRef } from "react";
 import {  Typography, Box, Grid, Stepper, Step, StepLabel, Fab, Card, CardMedia, CardContent, AppBar, Toolbar, IconButton, Drawer, List, ListItem, ListItemText, Container } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import "./homepage.css";
-import { Link } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import { keyframes } from '@emotion/react';
 import { styled } from '@mui/system';
 import { ArrowBack, ArrowForward, AccessTime, CheckCircleOutline, Payment, ShoppingCart, EventAvailable, IndeterminateCheckBox } from '@mui/icons-material';
@@ -11,6 +11,7 @@ import {content} from '../../common/dataV2'
 import Footer from "../footerV2";
 import NavigationHeader from "../headerV2";
 import WhatsAppButton from "./WhatsAppButton";
+import CelebrateWithUsButton from "./CelebrateWithUsButton";
 import { useSwipeable } from 'react-swipeable';
 
 
@@ -23,7 +24,6 @@ const useStylesParallax = makeStyles(() => ({
         position: 'relative',
         height: '100vh',
         width: '100vw',
-		webkitBackgroundSize: 'cover',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         display: 'flex',
@@ -119,7 +119,7 @@ function HeroComponent({ backgroundImage, index, dim }) {
 
     const slideInFromBottom = keyframes`
         0% {
-            transform: translateY(100%) scale(0.8);
+            transform: translateY(100%) scale(1);
             opacity: 0;
         }
         100% {
@@ -129,7 +129,7 @@ function HeroComponent({ backgroundImage, index, dim }) {
     `;
 
     return (
-        <div className={`${classesParallax.section} ${classesParallax.parallax} ${dim ? classes.dim : ''}`} style={{ backgroundImage: `url(${backgroundImage})` }}>
+        <div className={`${classesParallax.section} ${classesParallax.parallax} ${dim ? classes.dim : ''}`} style={{ backgroundImage: `url(${backgroundImage})`, backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundSize: 'cover' }}>
             <Box
                 sx={{
                     display: 'inline-block',
@@ -141,8 +141,8 @@ function HeroComponent({ backgroundImage, index, dim }) {
                 <Typography component={Link} to={{
                         pathname: '/productInfo',
                         state: { index }
-                      }} variant="h2" sx = {{textDecoration: "none",
-boxShadow: "none", color: "white"}}>
+                      }} variant="h4" sx = {{textDecoration: "none",
+                        textShadow:"2px 2px 4px #000000", color: "white"}}>
                     {packages[index]}
                 </Typography>
             </Box>
@@ -335,7 +335,7 @@ const ScrollZoomFooter = () => {
             for (let i = 0; i < n; i++) {
               const letter = letters[i];
             //   const translateX = Math.max(-50, Math.min(50,viewportHeight - distanceFromTop  / 2));
-              const translateX =   Math.pow(15, ((height - currentScrollY) / height)*10)* (i - n /2 + 1);
+              const translateX =   Math.pow(12, ((height - currentScrollY) / height)*10)* (i - n /2 + 1);
             //   console.log(letter +"   "+ translateX);
               letter.style.transform = `translate3d(${translateX}px, 0px, 0px)`;
             }
@@ -577,10 +577,10 @@ function HomePage() {
 
     useEffect(() => {
         const handleScroll = () => {
+          
             const scrollY = window.scrollY;
             const windowHeight = window.innerHeight;
             const newDimStates = [false, false, false];
-
             if (scrollY < windowHeight / 2) {
                 newDimStates[0] = false;
                 newDimStates[1] = true;
@@ -594,7 +594,6 @@ function HomePage() {
                 newDimStates[1] = true;
                 newDimStates[2] = false;
             }
-
             setDimStates(newDimStates);
         };
 
@@ -608,21 +607,7 @@ function HomePage() {
     return (
         <div className={classes.root}>
             <NavigationHeader />
-            <Fab
-            color="primary"
-            aria-label="celebrate"
-            variant="extended"
-            component={Link} to="/book"
-            sx={{
-                position: 'fixed',
-                bottom: '5vh', // 5% of viewport height above the bottom
-                left: '50%',    // Center horizontally
-                transform: 'translateX(-50%)', // Adjust to keep it centered
-                zIndex: '999',
-            }}
-            >
-                Celebrate with Us
-            </Fab>
+            <CelebrateWithUsButton /> 
             <HeroComponent
                 backgroundImage="/images/new/floral_red_decor_potrait.jpg"
                 index="0"
@@ -638,7 +623,7 @@ function HomePage() {
             <InstagramTicker />
             <ImageCarousel services={content.services} />
             <ScrollZoomFooter />
-			<WhatsAppButton />
+			      <WhatsAppButton />
             <Footer />
         </div>
     );

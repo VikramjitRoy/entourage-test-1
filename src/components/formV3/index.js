@@ -22,7 +22,7 @@ const MultiStepForm = () => {
         numberOfPeople: 2,
         whatsappNumber: '',
         email: '',
-        celebrationType: 'birthday',
+        celebrationType: 'Birthday',
         celebrationPersonName: '',
         extraDecoration: [],
         chooseGifts: [],
@@ -38,7 +38,7 @@ const MultiStepForm = () => {
     const [errors, setErrors] = useState({});
     const [totalCost, setTotalCost] = useState(0);
     const [availableSlots, setAvailableSlots] = useState(null);
-    const [celebrationType, setCelebrationType] = useState('birthday');
+    const [celebrationType, setCelebrationType] = useState('Birthday');
     const [arch, setArch] = useState('');
 	const [loading, setLoading] = useState(true);
 
@@ -198,7 +198,6 @@ const otherAddOns = content.formDetail.otherAddOns;
     };
 
 	const handleSlotChangeV2 = (slot, offering, price, index) => {
-		
 		setTotalCost(totalCost + (formData.basePrice > 0?price - formData.basePrice:price));
 		setFormData({ ...formData, slot, offeringName: offering.name, basePrice: price, code: offering.code });
 		setSlotId(index+1);
@@ -270,7 +269,7 @@ const otherAddOns = content.formDetail.otherAddOns;
                                 </div>
 								<TextField
                                     label="Number of People"
-                                    variant="outlined"
+                                    variant="standard"
                                     type="number"
                                     value={formData.numberOfPeople}
                                     onChange={handlePeopleChange}
@@ -282,7 +281,7 @@ const otherAddOns = content.formDetail.otherAddOns;
                                 />
 								 <div className="celebration-type-selection">
 									<Grid container spacing={1}>
-										<InputLabel id="demo-simple-select-label">Celebration Type</InputLabel>
+										<InputLabel id="demo-simple-select-label" sx={{ m: 1, minWidth: 120 }}>Celebration Type</InputLabel>
 										<Select
 											labelId="demo-simple-select-label"
 											id="demo-simple-select"
@@ -290,7 +289,7 @@ const otherAddOns = content.formDetail.otherAddOns;
 											label="Celebration Type"
 											onChange={handleChange}
 										>
-											{['birthday', 'anniversary', 'romantic date', 'marriage proposal', 'bride to be', 'farewell', 'congratulations', 'baby shower'].map(type => (
+											{['Birthday', 'Anniversary', 'Romantic Date', 'Marriage Proposal', 'Bride To Be', 'Farewell', 'Congratulations', 'Baby Shower'].map(type => (
 											<MenuItem key={type} value={type}>{type}</MenuItem>
 											))}
 										</Select>
@@ -411,7 +410,7 @@ const otherAddOns = content.formDetail.otherAddOns;
                                     fullWidth
                                     inputProps={{ maxLength: 8 }}
                                 />
-                                {['marriage proposal', 'romantic date', 'anniversary'].includes(formData.celebrationType) && (
+                                {['Marriage Proposal', 'Romantic Date', 'Anniversary'].includes(formData.celebrationType) && (
                                     <>
                                         <TextField
                                             label="Partner's Name"
@@ -531,7 +530,7 @@ const otherAddOns = content.formDetail.otherAddOns;
                                         </ListItem>
                                         { formData.numberOfPeople > 4 &&<ListItem sx = {{ paddingLeft: '0px' }}>
                                             <ListItemText primary={'Extra People Cost'} />
-                                            <Typography variant="body1">{250*(formData.numberOfPeople - 4)}</Typography>
+                                            <Typography variant="body1">{250*(formData.numberOfPeople - 5)}</Typography>
                                         </ListItem>}
                                         { formData['extraDecoration'].length > 0 && <ListItem sx = {{ paddingLeft: '0px' }}>
                                             <ListItemText primary={'Extra Decoration Cost'} secondary={formData['extraDecoration'].reduce((sum, { title }) => sum + title +',', '').slice(0, -1)} />
