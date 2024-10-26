@@ -33,6 +33,7 @@ const MultiStepForm = () => {
 		arch: null,
 		basePrice: 0,
 		proPrice: 0,
+		code: '',
     });
     const [errors, setErrors] = useState({});
     const [totalCost, setTotalCost] = useState(0);
@@ -45,14 +46,16 @@ const MultiStepForm = () => {
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [bookingId, setBookingId] = useState();
     const [slotId, setSlotId] = useState(-1);
+	const BASE_URL = 'https://us-central1-flickstones.cloudfunctions.net';
+	// const BASE_URL = 'http://127.0.0.1:5001/flickstones/us-central1';
+
 
 	useEffect(() => {
 
 		const fetchData = async () => {
 			try {
-			  let fullDate = new Date().toISOString().split('T')[0];
-        	  let fullDateSplit = fullDate.split('-');
-			  const response = await axios.get(`https://us-central1-flickstones.cloudfunctions.net/api/v1/slots/available?year=${fullDateSplit[0]}&month=${fullDateSplit[1]}`); 
+			  let fullDate = new Date();
+			  const response = await axios.get(BASE_URL+`/api/v1/slots/available?year=${fullDate.getFullYear()}&month=${('0' + (fullDate.getMonth()+1)).slice(-2)}`); 
 			  setAvailableSlots(response.data); 
 			  setLoading(false); 
 			} catch (err) {
@@ -66,8 +69,11 @@ const MultiStepForm = () => {
 
     const handleDateChange = (date) => {
         date = new Date(date);
-        setSelectedDate(date);
-        setFormData({ ...formData, date });
+		if(!formData.date || date.getTime() !== formData.date.getTime()) {
+			setSelectedDate(date);
+			setTotalCost(totalCost - formData.basePrice - formData.proPrice);
+			setFormData({ ...formData, date, slot: '', basePrice: 0, proPrice: 0, choosePro: false });
+		}
     };
 
     const handleChange = (event) => {
@@ -93,7 +99,7 @@ const MultiStepForm = () => {
         if (currentStep === 3) {
 			if (!formData.whatsappNumber || formData.whatsappNumber.length !== 10) newErrors.whatsappNumber = 'Valid WhatsApp number is required';
 			if (!formData.email || !/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = 'Valid email is required';
-            if (!formData.celebrationPersonName) newErrors.celebrationPersonName = 'Celebration person name is required';
+            if (!formData.name) newErrors.celebrationPersonName = 'Name is required';
             if (['marriage proposal', 'romantic date', 'anniversary'].includes(formData.celebrationType) && !formData.celebrationPersonName) {
                 newErrors.celebrationPersonName = 'Celebration person name is required';
             }
@@ -121,33 +127,27 @@ const MultiStepForm = () => {
     
     const doBooking = () => {
 		setLoading(true);
+		let date = formData.date.getFullYear() + '-' + ('0' + (formData.date.getMonth()+1)).slice(-2) + '-' + ('0' + (formData.date.getDate()+1)).slice(-2)
         if(validateStep()){
-        let bookingDetail = {
-            ...formData,
-            totalCost: totalCost,
-            slotId: slotId
-        };
-        axios.post(`https://us-central1-flickstones.cloudfunctions.net/api/v1/booking`, bookingDetail)
-            .then(response => {
-                if(response?.data?.bookingId)
-                    setCurrentStep(prevStep => prevStep + 1);
-                    setBookingId(response.data.bookingId);
-				setLoading(false);
-            });
-        }
-    };
-
-    const handleSlotChange = (date, slot, index) => {
-        if(slot.isAvailable) {
-            setFormData({ ...formData, date, slot });
-            setSlotId(index+1);
+			let bookingDetail = {
+				...formData,
+				date,
+				totalCost: totalCost,
+				slotId: slotId
+			};
+			axios.post(BASE_URL+`/api/v1/booking`, bookingDetail)
+				.then(response => {
+					if(response?.data?.bookingId) {
+						setCurrentStep(prevStep => prevStep + 1);
+						setBookingId(response.data.bookingId);
+					}
+					setLoading(false);
+				});
         }
     };
 
     const handlePeopleChange = (event) => {
-        
-        setTotalCost(totalCost  - (Math.max((formData.numberOfPeople -4), 0) * 250) + (Math.max(event.target.value -4,0) * 250));
-        const numberOfPeople = event.target.value;
+	    const numberOfPeople = event.target.value;
         setFormData({ ...formData, numberOfPeople });
     };
 
@@ -164,8 +164,9 @@ const MultiStepForm = () => {
 
     const handleUpgradeToPro = (event, offering) => {
 		const proPrice = getProPrice(offering);
-        setFormData({ ...formData, choosePro: event.target.checked, proPrice });
-        event.target.checked?setTotalCost(totalCost + proPrice): setTotalCost(totalCost - proPrice);
+		const isPro = event.target.checked;
+        setFormData({ ...formData, choosePro: isPro, proPrice:isPro?proPrice:0 });
+        isPro?setTotalCost(totalCost + proPrice): setTotalCost(totalCost - proPrice);
     };
 
 	const getProPrice = (offering) => {
@@ -189,17 +190,23 @@ const otherAddOns = content.formDetail.otherAddOns;
         let price = 0;
 		if(offering.code === 'HOME') return offering.basePrice;
 		if(formData.numberOfPeople > 2) {
-			price = offering.groupPrice + (Math.max(formData.numberOfPeople - 5)* offering.extraPersonPrice);
+			price = offering.groupPrice + (Math.max(parseInt(formData.numberOfPeople) - 5, 0) * offering.extraPersonPrice);
 		} else {
-			price = offering.couplePrice;
+			price = offering.couplePrice + (Math.max(parseInt(formData.numberOfPeople) - 2, 0) * offering.extraPersonPrice);;
 		}
 		return price;
     };
 
-	const handleSlotChangeV2 = (slot, name, price) => {
+	const handleSlotChangeV2 = (slot, offering, price, index) => {
 		
 		setTotalCost(totalCost + (formData.basePrice > 0?price - formData.basePrice:price));
-		setFormData({ ...formData, slot, offeringName: name, basePrice: price });
+		setFormData({ ...formData, slot, offeringName: offering.name, basePrice: price, code: offering.code });
+		setSlotId(index+1);
+	};
+
+	const handleWhatsappClick = () => {
+		// Replace the link with your actual WhatsApp link
+		window.location.href = 'https://wa.me/919901663865';
 	};
 	
 
@@ -258,7 +265,7 @@ const otherAddOns = content.formDetail.otherAddOns;
                                     <Typography variant="h6">Choose Date</Typography>
 									{errors.date && <Typography variant="body1" sx = {{ color: 'red'}}>Date is required</Typography>}
                                     <LocalizationProvider dateAdapter={AdapterDayjs}>
-								<DateCalendar disablePast onChange={(date) => handleDateChange(date)} />
+										<DateCalendar disablePast onChange={(date) => handleDateChange(date)} />
                                     </LocalizationProvider>
                                 </div>
 								<TextField
@@ -300,7 +307,7 @@ const otherAddOns = content.formDetail.otherAddOns;
                                         <Grid item xs={6}>
                                             <Card sx={{ marginBottom: '2vh'}}>
 												<CardMedia
-													sx={{ height: 140 }}
+													sx={{ height: 440 }}
 													image={offering.imageUrl}
 													title={offering.name}
 												/>
@@ -327,8 +334,8 @@ const otherAddOns = content.formDetail.otherAddOns;
 															  color="success" 
 															  disabled={availableSlots[formData.date.getDate()][offering.code]?!availableSlots[formData.date.getDate()][offering.code].includes(index+1):true} 
 															  sx= {{margin: '2px'}} 
-															  onClick={() => handleSlotChangeV2(slot, offering.name, getPrice(offering))} />))}
-			
+															  onClick={() => handleSlotChangeV2(slot, offering, getPrice(offering), index)} />))}
+		
 													</Typography>
 													{ offering.proInclusions && <FormControlLabel
                                     control={<Checkbox checked={formData.choosePro} onChange={e => handleUpgradeToPro(e, offering)} />}
@@ -385,15 +392,23 @@ const otherAddOns = content.formDetail.otherAddOns;
                                     required
                                     inputProps={{ maxLength: 30 }}
                                 />
+								<TextField
+                                    label="Name"
+                                    variant="outlined"
+                                    value={formData.name}
+                                    onChange={e => setFormData({ ...formData, name: e.target.value })}
+                                    error={!!errors.name}
+                                    helperText={errors.name}
+                                    fullWidth
+                                    required
+                                    inputProps={{ maxLength: 20 }}
+                                />
                                 <TextField
                                     label="Celebration Person Name"
                                     variant="outlined"
                                     value={formData.celebrationPersonName}
                                     onChange={e => setFormData({ ...formData, celebrationPersonName: e.target.value })}
-                                    error={!!errors.celebrationPersonName}
-                                    helperText={errors.celebrationPersonName}
                                     fullWidth
-                                    required
                                     inputProps={{ maxLength: 8 }}
                                 />
                                 {['marriage proposal', 'romantic date', 'anniversary'].includes(formData.celebrationType) && (
@@ -415,12 +430,12 @@ const otherAddOns = content.formDetail.otherAddOns;
                         {currentStep === 4 && (
                             <div className="form-step">
                                 <Typography variant="h3">Add ons</Typography>
-                                <div className="add-on-selection">
-                                    <Typography variant="h4">{otherAddOns[0].title}</Typography>
+								<div className="add-on-selection">
+                                    <Typography variant="h4">Must-Have Services</Typography>
                                     <Grid container spacing={1} sx={{ justifyContent: "center",}}>
-                                    {otherAddOns[0].addOns.map(item => (
+                                    {otherAddOns[2].addOns.map(item => (
                                         <Grid item xs={6}>
-                                            <Card sx={{ backgroundColor: formData['extraDecoration'].includes(item) ? 'rgb(25, 118, 210)' : 'white' }} key={item.title} onClick={() => handleAddOnChange('extraDecoration', item)}>
+                                            <Card sx={{ backgroundColor: formData['specialServices'].includes(item) ? 'rgb(25, 118, 210)' : 'white' }} key={item.title} onClick={() => handleAddOnChange('specialServices', item)}>
                                                 <CardMedia
                                                     component="img"
                                                     height="140"
@@ -435,7 +450,7 @@ const otherAddOns = content.formDetail.otherAddOns;
                                     ))}
                                     </Grid>
                                 </div>
-                                <div className="add-on-selection">
+								<div className="add-on-selection">
                                     <Typography variant="h4">Choose Gifts</Typography>
                                     <Grid container spacing={1} sx={{ justifyContent: "center",}}>
                                     {otherAddOns[1].addOns.map(item => (
@@ -456,11 +471,11 @@ const otherAddOns = content.formDetail.otherAddOns;
                                     </Grid>
                                 </div>
                                 <div className="add-on-selection">
-                                    <Typography variant="h4">Special Services</Typography>
+                                    <Typography variant="h4">{otherAddOns[0].title}</Typography>
                                     <Grid container spacing={1} sx={{ justifyContent: "center",}}>
-                                    {otherAddOns[2].addOns.map(item => (
+                                    {otherAddOns[0].addOns.map(item => (
                                         <Grid item xs={6}>
-                                            <Card sx={{ backgroundColor: formData['specialServices'].includes(item) ? 'rgb(25, 118, 210)' : 'white' }} key={item.title} onClick={() => handleAddOnChange('specialServices', item)}>
+                                            <Card sx={{ backgroundColor: formData['extraDecoration'].includes(item) ? 'rgb(25, 118, 210)' : 'white' }} key={item.title} onClick={() => handleAddOnChange('extraDecoration', item)}>
                                                 <CardMedia
                                                     component="img"
                                                     height="140"
@@ -492,7 +507,7 @@ const otherAddOns = content.formDetail.otherAddOns;
                                         </ListItem>
                                         <ListItem sx = {{ paddingLeft: '0px' }}> 
                                             <ListItemText primary={'Date & Duration'} />
-                                            <Typography variant="body2">{formData.date.toISOString().split('T')[0] + ' ' + formData.slot.duration}</Typography>
+                                            <Typography variant="body2">{formData.date.toDateString() + ' ' + formData.slot}</Typography>
                                         </ListItem>
                                         <ListItem sx = {{ paddingLeft: '0px' }}>
                                             <ListItemText primary={'Number of Guests'} />
@@ -559,8 +574,9 @@ const otherAddOns = content.formDetail.otherAddOns;
                                 <h2>Booking processed and blocked!</h2>
                                 <Box sx={{ margin: 'auto', padding: 2 }}>
                                     <Typography variant="h6" gutterBottom>
-                                        Your booking for {(formData.choosePro?'Pro ':'')+ formData.theater + ' ' + formData.celebrationType.toUpperCase()} of {formData.numberOfPeople} people at {formData.date.toISOString().split('T')[0] + ' ' + formData.slot.duration} is pending payment with bookingId {bookingId} . Our team will reach out to you on whatsapp to complete the payment for your booking. Your slot will be blocked for the next 1 hour to complete the payment.
+                                        Your booking for {(formData.choosePro?'Pro ':'')+ formData.theater + ' ' + formData.celebrationType.toUpperCase()} of {formData.numberOfPeople} people at {formData.date.toDateString() + ' ' + formData.slot} is pending payment with bookingId {bookingId} . Our team will reach out to you on whatsapp to complete the payment for your booking. Your slot will be blocked for the next 1 hour to complete the payment.
                                     </Typography>
+									<Button color='success' variant='contained' onClick={handleWhatsappClick}>Complete Your Booking</Button>
                                 </Box>               
                             </div>
                         )}

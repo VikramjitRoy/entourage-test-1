@@ -154,7 +154,8 @@ export const content = {
 		proGroupPrice: 1299,
 		arch: ['Balloon Arch', 'Red Rose Arch', 'White Rose Arch'],
 		location: ['HSR'],
-		capacity: 6
+		capacity: 6,
+		minPerson: 2
 	},
 	{
 		name: "Gold Celebration",
@@ -170,7 +171,8 @@ export const content = {
 		proGroupPrice: 1299,
 		arch: ['Balloon Arch', 'Red Rose Arch', 'White Rose Arch'],
 		location: ['HSR'],
-		capacity: 12
+		capacity: 12,
+		minPerson: 5,
 	},{
 		name: "At Home Celebration",
 		code: "HOME",
